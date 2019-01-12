@@ -22,6 +22,10 @@ class SI {
 		return static::$theSI;
 	}
 
+	public function SGBDgetPrepare($req) {
+		return $this->cnx->prepare($req);
+	}
+	
 	public function SGBDgetPrepareExecute($req) {
 		$stmt = $this->SGBDgetPrepare($req);
 		$stmt->execute() ;
