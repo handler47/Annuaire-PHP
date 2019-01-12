@@ -1,23 +1,31 @@
 <?php
+//----------------------------------------------
+//             Classe SI pour Acces BDD
+//----------------------------------------------
+class SI {
+	private $cnx ;
+	private static $theSI;
 
-$serverName = "localhost";
-$username = "username";
-$password = "password";
-$dbName = "dbName";
+	//---------- CONSTRUCTEUR PRIVATE
+	private function __construct() {
+		$this->cnx = new PDO('mysql:host=127.0.0.1; dbname=annuaireBDD',
+										'root', '',
+										array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES latin1'));
+		$this->cnx->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-function getConnection()
-{
-    global $serverName, $username, $password, $dbName;
+		static::$theSI=$this; // memorisation au static
+	}
 
-    echo 'Tentative de connexion au serveur : '. $serverName;
-    try {
-        $conn = new PDO('mysql:host=' . $serverName . 'dbname=' . $dbName, $username, $password);
-    } catch (PDOException $e) {
-        $msg = 'Erreur PDO : impossible de se connecter ';
-        die($msg);
-    }
+	//---------- renvoie le SI Singleton
+	public static function getSI() {
+		if (static::$theSI==null) {static::$theSI = new SI();}
+		return static::$theSI;
+	}
 
-    return $conn;
-}
+	public function SGBDgetPrepareExecute($req) {
+		$stmt = $this->SGBDgetPrepare($req);
+		$stmt->execute() ;
+		return $stmt ;
+	}
 
 ?>
