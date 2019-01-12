@@ -1,6 +1,6 @@
 <?php
 //header
- require_once 'vues/header.php';
+require_once 'vues/header.php';
 
 //référencer les classes utiles
 require_once 'modeles/accessBDD.php';

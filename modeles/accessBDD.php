@@ -6,6 +6,7 @@ class SI {
 	private $cnx ;
 	private static $theSI;
 
+<<<<<<< Updated upstream
 	//---------- CONSTRUCTEUR PRIVATE
 	private function __construct() {
 		$this->cnx = new PDO('mysql:host=127.0.0.1; dbname=annuaireBDD',
@@ -15,6 +16,19 @@ class SI {
 
 		static::$theSI=$this; // memorisation au static
 	}
+=======
+$serverName = "127.0.0.1";
+$username = "root@localhost";
+$password = "";
+$dbName = "annuaire";
+
+/** Récupère une instance PDO pour se connecter au serveur MySql
+ * @return PDO
+ */
+function getConnection()
+{
+    global $serverName, $username, $password, $dbName;
+>>>>>>> Stashed changes
 
 	//---------- renvoie le SI Singleton
 	public static function getSI() {
