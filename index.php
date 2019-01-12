@@ -6,7 +6,7 @@
 require_once 'modeles/accessBDD.php';
 
 //connexion à la BDD
-
+$MySI = SI::getSI();
 
 //Controleur
  require_once 'controleurs/controleurPrincipal.php';
