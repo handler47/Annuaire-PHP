@@ -17,8 +17,8 @@ class Adresse {
     public function __construct($pNumRue, $pNomRue, $pCodePostal, $pPays)
     {
         $this->numRue = $pNomRue;
-        $this->prenom = $pNomRue;
-        $this->societe = $pCodePostal;
-        $this->adresse = $pPays;
+        $this->nomRue = $pNomRue;
+        $this->codePostal= $pCodePostal;
+        $this->pays = $pPays;
     }
 }
