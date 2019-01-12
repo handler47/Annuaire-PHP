@@ -31,5 +31,5 @@ class SI {
 		$stmt->execute() ;
 		return $stmt ;
 	}
-
+}
 ?>
