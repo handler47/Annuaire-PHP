@@ -15,6 +15,7 @@
 		<div class="blocktitre" id="title">
 			<h1>Annuaire de Contact <img src="img/iut.png" alt="img/iut.png" class="imgTitre"></h1>
 		</div>
-		</center>
+		
+		
+
 	
-<?php require_once 'Vues/accueil.php'; ?>
