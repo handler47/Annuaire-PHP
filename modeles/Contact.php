@@ -10,6 +10,23 @@ class Contact {
     private $adresse;
     private $dateNaissance;
     private $commentaire;
+    private $telephones;
+
+    /**
+     * @return mixed
+     */
+    public function getTelephones()
+    {
+        return $this->telephones;
+    }
+
+    /**
+     * @param mixed $telephones
+     */
+    public function setTelephones($collectionTelephones)
+    {
+        $this->telephones = $collectionTelephones;
+    }
 
     public function __construct($pNom, $pPrenom, $pSociete, $pAdresse, $pDateNaissance, $pCommentaire)
     {
@@ -20,7 +37,7 @@ class Contact {
         $this->dateNaissance = $pDateNaissance;
         $this->commentaire = $pCommentaire;
     }
-    
+
     /**
      * @return mixed
      */

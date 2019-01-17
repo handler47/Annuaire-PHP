@@ -9,7 +9,14 @@
 
 //header
 require_once 'vues/header.php';
+?>
+
+<div style="text-align: center;">
 
 
+</div>
+
+<?php
 //footer
 require_once 'vues/footer.php';
+?>

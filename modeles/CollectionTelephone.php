@@ -30,8 +30,8 @@ class CollectionTelephone
         }
     }
 
-    public function getTelephone($key){
-
+    public function getTelephones(){
+        return $this->itemsTelephone;
     }
 
 }
