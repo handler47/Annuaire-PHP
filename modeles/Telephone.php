@@ -1,12 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: tommy
- * Date: 05/01/2019
- * Time: 20:15
-<<<<<<< Updated upstream
- */
-
+	* Classe Telephone
+*/
 
 class Telephone {
     private $typeNumero;

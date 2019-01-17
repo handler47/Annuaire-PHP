@@ -1,4 +1,9 @@
 <?php
+/**
+	* Controleur Contact du site
+	* Permet le lien vers le Formulaire de Creation de Contact
+*/
+
 //référencer les classes utiles
 //require_once 'Modeles/contact.php';
 

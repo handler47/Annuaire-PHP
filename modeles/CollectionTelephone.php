@@ -1,10 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: tommy
- * Date: 13/01/2019
- * Time: 18:57
- */
+	* Collection d'objet Telephone
+*/
 
 class CollectionTelephone
 {

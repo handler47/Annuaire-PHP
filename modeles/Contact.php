@@ -1,12 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: tommy
- * Date: 05/01/2019
- * Time: 19:52
-<<<<<<< Updated upstream
- */
-
+	* Classe Contact
+*/
 
 class Contact {
     private $nom;

@@ -1,13 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: tommy
- * Date: 05/01/2019
- * Time: 20:07
-<<<<<<< Updated upstream
- */
-
-
+	* Classe Adresse
+*/
 class Adresse {
     private $ville;
     private $numRue;

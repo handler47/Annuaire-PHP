@@ -1,8 +1,15 @@
 <?php
+
+/**
+	* Controleur Telephone du site
+	* Permet le lien vers le Formulaire de Creation de Téléphone
+*/
+
+
 //référencer les classes utiles
 //require_once 'Modeles/contact.php';
 
-$erreur = "";
+//erreur = "";
 
  //if(isset($_POST[''])){
 	// if($_POST['Desc']!=""){

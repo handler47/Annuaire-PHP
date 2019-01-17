@@ -1,23 +1,39 @@
 <?php
+/**
+	* Index du site
+	* Permet le lien avec le Header/Footer, la connexion à la BDD
+	* et le renvoie vers le Controleur Principal
+*/
+
+/**
+	* Début de Session
+*/
 session_start();
 
-//header
-require_once 'vues/header.php';
-//référencer les classes utiles
-require_once 'modeles/accessBDD.php';
+/**
+	* Header des pages du site
+*/
+require_once 'vues/Header.php';
 
-//connexion à la BDD
+/**
+	* Appel classe Si
+*/
+require_once 'modeles/Si.php';
+
+/**
+	* Connexion SI
+*/
 $MySI = SI::getSI();
-?>
 
-<?php
 
-//Controleur
- require_once 'Controleurs/ControleurPrincipal.php';
+/**
+	* Appel Controleur Principal
+*/
+ require_once 'controleurs/ControleurPrincipal.php';
 
-?>
 
-<?php
-//footer
-include 'vues/footer.php';
+/**
+	* Footer des pages du site
+*/
+include 'vues/Footer.php';
 ?>

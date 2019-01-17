@@ -1,40 +1,44 @@
 <?php
+/**
+	* Controleur Principal du site
+	* Permet le lien vers les autres Formulaires
+*/
+
 require_once 'Vues/Accueil.php';
 
+
 if(isset($_POST["NewContact"])) {
-	//$_SESSION['Menu'] = "Contact";
 	$_SESSION['Menu'] = "Contact";
-    require_once 'Controleurs/ControleurContact.php';
+    require_once 'controleurs/ControleurContact.php';
 }
 
 if(isset($_POST["NewTel"])) {
-	//$_SESSION['Menu'] = "Contact";
 	$_SESSION['Menu'] = "Tel";
-    require_once 'Controleurs/ControleurTelephone.php';
+    require_once 'controleurs/ControleurTelephone.php';
 }
 
 if(isset($_POST["Accueil"])) {
 	$_SESSION['Menu'] = "Accueil";
-    require_once 'Vues/Accueil.php';
-	require_once 'Vues/ListeContact.php';
+    require_once 'vues/Accueil.php';
+	require_once 'vues/ListeContact.php';
 }
 
 
 if (!isset($_SESSION['Menu'])) {
 	$_SESSION['Menu']="Accueil";
-	require_once 'Vues/Accueil.php';
+	require_once 'vues/Accueil.php';
 
 }
 
 switch ($_SESSION['Menu']) {
 	case "Contact":
-		require_once 'Controleurs/ControleurContact.php';
+		require_once 'controleurs/ControleurContact.php';
 		break;
     case "Tel":
-        require_once 'Controleurs/ControleurTelephone.php';
+        require_once 'controleurs/ControleurTelephone.php';
         break;
     case "Accueil":
-        require_once 'Controleurs/ControleurPrincipal.php';
+        require_once 'controleurs/ControleurPrincipal.php';
         break;
 }
 
