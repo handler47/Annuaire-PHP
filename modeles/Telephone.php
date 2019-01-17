@@ -14,7 +14,7 @@ class Telephone {
         $this->prefixe = $pPrefixe;
         $this->numero = $pNumero;
     }
-    
+
     /**
      * @return mixed
      */
