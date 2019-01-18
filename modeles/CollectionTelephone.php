@@ -2,11 +2,11 @@
 /**
 	* Collection d'objet Telephone
 */
+namespace ArrayObject;
+use http\Exception\UnexpectedValueException;
 
 class CollectionTelephone
 {
-
-    private $itemsTelephone = array(Telephone::class);
 
     public function addTelephone($obj, $key = null)
     {
@@ -32,6 +32,17 @@ class CollectionTelephone
 
     public function getTelephones(){
         return $this->itemsTelephone;
+    }
+
+    public function getTelephone($key){
+        if ($key != null){
+            if (isset($this->itemsTelephone[$key])) {
+                return $this->itemsTelephone[$key];
+            }
+        }
+        else {
+            throw new UnexpectedValueException ("You didn't entered key");
+        }
     }
 
 }

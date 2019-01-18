@@ -30,8 +30,19 @@ class CollectionContact
         }
     }
 
-    public function getTelephone($key){
+    public function getContacts(){
+        return $this->itemsContact;
+    }
 
+    public function getContact($key){
+        if ($key != null){
+            if (isset($this->itemsContact[$key])) {
+                return $this->itemsContact[$key];
+            }
+        }
+        else {
+            throw new UnexpectedValueException ("You didn't entered key");
+        }
     }
 
 }
