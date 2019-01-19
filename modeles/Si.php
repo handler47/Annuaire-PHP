@@ -7,7 +7,7 @@ class SI {
 	private static $theSI;
 
 
-	private function __construct() {
+	public function __construct() {
 		$this->cnx = new PDO('mysql:host=127.0.0.1; dbname=annuaireBDD',
 										'root', '',
 										array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES latin1'));

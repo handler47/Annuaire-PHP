@@ -3,10 +3,12 @@
 	* Css du site
 */
 
-body {
+body, html {
 	background-image: url("../img/background.jpg");
 	background-size: 220px;
 	background-repeat: repeat;
+
+
 }
 .footer{
 	position: fixed;
@@ -25,9 +27,11 @@ body {
 h2{
 	color:rgba(0,0,128,0.8);
 }
+
 .blockFormulaire{
 	background-color:white;
 	display: table-cell;
+	text-align: center;
 }
 
 .button{
@@ -48,4 +52,20 @@ h2{
 
 .center{
 	text-align: center;
+}
+
+.container{
+
+	display: inline-block;
+
+	height: 100%;
+	border: 1px solid red;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+}
+
+.blockFormulaire{
+	background-color : white;
+	display : inline-block;
 }

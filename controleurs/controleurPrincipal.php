@@ -6,7 +6,8 @@
 
 require_once 'Vues/Accueil.php';
 
-
+?>
+    <?php
 if(isset($_POST["NewContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';

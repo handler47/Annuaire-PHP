@@ -95,6 +95,30 @@ CREATE TABLE IF NOT EXISTS `Type_Telephone` (
   PRIMARY KEY (`TY_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
+
+--
+-- Structure de la table `typetelephone`
+--
+
+DROP TABLE IF EXISTS `typetelephone`;
+CREATE TABLE IF NOT EXISTS `typetelephone` (
+  `Id` int(2) NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(25) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `typetelephone`
+--
+
+INSERT INTO `typetelephone` (`Nom`, `Id`) VALUES
+('Fixe', 1),
+('Personnel', 2),
+('Portable', 3),
+('Faxe', 4);
+COMMIT;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

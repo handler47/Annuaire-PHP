@@ -1,5 +1,28 @@
+<?php
 
+$telDAO = new TelephoneDAO();
+$typesTelephone = array();
+$fetchResult = $telDAO->getTypeTelephones();
+foreach($fetchResult as $result){
+    $typesTelephone['Nom']=$result['Nom'];
+}
+?>
+
+<div id="container">
 <form method="post" action="index.php" class="blockFormulaire">
-	<h2>Enregistrement d'un téléphone</h2>
-</form>
+    <h2>Fiche individuelle Contact</h2>
+    <label>Type de téléphone</label>
+    <select>
+        <?php foreach($typesTelephone as $telephone){ ?>
+        <option value="<?php echo $telephone; ?>"> <?php echo $telephone; ?> </option>
+        <?php } ?>
 
+    </select>
+
+    <label>Prefixe</label>
+    <input type="text" name="prefixe" placeholder="+33">
+    <label>Numéro tel.</label>
+    <input type="text" name="telephone" placeholder="0612545685">
+
+</form>
+</div>

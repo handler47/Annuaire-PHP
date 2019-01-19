@@ -1,3 +1,5 @@
+<div style="text-align: center;">
+
 <?php
 /**
  * Created by PhpStorm.
@@ -6,17 +8,24 @@
  * Time: 19:13
 <<<<<<< Updated upstream
  */
-
-//header
-require_once 'vues/header.php';
 ?>
 
-<div style="text-align: center;">
+    <div class="center">
+        <h2>Récapitulatif du contact</h2>
+        <?php
+        if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['societe']) && isset($_POST['adresse']) && isset($_POST['dateNaissance']) && isset($_POST['commentaire'])) {
+        // on affiche nos résultats
+        ?>
+            <p>Nom/Prénom : <?php echo $_POST['nom'] . ' ' . $_POST['prenom'];?></p>
+            <p>Societe : <?php echo $_POST['societe']; ?> </p>
+            <!-- on retourne l'adresse sous la forme d'une seule ligne (méthode classe Adresse -->
+            <p>Adresse : <?php echo $_POST['adresse'];?> </p>
+            <p>Date naissance : <?php echo $_POST['dateNaissance'];?> </p>
+            <p>Commentaire : <?php echo $_POST['commentaire'];?> </p>
 
+        <?php
+        }
+        ?>
+    </div>
 
 </div>
-
-<?php
-//footer
-require_once 'vues/footer.php';
-?>

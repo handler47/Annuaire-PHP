@@ -1,4 +1,4 @@
-
+<div class="center">
 <form method="post" action="index.php">
 	<div>
 		<div>
@@ -9,3 +9,4 @@
 		 </br>
 	</div>
 </form>
+</div>
