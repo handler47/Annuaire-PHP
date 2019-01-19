@@ -13,7 +13,11 @@
 	<body>
 		<center>
 		<div class="blocktitre" id="title">
+<<<<<<< Updated upstream
 			<h1>Annuaire de Contact <img src="http://localhost/Annuaire-PHP/img/iut.png" alt="img/iudsst.png" class="imgTitre"/></h1>
+=======
+			<h1>Annuaire de Contact <img src="img/iut.png" alt="img/iut.png" class="imgTitre"/></h1>
+>>>>>>> Stashed changes
 		</div>
 		
 		
