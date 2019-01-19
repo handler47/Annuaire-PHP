@@ -3,7 +3,6 @@
  * Classe d'accès aux données relatives au telephones
 */
 
-require_once('modeles/SI');
 class TelephoneDAO{
 
     public function __construct(){

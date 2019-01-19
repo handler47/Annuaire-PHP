@@ -1,5 +1,5 @@
 <?php
-
+require_once("modeles/dao/TelephoneDAO.php");
 $telDAO = new TelephoneDAO();
 $typesTelephone = array();
 $fetchResult = $telDAO->getTypeTelephones();
@@ -10,7 +10,7 @@ foreach($fetchResult as $result){
 
 <div id="container">
 <form method="post" action="index.php" class="blockFormulaire">
-    <h2>Fiche individuelle Contact</h2>
+    <h2>Création d'un téléphone</h2>
     <label>Type de téléphone</label>
     <select>
         <?php foreach($typesTelephone as $telephone){ ?>
@@ -18,6 +18,7 @@ foreach($fetchResult as $result){
         <?php } ?>
 
     </select>
+    </br>
 
     <label>Prefixe</label>
     <input type="text" name="prefixe" placeholder="+33">
