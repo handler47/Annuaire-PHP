@@ -10,12 +10,9 @@
 ?>
 
         <h2>Récapitulatif du contact</h2>
+		
         <?php
-		//Voilà l'id contact sur lequel on click au formulaire listContact !!
-		$IDContact = $_GET["IDContact"];
-		
-		
-		echo $IDContact;
+
         if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['societe']) && isset($_POST['adresse']) && isset($_POST['dateNaissance']) && isset($_POST['commentaire'])) {
         // on affiche nos résultats
         ?>

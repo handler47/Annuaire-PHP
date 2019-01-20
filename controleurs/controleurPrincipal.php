@@ -22,10 +22,13 @@ if(isset($_POST["NewTel"])) {
     require_once 'controleurs/ControleurTelephone.php';
 }
 
-if(isset($_GET["details"])) {
-	$_SESSION['Menu'] = "Accueil";
+
+if(isset($_POST["details"])) {
+	$_SESSION['Menu'] = "DetailsContact";
+    require_once 'vues/Accueil.php';
 	require_once 'controleurs/ControleurDetailsContact.php';
 }
+
 
 if(isset($_POST["Accueil"])) {
 	$_SESSION['Menu'] = "Accueil";
@@ -49,6 +52,9 @@ switch ($_SESSION['Menu']) {
         break;
     case "Accueil":
         require_once 'controleurs/ControleurPrincipal.php';
+        break;
+	case "DetailsContact";
+	    require_once 'controleurs/ControleurDetailsContact.php';
         break;
 }
 

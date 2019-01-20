@@ -1,5 +1,4 @@
 <?php
-
 /**
 	* Controleur Details du Contact du site
 	* Permet le lien vers le Formulaire de Creation de Téléphone
@@ -11,21 +10,14 @@ require_once 'Modeles/Telephone.php';
 require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
 
-//référencer les classes utiles
-//require_once 'Modeles/contact.php';
-
-//erreur = "";
-
- //if(isset($_POST[''])){
-	// if($_POST['Desc']!=""){
-	// }
-// }
+//ID du contact selectionné dans la liste des contacts afficher en ammont
+$IDContact =  substr($_POST["details"],-1,1);
 
 
-// else{
-	// $erreur = "L'élève est déjà enregistré !";
-	// echo '<script type="text/javascript">window.alert("'.$erreur.'");</script>';
-// }
+
+
+
+
 
 require_once 'vues/DetailsContact.php';
 ?>

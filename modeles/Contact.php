@@ -4,6 +4,8 @@
 */
 
 class Contact extends Element{
+	
+	 
 	//Singleton de mémorisation des instances
 	private static $o_INSTANCES;
 	public static function ajouterObjet($ligne){
@@ -85,10 +87,7 @@ class Contact extends Element{
 	public function displayRow(){
 		echo '<tr>';
 		echo '<td align="center">'.$this->getNom().' '.$this->getPrenom().'</td>';
-		//EXEMPLE D'affichage des telephone d'un contact affiche le display classe telephone ( celui ci affiche le numero de tel)
-		echo '<td align="center">'.$this->getTelephones()->displayTable().'</td>';
-		//hidden permet de récup l'id Contact par click bouton pour l'autre page : detailsContact
-		echo '<td align="center"><input type="hidden" name="IDContact" value='.$this->getID().'> <input id="details" type="submit" value=details name="details" class="button" /> </td>';
+		echo '<td align="center"><input type="submit"  value="Contact'.$this->getID().'" name="details" class="button" /> </td>';
 		echo '</tr>';
 	}
 	
@@ -150,6 +149,7 @@ class Contacts extends Pluriel{
 			$this->doAddObject(Contact::ajouterObjet($uneLigne));
 		}
 	}
+	
 	
 	public function displayTable(){
 		echo'<center>';
