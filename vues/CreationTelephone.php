@@ -6,17 +6,22 @@
 // foreach($fetchResult as $result){
     // $typesTelephone['Nom']=$result['Nom'];
 // }
+
+
 ?>
 
 
 <form method="post" action="index.php" class="blockFormulaire">
     <h2>Création d'un téléphone</h2>
     <label>Type de téléphone</label>
-    <select>
-        <?php foreach($typesTelephone as $telephone){ ?>
-        <option value="<?php echo $telephone; ?>"> <?php echo $telephone; ?> </option>
-        <?php } ?>
-    </select>
+
+    <?php
+    $ListeTypeTel = new TypeTelephones();
+    $ListeTypeTel->remplir();
+    TypeTelephone::getInstances()->displaySelect('ss');
+
+    ?>
+    
     </br>
     <label>Prefixe</label>
     <input type="text" name="prefixe" placeholder="+33">

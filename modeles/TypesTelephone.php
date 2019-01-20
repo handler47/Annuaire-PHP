@@ -17,13 +17,13 @@ class TypeTelephone extends Element{
 		static::$o_INSTANCES->doAddObject($tmp);
 		return $tmp;
 	}
-	
+
 	//publication liste instances
 	public static function getInstances(){
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new TypeTelephones();}
 		return static::$o_INSTANCES;
 	}
-		
+
 	// doit impérativement trouver la TypeTelephone ayant pour id le paramètre
 	public static function mustFind($id){
 		if (static::$o_INSTANCES == null){static::$o_INSTANCES = new TypeTelephones();}
@@ -42,31 +42,15 @@ class TypeTelephone extends Element{
 	
 	//---------- renvoie la valeur du champ spécifié en paramètre
 	public function getID(){
-		return $this->getField('Ty_ID');
+		return $this->getField('TY_ID');
 	}
-	
-	public function getPortable(){
-		return $this->getField('TY_Portable');
+
+	public function getTypeTel(){
+		return $this->getField('TY_TYPETEL');
 	}
-	
-	
-	public function getFixe(){
-		return $this->getField('TY_Fixe');
-	}
-	
-	
-	public function getProfessionnel(){
-		return $this->getField('TY_Professionnel');
-	}
-	
-	public function getInternationnal(){
-		return $this->getField('TY_Internationnal');
-	}
-	
-	
-	public function getFax(){
-		return $this->getField('TY_Fax');
-	}
+
+
+
 
 
 
@@ -77,12 +61,12 @@ class TypeTelephone extends Element{
 		echo '</tr>';
 	}
 	
-	// public function option(){
-		// $tmp = $this->getID();
-		// echo '<option value ="'.$tmp.'">';
-		// echo $this->get();
-		// echo '</option>';
-	// }
+	 public function option(){
+		 $tmp = $this->getID();
+		 echo '<option value ="'.$tmp.'">';
+		 echo $this->getTypeTel();
+		 echo '</option>';
+	 }
 	
 
 	/******************************
@@ -94,16 +78,16 @@ class TypeTelephone extends Element{
 	}
 	
 	public static function getSELECT() {
-		return 'SELECT TY_ID, TY_Portable, TY_Fixe, TY_Professionnel, TY_Internantionnal, TY_Fax FROM TypeTelephone '; 
+		return 'SELECT TY_ID, TY_TYPETEL FROM type_telephone';
 	}	
 	
 	public static function SQLInsert(array $valeurs){
-		$req = 'INSERT INTO TypeTelephone (TY_Portable, TY_Fixe, TY_Professionnel, TY_Internantionnal, TY_Fax) VALUES(?,?,?,?,?)';
+		$req = 'INSERT INTO type_telephone (TY_TYPETEL) VALUES(?)';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 	
 	public static function SQLDelete($valeur){
-		$req = 'DELETE FROM TypeTelephone WHERE TY_ID = ?';
+		$req = 'DELETE FROM type_telephone WHERE TY_ID = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
@@ -115,10 +99,11 @@ class TypeTelephones extends Pluriel{
 	public function __construct(){
 		parent::__construct();
 	}
-	
+
+	public function getArrays() {return $this->getArray();}
 
 	public function remplir($condition=null, $ordre=null) {
-		$req = Contact::getSELECT();
+		$req = TypeTelephone::getSELECT();
 		//ajouter condition si besoin est
 		if ($condition != null) {
 			$req.= " WHERE $condition"; // remplace $condition car guillemet et pas simple quote
@@ -128,7 +113,7 @@ class TypeTelephones extends Pluriel{
 		}
 		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
 		foreach ($curseur as $uneLigne){
-			$this->doAddObject(Contact::ajouterObjet($uneLigne));
+			$this->doAddObject(TypeTelephone::ajouterObjet($uneLigne));
 		}
 	}
 	
@@ -145,7 +130,7 @@ class TypeTelephones extends Pluriel{
 
 	public function displaySelect($name){
 		echo'<select style="width:auto" class="form-control" type="Text" required="required" name="'.$name.'">';
-		echo '<option>  </option>';
+		//echo '<option>  </option>';
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $unTypeTelephone) {
 			$unTypeTelephone->option();

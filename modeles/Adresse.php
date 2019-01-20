@@ -135,7 +135,7 @@ class Adresses extends Pluriel{
 		echo'<select style="width:auto" class="form-control" type="Text" required="required" name="'.$name.'">';
 		echo '<option>  </option>';
 		// dire à chaque élément de mon tableau : afficher le row
-		foreach ($this->getArray() as $untelephone) {
+		foreach ($this->getArray() as $uneadresse) {
 			$uneadresse->option();
 		}
 		echo '</select>';
