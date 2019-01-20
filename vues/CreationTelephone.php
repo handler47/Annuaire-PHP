@@ -16,13 +16,12 @@
         <?php foreach($typesTelephone as $telephone){ ?>
         <option value="<?php echo $telephone; ?>"> <?php echo $telephone; ?> </option>
         <?php } ?>
-
     </select>
     </br>
-
     <label>Prefixe</label>
     <input type="text" name="prefixe" placeholder="+33">
     <label>Numéro tel.</label>
     <input type="text" name="telephone" placeholder="0612545685">
-
+    </br>
+    <input type="submit" value="Submit">
 </form>
