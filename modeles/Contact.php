@@ -12,7 +12,7 @@ class Contact extends Element{
 		//voir si l'objet existe avec la clef
 		$tmp = static::$o_INSTANCES->getObject($ligne[static::champID()]);
 		if($tmp!=null){return $tmp;}
-		//n'existe pas : donc INSTANCIER Division et mémoriser
+		//n'existe pas : donc INSTANCIER Contact et mémoriser
 		$tmp = new Contact($ligne);
 		static::$o_INSTANCES->doAddObject($tmp);
 		return $tmp;
@@ -24,7 +24,7 @@ class Contact extends Element{
 		return static::$o_INSTANCES;
 	}
 		
-	// doit impérativement trouver la Division ayant pour id le paramètre
+	// doit impérativement trouver la Contact ayant pour id le paramètre
 	public static function mustFind($id){
 		if (static::$o_INSTANCES == null){static::$o_INSTANCES = new Contacts();}
 		// regarder si instance existe
@@ -127,9 +127,6 @@ class Contact extends Element{
 
 }
 
-
-
-
 class Contacts extends Pluriel{
 
 	//constructeur
@@ -176,3 +173,8 @@ class Contacts extends Pluriel{
 	}
 	
 }
+
+?>
+
+
+

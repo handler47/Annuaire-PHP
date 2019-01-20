@@ -7,6 +7,8 @@ require_once 'Modeles/Pluriel.php';
 require_once 'Modeles/Element.php';
 require_once 'Modeles/Contact.php';
 require_once 'Modeles/Telephone.php';
+require_once 'Modeles/TypesTelephone.php';
+require_once 'Modeles/Adresse.php';
 require_once 'Vues/Accueil.php';
 
 
