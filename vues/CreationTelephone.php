@@ -1,15 +1,5 @@
 <?php
-// require_once("modeles/dao/TelephoneDAO.php");
-// $telDAO = new TelephoneDAO();
-// $typesTelephone = array();
-// $fetchResult = $telDAO->getTypeTelephones();
-// foreach($fetchResult as $result){
-    // $typesTelephone['Nom']=$result['Nom'];
-// }
-
-
 ?>
-
 
 <form method="post" action="index.php" class="blockFormulaire">
     <h2>Création d'un téléphone</h2>
@@ -21,7 +11,7 @@
     TypeTelephone::getInstances()->displaySelect('ss');
 
     ?>
-    
+
     </br>
     <label>Prefixe</label>
     <input type="text" name="prefixe" placeholder="+33">
