@@ -1,15 +1,14 @@
 <?php
-require_once("modeles/dao/TelephoneDAO.php");
-$telDAO = new TelephoneDAO();
-$typesTelephone = array();
-$fetchResult = $telDAO->getTypeTelephones();
-foreach($fetchResult as $result){
-    $typesTelephone['Nom']=$result['Nom'];
-}
+// require_once("modeles/dao/TelephoneDAO.php");
+// $telDAO = new TelephoneDAO();
+// $typesTelephone = array();
+// $fetchResult = $telDAO->getTypeTelephones();
+// foreach($fetchResult as $result){
+    // $typesTelephone['Nom']=$result['Nom'];
+// }
 ?>
 
-<div class="center">
-<div id="container">
+
 <form method="post" action="index.php" class="blockFormulaire">
     <h2>Création d'un téléphone</h2>
     <label>Type de téléphone</label>
@@ -27,5 +26,3 @@ foreach($fetchResult as $result){
     <input type="text" name="telephone" placeholder="0612545685">
 
 </form>
-</div>
-</div>

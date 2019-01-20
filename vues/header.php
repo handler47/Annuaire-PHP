@@ -8,9 +8,8 @@
     <link href="http://localhost/Annuaire-PHP/css/MyCSS.css" rel="stylesheet">
 </head>
 <body>
- <div class="blocktitre center">
 		<h1>Annuaire de Contact <img src="http://localhost/Annuaire-PHP/img/iut.png" alt="img/iudsst.png" class="imgTitre"/></h1>
-
+	<center>
 
 		
 

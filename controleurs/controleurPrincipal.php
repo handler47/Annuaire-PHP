@@ -9,8 +9,7 @@ require_once 'Modeles/Contact.php';
 require_once 'Modeles/Telephone.php';
 require_once 'Vues/Accueil.php';
 
-?>
-    <?php
+
 if(isset($_POST["NewContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';
@@ -23,7 +22,7 @@ if(isset($_POST["NewTel"])) {
 
 if(isset($_GET["details"])) {
 	$_SESSION['Menu'] = "Accueil";
-	require_once 'vues/DetailsContact.php';
+	require_once 'controleurs/ControleurDetailsContact.php';
 }
 
 if(isset($_POST["Accueil"])) {

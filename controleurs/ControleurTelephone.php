@@ -22,5 +22,5 @@
 	// echo '<script type="text/javascript">window.alert("'.$erreur.'");</script>';
 // }
 
-require_once 'vues/DetailContact.php';
+require_once 'vues/CreationTelephone.php';
 ?>

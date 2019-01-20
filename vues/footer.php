@@ -1,6 +1,5 @@
-</div>
+</center>
 </body>
-<div class="center">
 	<footer class="footer">
 		<div class="top-footer">
 			<div>

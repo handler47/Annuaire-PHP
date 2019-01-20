@@ -1,4 +1,3 @@
-<div style="text-align: center;">
 
 <?php
 /**
@@ -10,7 +9,6 @@
  */
 ?>
 
-    <div class="center">
         <h2>Récapitulatif du contact</h2>
         <?php
 		//Voilà l'id contact sur lequel on click au formulaire listContact !!
@@ -31,6 +29,4 @@
         <?php
         }
         ?>
-    </div>
 
-</div>
