@@ -8,6 +8,7 @@ foreach($fetchResult as $result){
 }
 ?>
 
+<div class="center">
 <div id="container">
 <form method="post" action="index.php" class="blockFormulaire">
     <h2>Création d'un téléphone</h2>
@@ -26,4 +27,5 @@ foreach($fetchResult as $result){
     <input type="text" name="telephone" placeholder="0612545685">
 
 </form>
+</div>
 </div>
