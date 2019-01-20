@@ -84,10 +84,15 @@ class Contact extends Element{
 	
 	
 	//affiche
+	public function displayNomContact(){
+		return $this->getNom().' '.$this->getPrenom();
+	}	
+	
 	public function displayRow(){
 		echo '<tr>';
 		echo '<td align="center">'.$this->getNom().' '.$this->getPrenom().'</td>';
-		echo '<td align="center"><input type="submit"  value="Contact'.$this->getID().'" name="details" class="button" /> </td>';
+		echo '<td align="center"><input type="submit"  value="details de la ligne '.$this->getID().'" name="details" class="button" /> </td>';
+		echo '<td align="center"><input type="submit"  value="suppression de la ligne '.$this->getID().'" name="supprContact" class="button" /> </td>';
 		echo '</tr>';
 	}
 	
@@ -120,7 +125,7 @@ class Contact extends Element{
 	}
 	
 	public static function SQLDelete($valeur){
-		$req = 'DELETE FROM divis WHERE C_ID = ?';
+		$req = 'DELETE FROM contact WHERE C_ID = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
@@ -150,10 +155,15 @@ class Contacts extends Pluriel{
 		}
 	}
 	
+	public function RechercheObjet($id){
+		return $this->getObject($id)->displayNomContact();
+	}
+	
+	
 	
 	public function displayTable(){
 		echo'<center>';
-		echo'<table align="center" class="table"  frame="hsides" >';
+		echo'<table align="center" class="table" border-collapse="collapse"  >';
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $uncontact) {
 			$uncontact->displayRow();

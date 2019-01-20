@@ -12,6 +12,30 @@ require_once 'Modeles/Adresse.php';
 require_once 'Vues/Accueil.php';
 
 
+//Suppression d'un Contact de la liste
+if(isset($_POST["supprContact"])) {
+	$_SESSION['Menu'] = "Accueil";
+	$IDContactSuppression = substr($_POST["supprContact"],-1,1);
+	$ListeContacts = new Contacts();
+    $ListeContacts->remplir();
+	echo'<div class="blockFormulaire">';
+    echo 'Voulez-vous vraiment supprimer le contact '.Contact::getInstances()->RechercheObjet($IDContactSuppression).' ?
+    <a href="http://localhost/Annuaire-PHP/index.php?confirmation='.$IDContactSuppression.'" > Oui</a>
+	ou <a href="http://localhost/Annuaire-PHP/index.php" name="non">Non</a>';
+	echo'</div>';
+}
+
+if(isset($_GET["confirmation"])) {
+	$IDContact = intval($_GET["confirmation"]);
+	Contact::SQLDelete($IDContact);
+	echo'<div class="blockFormulaire">';
+	echo "Suppression du contact";
+	echo'</div>';
+	require_once 'index.php';
+}
+
+
+
 if(isset($_POST["NewContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';
@@ -21,6 +45,7 @@ if(isset($_POST["NewTel"])) {
 	$_SESSION['Menu'] = "Tel";
     require_once 'controleurs/ControleurTelephone.php';
 }
+
 
 
 if(isset($_POST["details"])) {
