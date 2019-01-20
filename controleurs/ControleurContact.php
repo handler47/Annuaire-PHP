@@ -10,6 +10,7 @@ require_once 'Modeles/Contact.php';
 require_once 'Modeles/Telephone.php';
 require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
+require_once 'Modeles/Pays.php';
 
 //référencer les classes utiles
 //require_once 'Modeles/contact.php';
