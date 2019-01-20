@@ -12,7 +12,7 @@ class Telephone extends Element{
 		//voir si l'objet existe avec la clef
 		$tmp = static::$o_INSTANCES->getObject($ligne[static::champID()]);
 		if($tmp!=null){return $tmp;}
-		//n'existe pas : donc INSTANCIER Division et mémoriser
+		//n'existe pas : donc INSTANCIER Telephone et mémoriser
 		$tmp = new Telephone($ligne);
 		static::$o_INSTANCES->doAddObject($tmp);
 		return $tmp;
@@ -24,7 +24,7 @@ class Telephone extends Element{
 		return static::$o_INSTANCES;
 	}
 		
-	// doit impérativement trouver la Division ayant pour id le paramètre
+	// doit impérativement trouver la Telephone ayant pour id le paramètre
 	public static function mustFind($id){
 		if (static::$o_INSTANCES == null){static::$o_INSTANCES = new Telephones();}
 		// regarder si instance existe
@@ -89,8 +89,6 @@ class Telephone extends Element{
 }
 
 
-
-
 class Telephones extends Pluriel{
 
 	//constructeur
@@ -108,7 +106,6 @@ class Telephones extends Pluriel{
 			$req.=" ORDER BY $ordre";
 		}
 		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
-		//var_dump($curseur);
 		foreach ($curseur as $uneLigne){
 			$this->doAddObject(Telephone::ajouterObjet($uneLigne));
 		}
@@ -132,3 +129,4 @@ class Telephones extends Pluriel{
 	}
 	
 }
+?>
