@@ -118,11 +118,7 @@ INSERT INTO `telephone` (`T_numero`, `T_TypeTelID`, `T_ContactID`) VALUES
 
 CREATE TABLE IF NOT EXISTS `type_telephone` (
   `TY_ID` int(3) unsigned NOT NULL AUTO_INCREMENT,
-  `TY_Portable` tinyint(1) NOT NULL DEFAULT '0',
-  `TY_Fixe` tinyint(1) NOT NULL DEFAULT '0',
-  `TY_Professionnel` tinyint(1) NOT NULL DEFAULT '0',
-  `TY_Internationnal` tinyint(1) NOT NULL DEFAULT '0',
-  `TY_Fax` tinyint(1) NOT NULL DEFAULT '0',
+  `TY_TYPETEL` varchar(25) NOT NULL,
   PRIMARY KEY (`TY_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -130,9 +126,12 @@ CREATE TABLE IF NOT EXISTS `type_telephone` (
 -- Contenu de la table `type_telephone`
 --
 
-INSERT INTO `type_telephone` (`TY_ID`, `TY_Portable`, `TY_Fixe`, `TY_Professionnel`, `TY_Internationnal`, `TY_Fax`) VALUES
-(1, 1, 0, 0, 0, 0),
-(2, 0, 1, 0, 0, 0);
+INSERT INTO `type_telephone` (`TY_ID`, `TY_TYPETEL`) VALUES
+(1, 'Fixe'),
+(2, 'Portable'),
+(2, 'Fax'),
+(2, 'Personnel');
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
