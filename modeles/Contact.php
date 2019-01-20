@@ -38,8 +38,7 @@ class Contact extends Element{
 		$ligne = SI::getSI()->SGBDgetLigne($req, $id);
 		return static::ajouterObjet($ligne);
 	}
-	
-	private $o_MesElecteurs;
+
 	//---------- constructeur : repose sur le constructeur parent
 	protected function __construct($theLigne) {parent::__construct($theLigne);}
 	
