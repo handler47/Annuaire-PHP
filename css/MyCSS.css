@@ -3,7 +3,7 @@
 	* Css du site
 */
 
-body, html {
+body {
 	background-image: url("../img/background.jpg");
 	background-size: 220px;
 	background-repeat: repeat;
