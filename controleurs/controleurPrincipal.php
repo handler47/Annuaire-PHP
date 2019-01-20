@@ -3,7 +3,10 @@
 	* Controleur Principal du site
 	* Permet le lien vers les autres Formulaires
 */
-
+require_once 'Modeles/Pluriel.php';
+require_once 'Modeles/Element.php';
+require_once 'Modeles/Contact.php';
+require_once 'Modeles/Telephone.php';
 require_once 'Vues/Accueil.php';
 
 ?>
@@ -16,6 +19,11 @@ if(isset($_POST["NewContact"])) {
 if(isset($_POST["NewTel"])) {
 	$_SESSION['Menu'] = "Tel";
     require_once 'controleurs/ControleurTelephone.php';
+}
+
+if(isset($_GET["details"])) {
+	$_SESSION['Menu'] = "Accueil";
+	require_once 'vues/DetailsContact.php';
 }
 
 if(isset($_POST["Accueil"])) {
@@ -42,6 +50,8 @@ switch ($_SESSION['Menu']) {
         require_once 'controleurs/ControleurPrincipal.php';
         break;
 }
+
+
 
  
 ?>
