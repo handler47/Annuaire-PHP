@@ -69,8 +69,13 @@ class Contact extends Element{
 	public function getCommentaire(){
 		return $this->getField('C_Commentaire');
 	}
+	
+	public function getAdresseID(){
+		return $this->getField('C_AdresseID');
+	}
 
 	private $o_MesTelephones;
+	private $o_MonAdresse;
 	// fait office de clef etrangères 
 	// permet d'avoir les telephone du contact Wesh :)
 	public function getTelephones(){
@@ -79,6 +84,14 @@ class Contact extends Element{
 			$this->o_MesTelephones->remplir('T_ContactID="'.$this->getID().'"',null);
 		}
 		return $this->o_MesTelephones;
+	}
+	
+	public function getMonAdresse(){
+		if($this->o_MonAdresse == null){
+			$this->o_MonAdresse = new Adresses();
+			$this->o_MonAdresse->remplir('A_ID="'.$this->getgetAdresseID().'"',null);
+		}
+		return $this->o_MonAdresse;
 	}
 	
 	
@@ -90,8 +103,8 @@ class Contact extends Element{
 	public function displayRow(){
 		echo '<tr>';
 		echo '<td align="center">'.$this->getNom().' '.$this->getPrenom().'</td>';
-		echo '<td align="center"><input type="submit"  value="details de la ligne '.$this->getID().'" name="details" class="button" /> </td>';
-		echo '<td align="center"><input type="submit"  value="suppression de la ligne '.$this->getID().'" name="supprContact" class="button" /> </td>';
+		echo '<td align="center"> <a href="http://localhost/Annuaire-PHP/index.php?details='.$this->getID().'" >details</a> </td>';
+		echo '<td align="center"><a href="http://localhost/Annuaire-PHP/index.php?supprimer='.$this->getID().'">supprimer</a>  </td>';
 		echo '</tr>';
 	}
 	
@@ -154,6 +167,22 @@ class Contacts extends Pluriel{
 		}
 	}
 	
+	public function remplirAVECRequete($req,$condition=null, $ordre=null) {	
+		//ajouter condition si besoin est
+		if ($condition != null) {
+			$req.= " WHERE $condition"; // remplace $condition car guillemet et pas simple quote
+		}
+		if ($ordre != null){
+			$req.=" ORDER BY $ordre";
+		}
+		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
+		//var_dump($curseur);
+		foreach ($curseur as $uneLigne){
+			$this->doAddObject(Contact::ajouterObjet($uneLigne));
+		}
+	}
+	
+	
 	public function RechercheObjet($id){
 		return $this->getObject($id)->displayNomContact();
 	}
@@ -162,7 +191,7 @@ class Contacts extends Pluriel{
 	
 	public function displayTable(){
 		echo'<center>';
-		echo'<table align="center" class="table" border-collapse="collapse"  >';
+		echo'<table align="center" class="table" cellspacing="20px"  >';
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $uncontact) {
 			$uncontact->displayRow();

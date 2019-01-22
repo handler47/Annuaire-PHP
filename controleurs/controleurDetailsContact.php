@@ -12,7 +12,8 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
 //ID du contact selectionné dans la liste des contacts afficher en ammont
-$IDContact = substr($_POST["details"],-1,1);
+$IDContact = $_GET["details"];
+
 
 
 
