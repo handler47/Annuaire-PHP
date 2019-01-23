@@ -107,7 +107,7 @@ class ListPays extends Pluriel{
 
 	public function displaySelect($name){
 		echo'<select style="width:auto" class="form-control"  type="Text" required="required" name="'.$name.'">';
-		echo '<option>  </option>';
+		echo '<option selected="selected">pas de sélection</option>';
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $unpays) {
 			$unpays->option();

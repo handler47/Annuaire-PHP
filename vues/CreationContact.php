@@ -1,34 +1,42 @@
 
 <div class="blockFormulaire">
+	<?php echo $erreur; ?>
 	<form method="post" action="index.php" class="">
 		<h2>Creation d'un Contact</h2>
 		<label>Nom : </label>
-        <input type="text" class="champ" name="Nom" id="Nom">
+        <input type="text" class="champ" name="Nom" id="Nom" placeholder="Smith" autofocus>
 		<label>Prénom : </label>
-        <input type="text" class="champ" name="Prenom" id="Prenom">
+        <input type="text" class="champ" name="Prenom" id="Prenom" placeholder="John">
+		<br></br>
 		<label>Date de Naissance : </label>
-        <input type="text" class="champ" name="DateNaiss" id="DateNaiss" placeholder="0000\00\00">
+        <input type="date" class="champ" name="DateNaiss" id="DateNaiss" placeholder="00/00/0000">
 		<br></br>
 		<label>Numero de la voie : </label>
-        <input type="text" class="champ" name="NumVoie" id="NumVoie">
+        <input type="number" class="champ" name="NumVoie" id="NumVoie" placeholder="3">
+		<br></br>
 		<label>Nom de la voie : </label>
-        <input type="text" class="champ" name="NomVoie" id="NomVoie">
+        <input type="text" class="champ" name="NomVoie" id="NomVoie" placeholder="Rue Régis">
 		<br></br>
 		<label>Complément d'adresse : </label>
-        <input type="text" class="champ" name="CompAdress" id="CompAdress">
-		<label>Ville : </label>
-        <input type="text" class="champ" name="Ville" id="Ville">	
+        <Textarea  type="textera" name="ComplAdresse"  id="ComplAdresse" rows=1 cols=30 wrap=physical placeholder="Résidence,Batiment,Etage,Appartement"></Textarea>
 		<br></br>
+		<label>Ville : </label>
+        <input type="text" class="champ" name="Ville" id="Ville" placeholder="Paris">	
 		<label>Code Postal : </label>
-        <input type="text" class="champ" name="CodePostal" id="CodePostal" placeholder="00000">		
+        <input type="text" class="champ" name="CodePostal" id="CodePostal" placeholder="00000">	
+		<br></br>		
 		<label>Pays : </label>
 		<?php
 	    $ListePays = new ListPays();
     	$ListePays->remplir(null,"P_Nom ASC");
-		Pays::getInstances()->displaySelect("pays");
+		Pays::getInstances()->displaySelect("Pays");
 		?>
+		
+		<label>Societe : </label>
+        <input type="text" class="champ" name="Societe" id="Societe" placeholder="MyCompany">
+		<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical placeholder="Commentaire"></Textarea>
 		<br></br>
-		<Textarea  type="textera" class="champ" name="Commentaire" rows=2 cols=40 wrap=physical placeholder="Commentaire"></Textarea>
+		<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />
 	</form>
 </div>
 

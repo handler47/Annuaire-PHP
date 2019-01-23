@@ -74,13 +74,6 @@ class Adresse extends Element{
 		echo '<td align="center">'.$this->getCodePostal().'</td>';
 	}
 	
-	// public function option(){
-		// $tmp = $this->getID();
-		// echo '<option value ="'.$tmp.'">';
-		// echo $this->get();
-		// echo '</option>';
-	// }
-	
 
 	/******************************
 	IMPORTANT : 	toute classe dérivée non abstraite doit avoir le code pour
@@ -90,12 +83,12 @@ class Adresse extends Element{
 	public static function getSELECT() {return 'SELECT A_ID,A_NumVoie,A_NomVoie,A_ComplementAdresse,A_Ville,A_CodePostal FROM adresse';  }	
 
 	public static function SQLInsert(array $valeurs){
-		$req = 'INSERT INTO telephone (A_NumVoie,A_NomVoie,A_ComplementAdresse,A_Ville,A_CodePostal,A_PaysID) VALUES(?,?,?,?,?,?)';
+		$req = 'INSERT INTO adresse (A_NumVoie,A_NomVoie,A_ComplementAdresse,A_Ville,A_CodePostal,A_PaysID) VALUES(?,?,?,?,?,?)';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 	
 	public static function SQLDelete($valeur){
-		$req = 'DELETE FROM telephone WHERE A_ID = ?';
+		$req = 'DELETE FROM adresse WHERE A_ID = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
@@ -110,7 +103,7 @@ class Adresses extends Pluriel{
 	}
 	
 	public function remplir($condition=null, $ordre=null) {
-		$req = Telephone::getSELECT();
+		$req = Adresse::getSELECT();
 		//ajouter condition si besoin est
 		if ($condition != null) {
 			$req.= " WHERE $condition"; // remplace $condition car guillemet et pas simple quote
@@ -120,7 +113,7 @@ class Adresses extends Pluriel{
 		}
 		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
 		foreach ($curseur as $uneLigne){
-			$this->doAddObject(Telephone::ajouterObjet($uneLigne));
+			$this->doAddObject(Adresse::ajouterObjet($uneLigne));
 		}
 	}
 	
@@ -128,6 +121,12 @@ class Adresses extends Pluriel{
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $uneadresse) {
 			$uneadresse->displayRow();
+		}
+	}
+	
+	public function displayAdresse(){
+		foreach ($this->getArray() as $uneadresse) {
+			return $uneadresse->getID();
 		}
 	}
 
