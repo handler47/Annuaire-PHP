@@ -14,25 +14,48 @@ require_once 'Vues/Accueil.php';
 
 
 //Suppression d'un Contact de la liste
-if(isset($_POST["supprContact"])) {
+if(isset($_GET["supprimer"])) {
 	$_SESSION['Menu'] = "Accueil";
-	$IDContactSuppression = substr($_POST["supprContact"],-1,1);
-	$ListeContacts = new Contacts();
-    $ListeContacts->remplir();
+	$IDContactSuppression = $_GET["supprimer"];
+	$listeContacts = new Contacts();
+    $listeContacts->remplir();
 	echo'<div class="blockFormulaire">';
-    echo 'Voulez-vous vraiment supprimer le contact '.Contact::getInstances()->RechercheObjet($IDContactSuppression).' ?
+    echo 'Voulez-vous vraiment supprimer le contact '.Contact::getInstances()->RechercheObjet($IDContactSuppression,"nom").' ?
     <a href="http://localhost/Annuaire-PHP/index.php?confirmation='.$IDContactSuppression.'" > Oui</a>
-	ou <a href="http://localhost/Annuaire-PHP/index.php" name="non">Non</a>';
+	ou <a href="http://localhost/Annuaire-PHP/index.php?non" name="non">Non</a>';
 	echo'</div>';
 }
 
 if(isset($_GET["confirmation"])) {
 	$IDContact = intval($_GET["confirmation"]);
+	$IDAdresse = null;
+	$adresseContact = 0;
+	//on récupère l'IDAdresse du contact
+	$Contact = new Contacts();
+    $Contact->remplir();
+	$adresseContact = intval(Contact::getInstances()->RechercheObjet($IDContact,"adresse"));
+	//on supprime l'adresse du contact puis le contact
+	Adresse::SQLDelete($adresseContact);
 	Contact::SQLDelete($IDContact);
 	echo'<div class="blockFormulaire">';
-	echo "Suppression du contact";
+	echo '<p>Contact supprimé ! </p>';
 	echo'</div>';
 	require_once 'index.php';
+}
+
+
+if(isset($_GET["details"])) {
+	$_SESSION['Menu'] = "DetailsContact";
+	require_once 'controleurs/ControleurDetailsContact.php';
+}
+
+if(isset($_GET["filtre"])) {
+	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A";
+	$condition = "C.C_AdresseID = A.A_ID";
+	$filtre = "A.A_CodePostal;";
+	$_SESSION['Menu'] = "Accueil";
+    require_once 'vues/Accueil.php';
+	require_once 'vues/ListeContact.php';
 }
 
 
@@ -48,15 +71,10 @@ if(isset($_POST["NewTel"])) {
 }
 
 
-
-if(isset($_POST["details"])) {
-	$_SESSION['Menu'] = "DetailsContact";
-    require_once 'vues/Accueil.php';
-	require_once 'controleurs/ControleurDetailsContact.php';
-}
-
-
-if(isset($_POST["Accueil"])) {
+if(isset($_POST["Accueil"]) or isset($_GET["non"]) or isset($_GET["pasfiltre"]) ) {
+	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact";
+	$condition = null;
+	$filtre = " C_Nom,C_Prenom ASC";
 	$_SESSION['Menu'] = "Accueil";
     require_once 'vues/Accueil.php';
 	require_once 'vues/ListeContact.php';
