@@ -31,7 +31,6 @@
     	$ListePays->remplir(null,"P_Nom ASC");
 		Pays::getInstances()->displaySelect("Pays");
 		?>
-		
 		<label>Societe : </label>
         <input type="text" class="champ" name="Societe" id="Societe" placeholder="MyCompany">
 		<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical placeholder="Commentaire"></Textarea>

@@ -185,7 +185,7 @@ class Contacts extends Pluriel{
 			$this->doAddObject(Contact::ajouterObjet($uneLigne));
 		}
 	}
-	
+
 	
 	public function RechercheObjet($id,$choix){
 		if($choix =="nom"){
