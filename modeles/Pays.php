@@ -1,6 +1,6 @@
 <?php
 /**
-	* Classe Adresse
+	* Classe Pays
 */
 class Pays extends Element{
 	//Singleton de mémorisation des instances
