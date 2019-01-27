@@ -12,26 +12,30 @@ require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
-$erreur = "";
+$erreur = '';
+$contactId = $_SESSION['ajouterNumero'];
 
 if(isset($_POST['Valider'])) {
     if (isset($_POST['telephone']) != "") {
         $telephone = $_POST['telephone'];
-        $patternTelephone = '^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$';
+        $patternTelephone = '/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/';
         $typeTel = $_POST['typeTel'];
-        $contactId = $_POST['contactId'];
-        preg_match($patternTelephone, $telephone, $matches, PREG_OFFSET_CAPTURE, 3);
-        if ($matches) {
-            //création du telephone en récuperant l'id du contact en question
-            Telephone::SQLInsert(array($typeTel, $telephone, $contactId));
-            //recupération de l'ID adresse qui vient d'être créé
 
-            echo '<div class="blockFormulaire">';
-            echo 'Téléphone Créé ! ';
-            echo '</div>';
-        } else {
-            $erreur = "Le format du numéro de téléphone est incorrect. Ex: 0658552211 (sans espaces, symboles ou tabulations)";
-        }
+            $contactId = ''.$_SESSION['ajouterNumero'].'';
+            var_dump($contactId);
+            preg_match($patternTelephone, $telephone, $matches);
+            if ($matches) {
+                //création du telephone en récuperant l'id du contact en question
+                Telephone::SQLInsert(array($typeTel, $telephone, $contactId));
+                //recupération de l'ID adresse qui vient d'être créé
+
+                echo '<div class="blockFormulaire">';
+                echo '<p>Téléphone Créé ! </p>';
+                echo '</div>';
+            } else {
+                $erreur = $erreur.'<p class="erreur" > Le format du numéro de téléphone est incorrect. Ex: 0658552211 (sans espaces, symboles ou tabulations) </p>';
+            }
+
     }
     }
 

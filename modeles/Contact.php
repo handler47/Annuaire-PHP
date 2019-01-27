@@ -109,6 +109,7 @@ class Contact extends Element{
 		echo '<td >'.$this->getNom().' '.$this->getPrenom().'</td>';
 		echo '<td > <a href="http://localhost/Annuaire-PHP/index.php?details='.$this->getID().'" >details</a> </td>';
 		echo '<td ><a href="http://localhost/Annuaire-PHP/index.php?supprimer='.$this->getID().'">supprimer</a>  </td>';
+		echo '<td ><a href="http://localhost/Annuaire-PHP/index.php?ajouterNumero='.$this->getID().'">ajouter tel</a>  </td>';
 		echo '</tr>';
 	}
 	

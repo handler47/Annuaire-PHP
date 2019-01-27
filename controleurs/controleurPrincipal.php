@@ -49,6 +49,11 @@ if(isset($_GET["details"])) {
 	require_once 'controleurs/ControleurDetailsContact.php';
 }
 
+if(isset($_GET["ajouterNumero"])) {
+	$_SESSION['Menu'] = "AjoutTelephone";
+	require_once 'controleurs/ControleurTelephone.php';
+}
+
 if(isset($_GET["filtre"])) {
 	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A";
 	$condition = "C.C_AdresseID = A.A_ID";
@@ -100,6 +105,9 @@ switch ($_SESSION['Menu']) {
 	case "DetailsContact";
 	    require_once 'controleurs/ControleurDetailsContact.php';
         break;
+	case "AjoutTelephone";
+		require_once 'controleurs/ControleurTelephone.php';
+		break;
 }
 
 
