@@ -102,6 +102,13 @@ class Adresse extends Element{
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
+	public static function SQLUpdate(array $valeurs, $condition = null){
+		$req = 'UPDATE FROM contact SET A_NumVoie = ?,A_NomVoie = ? ,A_ComplementAdresse = ? ,A_Ville = ? ,A_CodePostal = ? ';
+		if ($condition != null)
+			$req.= " WHERE $condition";
+		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
+	}
+
 }
 
 

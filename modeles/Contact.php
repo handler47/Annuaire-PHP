@@ -146,6 +146,13 @@ class Contact extends Element{
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
+	public static function SQLUpdate(array $valeurs, $condition = null){
+		$req = 'UPDATE contact SET C_Nom = ? ,C_Prenom = ?,C_Societe = ?,C_Commentaire = ? ';
+		if ($condition != null)
+			$req.= " WHERE $condition";
+		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
+	}
+
 }
 
 class Contacts extends Pluriel{

@@ -9,7 +9,6 @@
  */
 
 
-$idContact  = $_GET['details'];
 $contacts = new Contacts();
 $contact= Contact::mustFind($idContact);
 $nomContact = $contact->getNom();
@@ -38,26 +37,25 @@ $paysNom = $pays->getNom();
        <div class="blockFormulaire">
 	<?php echo $erreur; ?>
 	<form method="post" action="index.php" class="">
-		<h2>Creation d'un Contact</h2>
 		<label>Nom : </label>
-        <input type="text" class="champ" name="Nom" id="Nom" placeholder="<?php echo $nomContact ?>" autofocus>
+        <input type="text" class="champ" name="Nom" id="Nom" value="<?php echo $nomContact ?>" autofocus>
 		<label>Prénom : </label>
-        <input type="text" class="champ" name="Prenom" id="Prenom" placeholder="<?php echo $prenomContact ?>">
+        <input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value="<?php echo $prenomContact ?>">
 		</br>
 		</br>
 		<label>Numero de la voie : </label>
-        <input type="number" class="champ" name="NumVoie" id="NumVoie" placeholder="<?php echo $numVoie ?>">
+        <input type="number" class="champ" name="NumVoie" id="NumVoie" value="<?php echo $numVoie ?>">
 		</br>
 		<label>Nom de la voie : </label>
-        <input type="text" class="champ" name="NomVoie" id="NomVoie" placeholder="<?php echo $nomVoie ?>">
+        <input type="text" class="champ" name="NomVoie" id="NomVoie" value="<?php echo $nomVoie ?>">
 		</br>
 		<label>Complément d'adresse : </label>
-        <Textarea  type="textera" name="ComplAdresse"  id="ComplAdresse" rows=1 cols=30 wrap=physical placeholder="<?php echo $cmptAdresse ?>"></Textarea>
+        <Textarea  type="textera" name="ComplAdresse"  id="ComplAdresse" rows=1 cols=30 wrap=physical value="<?php echo $cmptAdresse ?>"></Textarea>
 		</br>
 		<label>Ville : </label>
-        <input type="text" class="champ" name="Ville" id="Ville" placeholder="<?php echo $ville ?>">
+        <input type="text" class="champ" name="Ville" id="Ville" value="<?php echo $ville ?>">
 		<label>Code Postal : </label>
-        <input type="text" class="champ" name="CodePostal" id="CodePostal" placeholder="<?php echo $codePostal ?>">
+        <input type="text" class="champ" name="CodePostal" id="CodePostal" value="<?php echo $codePostal ?>">
 		</br>
 		<label>Pays : </label>
 		<?php
@@ -66,12 +64,22 @@ $paysNom = $pays->getNom();
 		Pays::getInstances()->displaySelect("Pays",$paysNom);
 		?>
 		<label>Societe : </label>
-        <input type="text" class="champ" name="Societe" id="Societe" placeholder="<?php echo $societe ?>">
-		<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical placeholder="<?php echo $commentaire ?>"></Textarea>
+        <input type="text" class="champ" name="Societe" id="Societe" value="<?php echo $societe ?>">
+		<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical value="<?php echo $commentaire ?>"></Textarea>
 		<br></br>
 		<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />
 	</form>
 </div>
 
+<?php
+// Transmission de la variable de session contenant l'id du contact
+if (isset($_GET['details'])) {
+    $_SESSION['modifierContact'] = $_GET['details'];
+}
+else{
+    $_SESSION['modifierContact'] = null;
+}
+
+?>
 
 
