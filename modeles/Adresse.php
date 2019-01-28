@@ -64,6 +64,16 @@ class Adresse extends Element{
 	public function getCodePostal(){
 		return $this->getField('A_CodePostal');
 	}
+
+	public function getPaysID(){
+		if ($this->getField('A_PaysID') != null)
+			return $this->getField('A_PaysID');
+		else
+			return null;
+	}
+
+
+
 	
 	
 	//affiche
@@ -80,7 +90,7 @@ class Adresse extends Element{
 
 	******************************/
 	public static function champID() {return 'A_ID';}
-	public static function getSELECT() {return 'SELECT A_ID,A_NumVoie,A_NomVoie,A_ComplementAdresse,A_Ville,A_CodePostal FROM adresse';  }	
+	public static function getSELECT() {return 'SELECT A_ID,A_NumVoie,A_NomVoie,A_ComplementAdresse,A_Ville,A_CodePostal,A_PaysID FROM adresse';  }
 
 	public static function SQLInsert(array $valeurs){
 		$req = 'INSERT INTO adresse (A_NumVoie,A_NomVoie,A_ComplementAdresse,A_Ville,A_CodePostal,A_PaysID) VALUES(?,?,?,?,?,?)';
@@ -116,6 +126,12 @@ class Adresses extends Pluriel{
 			$this->doAddObject(Adresse::ajouterObjet($uneLigne));
 		}
 	}
+
+	public function RechercheObjet($id,$choix){
+		if($choix =="pays"){
+			return $this->getObject($id)->getPays();
+		}
+	}
 	
 	public function displayTable(){
 		// dire à chaque élément de mon tableau : afficher le row
@@ -129,6 +145,7 @@ class Adresses extends Pluriel{
 			return $uneadresse->getID();
 		}
 	}
+
 
 	public function displaySelect($name){
 		echo'<select style="width:auto" class="form-control" type="Text" required="required" name="'.$name.'">';

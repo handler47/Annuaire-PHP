@@ -97,6 +97,8 @@ class ListPays extends Pluriel{
 			$this->doAddObject(Pays::ajouterObjet($uneLigne));
 		}
 	}
+
+
 	
 	public function displayTable(){
 		// dire à chaque élément de mon tableau : afficher le row
@@ -105,9 +107,13 @@ class ListPays extends Pluriel{
 		}
 	}
 
-	public function displaySelect($name){
+	public function displaySelect($name, $selection = null){
 		echo'<select style="width:auto" class="form-control"  type="Text" required="required" name="'.$name.'">';
-		echo '<option selected="selected">pas de sélection</option>';
+		if ($selection == null)
+			echo '<option selected="selected">pas de sélection</option>';
+		else
+			echo '<option selected="selected">' . $selection . '</option>';
+
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $unpays) {
 			$unpays->option();

@@ -12,6 +12,7 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
 //ID du contact selectionné dans la liste des contacts afficher en ammont
+$erreur = "";
 $IDContact = $_GET["details"];
 
 
