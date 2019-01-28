@@ -35,15 +35,18 @@ if(isset($_POST['Valider'])) {
     $complement = $_POST['ComplAdresse'];
 
 // on récupere l'adresse du contact
-    //$adresseContact = intval(Contact::getInstances()->RechercheObjet($idContact, "adresse"));
+    $adresseContact = intval(Contact::getInstances()->RechercheObjet($idContact, "adresse"));
 // mise à jour de l'adresse
-    //Adresse::SQLUpdate(array($numVoie, $nomVoie, $complement, $ville, $codePostal));
+    $contactAdrId= $contact->getAdresseID();
+    $conditionRequeteAdr = "A_ID = $contactAdrId";
+
+    Adresse::SQLUpdate(array($numVoie, $nomVoie, $complement, $ville, $codePostal),$conditionRequeteAdr);
 
 // attributs à ajouter dans l'ordre de la requête..
-    $conditionRequete = "C_ID = $idContact";
+    $conditionRequeteCont = "C_ID = $idContact";
 
 //mise à jour du contact
-    Contact::SQLUpdate(array($nomContact, $prenomContact, $societe, $commentaire), $conditionRequete);
+    Contact::SQLUpdate(array($nomContact, $prenomContact, $societe, $commentaire), $conditionRequeteCont);
 }
 
 
