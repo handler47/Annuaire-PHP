@@ -13,9 +13,7 @@ require_once 'Modeles/Pays.php';
 
 //ID du contact selectionné dans la liste des contacts afficher en ammont
 $erreur = "";
-
-
-$idContact = $_SESSION['modifierContact'];
+$idContact = $_GET["details"];
 
 
 if(isset($_POST['Valider'])) {
