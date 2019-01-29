@@ -3,7 +3,7 @@
 	<div>
 		<div>
 			<input id="bAccueil" type="submit" value="Accueil" name="Accueil"class="button" />
-			<input id="bNewContact" type="submit" value="Créer un Contact" name="NewContact"class="button" />
+			<input id="bNewContact" type="submit" value="Créer un Contact" name="ajouterContact"class="button" />
 		 </div>
 		 </br>
 	</div>

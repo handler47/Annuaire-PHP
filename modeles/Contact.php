@@ -204,6 +204,12 @@ class Contacts extends Pluriel{
 		}
 	}
 	
+		
+	public function RechercheID(){
+		foreach ($this->getArray() as $uncontact) {
+			return $uncontact->getID();
+		}
+	}
 	
 	public function displayTable(){
 		echo'<center>';

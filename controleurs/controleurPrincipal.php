@@ -63,18 +63,10 @@ if(isset($_GET["filtre"])) {
 	require_once 'vues/ListeContact.php';
 }
 
-
-
-if(isset($_POST["NewContact"])) {
+if(isset($_POST["ajouterContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';
 }
-
-if(isset($_POST["NewTel"])) {
-	$_SESSION['Menu'] = "Tel";
-    require_once 'controleurs/ControleurTelephone.php';
-}
-
 
 if(isset($_POST["Accueil"]) or isset($_GET["non"]) or isset($_GET["pasfiltre"]) ) {
 	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact";
@@ -96,9 +88,6 @@ switch ($_SESSION['Menu']) {
 	case "Contact":
 		require_once 'controleurs/ControleurContact.php';
 		break;
-    case "Tel":
-        require_once 'controleurs/ControleurTelephone.php';
-        break;
     case "Accueil":
         require_once 'controleurs/ControleurPrincipal.php';
         break;

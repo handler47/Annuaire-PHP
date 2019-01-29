@@ -62,11 +62,14 @@ if(isset($_POST['Valider'])){
 			$adresseContact->remplir(null," A_ID DESC  Limit 1");
 			$IDAdresse = Adresse::getInstances()->displayAdresse();
 			//creation du contact
-			Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
-			echo'<div class="blockFormulaire">';
-			echo 'Contact Créé ! ';
-			//faire le lien avec la creation de téléphone pour le contact ou non
-			echo'</div>';
+			//Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
+			$Contact = new Contacts();
+			$Contact->remplir(" 1 "," C_ID DESC Limit 1");
+			$IDContact = Contact::getInstances()->RechercheID();
+			echo '<div class="blockFormulaire">';
+			echo 'Contact créé ! ';
+			echo 'Ajouter un téléphone au contact ? <a href="http://localhost/Annuaire-PHP/index.php?ajouterNumero='.$IDContact.'"> oui</a> /<a href="http://localhost/Annuaire-PHP/index.php"> non</a>';
+			echo '</div>';
 		}else{
 			$erreur = $erreur.'<p class=erreur > Pas de date de naissance saisie </p>';
 		}
