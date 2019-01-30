@@ -14,7 +14,10 @@ require_once 'Modeles/Pays.php';
 
 //ID du contact ajouter en amont dans le formulaire de creation de contact
 $erreur = '';
-$contactId = $_GET["ajouterNumero"];
+if (isset($_GET['details'])) {
+    $_SESSION['ajouterNumero'] = $_GET['details'];
+}
+$contactId = $_SESSION["ajouterNumero"];
 
 if(isset($_POST['Valider'])) {
     if (isset($_POST['telephone']) != "") {
@@ -26,13 +29,23 @@ if(isset($_POST['Valider'])) {
             var_dump($contactId);
             preg_match($patternTelephone, $telephone, $matches);
             if ($matches) {
-                //création du telephone en récuperant l'id du contact en question
-                Telephone::SQLInsert(array($typeTel, $telephone, $contactId));
+
                 //recupération de l'ID adresse qui vient d'être créé
 
-                echo '<div class="blockFormulaire">';
-                echo '<p>Téléphone Créé ! </p>';
-                echo '</div>';
+                // on vérifie que le type de tel n'existe pas déjà
+                $contact = Contact::mustFind($contactId);
+                $telephones = $contact->getTelephones();
+                $telephones->remplir("T_TypeTelID = " . $typeTel);
+                if ($telephones->getNombre() >= 1){
+                    $erreur = "<p class=erreur>Le type de tel est déjà présent.</p>";
+                }
+                else {
+                    //création du telephone en récuperant l'id du contact en question
+                    Telephone::SQLInsert(array($telephone,$typeTel, $contactId));
+                    echo '<div class="blockFormulaire">';
+                    echo '<p >Téléphone Créé ! </p>';
+                    echo '</div>';
+                }
             } else {
                 $erreur = $erreur.'<p class="erreur" > Le format du numéro de téléphone est incorrect. Ex: 0658552211 (sans espaces, symboles ou tabulations) </p>';
             }

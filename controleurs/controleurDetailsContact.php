@@ -79,6 +79,10 @@ if(isset($_POST['Valider'])) {
 
         //mise à jour du contact
         Contact::SQLUpdate(array($nomContact, $prenomContact, $newDate, $societe, $commentaire), $conditionRequeteCont);
+
+        echo '<div class="blockFormulaire">';
+        echo '<p>Contact modifié ! </p>';
+        echo '</div>';
     }
     $_SESSION['modifierContact']=null;
 }

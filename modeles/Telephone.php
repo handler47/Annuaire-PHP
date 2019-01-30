@@ -125,14 +125,17 @@ class Telephones extends Pluriel{
 
 	public function displayTableWithButton(){
 		echo'<center>';
-		echo'<ul>';
+		echo '<p style="background-color: grey";>Téléphones</p>';
+		echo'<ul style="list-style: none;">';
 
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $untelephone) {
+			echo '<li>';
 			$typeTel = $untelephone->getTypeTelID();
 			$typeTelNom = TypeTelephone::mustFind($typeTel);
 			echo '<label>Tel' . $typeTelNom->getTypeTel() . '</label>';
 			$untelephone->displayInput($typeTelNom->getTypeTel());
+			echo '</li>';
 		}
 		echo'</ul>';
 		echo'</center>';
