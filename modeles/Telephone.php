@@ -60,8 +60,8 @@ class Telephone extends Element{
 		echo '<td align="center">'.$this->getNumero().'</td>';
 	}
 
-	public function displayInputValidate(){
-		echo '<input class="champ" type="text" value="' . $this->getNumero() . '" id="boutonValider" name="Valider" class="champ" />';
+	public function displayInput($name){
+		echo '<input class="champ" type="text" value="' . $this->getNumero() . '" id="bouton" name="' . $name . '" class="champ" />';
 	}
 	
 	public function option(){
@@ -88,6 +88,14 @@ class Telephone extends Element{
 	public static function SQLDelete($valeur){
 		$req = 'DELETE FROM telephone WHERE T_numero = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
+	}
+
+	public static function SQLUpdate(array $valeurs, $condition = null){
+		$req = 'UPDATE telephone SET T_numero = ? ';
+		if ($condition != null)
+			$req.= " WHERE $condition";
+		print_r($req);
+		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 
 }
@@ -124,7 +132,7 @@ class Telephones extends Pluriel{
 			$typeTel = $untelephone->getTypeTelID();
 			$typeTelNom = TypeTelephone::mustFind($typeTel);
 			echo '<label>Tel' . $typeTelNom->getTypeTel() . '</label>';
-			$untelephone->displayInputValidate();
+			$untelephone->displayInput($typeTelNom->getTypeTel());
 		}
 		echo'</ul>';
 		echo'</center>';

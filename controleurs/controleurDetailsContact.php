@@ -58,6 +58,20 @@ if(isset($_POST['Valider'])) {
         $contactAdrId = $contact->getAdresseID();
         $conditionRequeteAdr = "A_ID = $contactAdrId";
 
+        // on modifie les telephones (ici on parcours les types de telephones et on verifie via la variable de session qui a comme
+        // le type de telephone si celle ci est initialisé comme variable de session ou pas et on la modifie si elle a une valeur
+        // on fait comme cela sachant qu'on a que 4 valeurs possibles
+        $TypeTelephones= new TypeTelephones();
+        $TypeTelephones->remplir();
+        foreach ($TypeTelephones->getArray() as $unType){
+            if (isset($_POST[$unType->getTypeTel()])){
+                $telephone = $_POST[$unType->getTypeTel()];
+                var_dump($telephone);
+                Telephone::SQLUpdate(array($telephone),"T_TypeTelID = " . $unType->getID());
+                var_dump($unType->getID());
+            }
+        }
+
         Adresse::SQLUpdate(array($numVoie, $nomVoie, $complement, $ville, $codePostal), $conditionRequeteAdr);
 
         // attributs à ajouter dans l'ordre de la requête..
