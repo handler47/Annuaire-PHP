@@ -222,6 +222,8 @@ class Contacts extends Pluriel{
 		echo'</center>';
 	}
 
+
+
 	public function displaySelect($name){
 		echo'<select style="width:auto" type="Text" required="required" name="'.$name.'">';
 		echo '<option>  </option>';

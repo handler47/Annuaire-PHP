@@ -59,6 +59,10 @@ class Telephone extends Element{
 	public function displayRow(){
 		echo '<td align="center">'.$this->getNumero().'</td>';
 	}
+
+	public function displayInputValidate(){
+		echo '<input class="champ" type="text" value="' . $this->getNumero() . '" id="boutonValider" name="Valider" class="champ" />';
+	}
 	
 	public function option(){
 		$tmp = $this->getNumero();
@@ -110,12 +114,20 @@ class Telephones extends Pluriel{
 			$this->doAddObject(Telephone::ajouterObjet($uneLigne));
 		}
 	}
-	
-	public function displayTable(){
+
+	public function displayTableWithButton(){
+		echo'<center>';
+		echo'<ul>';
+
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $untelephone) {
-			$untelephone->displayRow();
+			$typeTel = $untelephone->getTypeTelID();
+			$typeTelNom = TypeTelephone::mustFind($typeTel);
+			echo '<label>Tel' . $typeTelNom->getTypeTel() . '</label>';
+			$untelephone->displayInputValidate();
 		}
+		echo'</ul>';
+		echo'</center>';
 	}
 
 	public function displaySelect($name){

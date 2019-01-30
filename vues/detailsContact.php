@@ -70,8 +70,16 @@ $paysNom = $pays->getNom();
 		<label>Societe : </label>
         <input type="text" class="champ" name="Societe" id="Societe" value="<?php echo $societe ?>">
 		<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical value="<?php echo $commentaire ?>"></Textarea>
-		<br></br>
-		<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />
+
+            <?php
+            $ListeTelContact= new Telephones();
+            $ListeTelContact->remplir("T_ContactID = " . $idContact);
+            Telephone::getInstances()->displayTableWithButton();
+            ?>
+        </br>
+            <input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />
+
+
         </fieldset>
     </form>
 </div>
