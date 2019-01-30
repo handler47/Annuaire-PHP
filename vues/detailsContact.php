@@ -36,7 +36,7 @@ $paysNom = $pays->getNom();
         <h2>Récapitulatif du contact</h2>
 
        <div class="blockFormulaire">
-	<?php echo $erreur; ?>
+	        <?php echo $erreur; ?>
 	<form method="post" action="index.php" class="">
         <fieldset>
         <label>Nom : </label>
@@ -45,7 +45,7 @@ $paysNom = $pays->getNom();
         <input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value="<?php echo $prenomContact ?>">
 		</br>
             <label>Date de naissance:</label>
-        <input type="text" id="start" name="dateNaiss" class="champ" placeholder="01/11/1997" value="<?php echo $dateNaiss ?>"/>
+        <input type="text" id="start" name="dateNaiss" class="champ" placeholder="01-11-1997" value="<?php echo $dateNaiss ?>"/>
 		</br>
 		<label>Numero de la voie : </label>
         <input type="number" class="champ" name="NumVoie" id="NumVoie" value="<?php echo $numVoie ?>">

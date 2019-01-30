@@ -11,12 +11,14 @@ require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
+/* Lorsqu'un raffraichissement est fait sur la même page , la variable de session (protocole GET) contenant
+l'id du contact disparait , on crée alors la variable de session globale (modifierContact) qui la remplacera ,
+de ce fait on gardera en permemanance l'id du contact*/
 if (isset($_GET['details'])) {
     $_SESSION['modifierContact'] = $_GET['details'];
 }
-else{
-    $_SESSION['modifierContact'] = null;
-}
+
+
 
 
 //ID du contact selectionné dans la liste des contacts afficher en ammont
@@ -43,9 +45,13 @@ if(isset($_POST['Valider'])) {
 
     // on vérifie que la date est bonne
     $dt = DateTime::createFromFormat("d-m-Y", $dateNaiss);
-    if ($dt == false && array_sum($dt->getLastErrors())) {
+    if (($dt == false) && count(DateTime::getLastErrors())>0) {
         $erreur = "Le format de la date entrée est incorrect.";
     } else {
+
+        // on change le format de la date pour être compatible avec la table
+        $newDate = date("Y-m-d", strtotime($dateNaiss));
+
         // on récupere l'adresse du contact
         $adresseContact = intval(Contact::getInstances()->RechercheObjet($idContact, "adresse"));
         // mise à jour de l'adresse
@@ -58,7 +64,7 @@ if(isset($_POST['Valider'])) {
         $conditionRequeteCont = "C_ID = $idContact";
 
         //mise à jour du contact
-        Contact::SQLUpdate(array($nomContact, $prenomContact, $societe, $commentaire), $conditionRequeteCont);
+        Contact::SQLUpdate(array($nomContact, $prenomContact, $newDate, $societe, $commentaire), $conditionRequeteCont);
     }
     $_SESSION['modifierContact']=null;
 }
