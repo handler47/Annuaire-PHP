@@ -13,7 +13,8 @@ $contacts = new Contacts();
 $contact= Contact::mustFind($idContact);
 $nomContact = $contact->getNom();
 $prenomContact = $contact->getPrenom();
-$dateNaiss = $contact->getDateNais();
+$dt = new DateTime($contact->getDateNais());
+$dateNaiss = $dt->format("d-m-Y");
 $societe = $contact->getSociete();
 $commentaire = $contact->getCommentaire();
 
@@ -37,11 +38,14 @@ $paysNom = $pays->getNom();
        <div class="blockFormulaire">
 	<?php echo $erreur; ?>
 	<form method="post" action="index.php" class="">
-		<label>Nom : </label>
+        <fieldset>
+        <label>Nom : </label>
         <input type="text" class="champ" name="Nom" id="Nom" value="<?php echo $nomContact ?>" autofocus>
 		<label>Prénom : </label>
         <input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value="<?php echo $prenomContact ?>">
 		</br>
+            <label>Date de naissance:</label>
+        <input type="text" id="start" name="dateNaiss" class="champ" placeholder="01/11/1997" value="<?php echo $dateNaiss ?>"/>
 		</br>
 		<label>Numero de la voie : </label>
         <input type="number" class="champ" name="NumVoie" id="NumVoie" value="<?php echo $numVoie ?>">
@@ -68,7 +72,8 @@ $paysNom = $pays->getNom();
 		<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical value="<?php echo $commentaire ?>"></Textarea>
 		<br></br>
 		<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />
-	</form>
+        </fieldset>
+    </form>
 </div>
 
 <?php
