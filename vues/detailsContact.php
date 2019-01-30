@@ -78,12 +78,7 @@ $paysNom = $pays->getNom();
 
 <?php
 // Transmission de la variable de session contenant l'id du contact
-if (isset($_GET['details'])) {
-    $_SESSION['modifierContact'] = $_GET['details'];
-}
-else{
-    $_SESSION['modifierContact'] = null;
-}
+
 
 ?>
 

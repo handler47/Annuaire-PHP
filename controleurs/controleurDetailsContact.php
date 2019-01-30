@@ -11,9 +11,17 @@ require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
+if (isset($_GET['details'])) {
+    $_SESSION['modifierContact'] = $_GET['details'];
+}
+else{
+    $_SESSION['modifierContact'] = null;
+}
+
+
 //ID du contact selectionné dans la liste des contacts afficher en ammont
 $erreur = "";
-$idContact = $_GET["details"];
+$idContact = $_SESSION["modifierContact"];
 
 
 if(isset($_POST['Valider'])) {
@@ -24,6 +32,7 @@ if(isset($_POST['Valider'])) {
     $prenomContact = $_POST['Prenom'];
     $societe = $_POST['Societe'];
     $commentaire = $_POST['Commentaire'];
+    $dateNaiss = $_POST['dateNaiss'];
 
 //partie adresse
     $numVoie = $_POST['NumVoie'];
@@ -32,19 +41,26 @@ if(isset($_POST['Valider'])) {
     $codePostal = $_POST['CodePostal'];
     $complement = $_POST['ComplAdresse'];
 
-// on récupere l'adresse du contact
-    $adresseContact = intval(Contact::getInstances()->RechercheObjet($idContact, "adresse"));
-// mise à jour de l'adresse
-    $contactAdrId= $contact->getAdresseID();
-    $conditionRequeteAdr = "A_ID = $contactAdrId";
+    // on vérifie que la date est bonne
+    $dt = DateTime::createFromFormat("d-m-Y", $dateNaiss);
+    if ($dt == false && array_sum($dt->getLastErrors())) {
+        $erreur = "Le format de la date entrée est incorrect.";
+    } else {
+        // on récupere l'adresse du contact
+        $adresseContact = intval(Contact::getInstances()->RechercheObjet($idContact, "adresse"));
+        // mise à jour de l'adresse
+        $contactAdrId = $contact->getAdresseID();
+        $conditionRequeteAdr = "A_ID = $contactAdrId";
 
-    Adresse::SQLUpdate(array($numVoie, $nomVoie, $complement, $ville, $codePostal),$conditionRequeteAdr);
+        Adresse::SQLUpdate(array($numVoie, $nomVoie, $complement, $ville, $codePostal), $conditionRequeteAdr);
 
-// attributs à ajouter dans l'ordre de la requête..
-    $conditionRequeteCont = "C_ID = $idContact";
+        // attributs à ajouter dans l'ordre de la requête..
+        $conditionRequeteCont = "C_ID = $idContact";
 
-//mise à jour du contact
-    Contact::SQLUpdate(array($nomContact, $prenomContact, $societe, $commentaire), $conditionRequeteCont);
+        //mise à jour du contact
+        Contact::SQLUpdate(array($nomContact, $prenomContact, $societe, $commentaire), $conditionRequeteCont);
+    }
+    $_SESSION['modifierContact']=null;
 }
 
 
