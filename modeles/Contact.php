@@ -94,16 +94,6 @@ class Contact extends Element{
 		return $this->o_MonAdresse;
 	}
 	
-	
-	//affiche
-	public function displayNomContact(){
-		return $this->getNom().' '.$this->getPrenom();
-	}	
-	
-	public function displayIDAdresse(){
-		return $this->getAdresseID();
-	}	
-	
 	public function displayRow(){
 		echo '<tr>';
 		echo '<td >'.$this->getNom().' '.$this->getPrenom().'</td>';
@@ -111,6 +101,32 @@ class Contact extends Element{
 		echo '<td ><a href="http://localhost/Annuaire-PHP/index.php?supprimer='.$this->getID().'">supprimer</a>  </td>';
 		echo '<td ><a href="http://localhost/Annuaire-PHP/index.php?ajouterNumero='.$this->getID().'">ajouter tel</a>  </td>';
 		echo '</tr>';
+	}
+
+	public function displayFormulaire(){
+		echo '<label>Nom : </label>';
+        echo '<input type="text" class="champ" name="Nom" id="Nom" value='.$this->getNom().' autofocus>';
+		echo '<label>Prénom : </label>';
+        echo '<input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value='.$this->getPrenom().'>';
+		echo '</br>';
+		echo '<label>Date de naissance:</label>';
+        echo '<input type="text" id="start" name="dateNaiss" class="champ" placeholder="01-11-1997" value='.$this->getDateNais().'/>';
+		echo '</br>';
+		echo '<label>Societe : </label>';
+        echo '<input type="text" class="champ" name="Societe" id="Societe" value='.$this->getSociete().'>';
+		echo '<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical value='.$this->getCommentaire().'></Textarea>';
+
+		$adresse = $this->getMonAdresse();
+		$adresse->displayAdresseObject()->displayFormulaire();
+
+		$ListeTelContact= new Telephones();
+		$ListeTelContact->remplir("T_ContactID = " . $this->getID());
+        Telephone::getInstances()->displayTableWithButton();
+
+		echo '</br>';
+		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';
+
+
 	}
 	
 	public function option(){

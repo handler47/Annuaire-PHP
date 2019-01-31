@@ -24,6 +24,12 @@ if (isset($_GET['details'])) {
 //ID du contact selectionné dans la liste des contacts afficher en ammont
 $erreur = "";
 $idContact = $_SESSION["modifierContact"];
+$contacts = new Contacts();
+$contact= Contact::mustFind($idContact);
+$adresseContact = $contact->getAdresseID();
+$adresseFounded = Adresse::mustFind($adresseContact);
+
+$pays = Pays::mustFind($adresseFounded->getPaysID());
 
 
 if(isset($_POST['Valider'])) {

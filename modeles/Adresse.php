@@ -72,6 +72,29 @@ class Adresse extends Element{
 			return null;
 	}
 
+	public function displayFormulaire(){
+		echo '<label>Numero de la voie : </label>';
+        echo '<input type="number" class="champ" name="NumVoie" id="NumVoie" value='.$this->getNumVoie().'>';
+		echo '</br>';
+		echo '<label>Nom de la voie : </label>';
+        echo '<input type="text" class="champ" name="NomVoie" id="NomVoie" value='.$this->getNomVoie().'>';
+		echo '</br>';
+		echo '<label>Complément d\'adresse : </label>';
+        echo '<Textarea  type="textera" name="ComplAdresse"  id="ComplAdresse" rows=1 cols=30 wrap=physical value='.$this->getComplementAdresse().'></Textarea>';
+		echo '</br>';
+		echo '<label>Ville : </label>';
+        echo '<input type="text" class="champ" name="Ville" id="Ville" value='.$this->getVille().'>';
+		echo '<label>Code Postal : </label>';
+        echo '<input type="text" class="champ" name="CodePostal" id="CodePostal" value='.$this->getCodePostal().'>';
+		echo '</br>';
+		echo '<label>Pays : </label>';
+		$ListePays = new ListPays();
+        $ListePays->remplir(null,"P_Nom ASC");
+
+        $nomPays = Pays::mustFind($this->getPaysID())->getNom();
+        Pays::getInstances()->displaySelect("Pays",$nomPays);
+	}
+
 
 
 	
@@ -150,6 +173,12 @@ class Adresses extends Pluriel{
 	public function displayAdresse(){
 		foreach ($this->getArray() as $uneadresse) {
 			return $uneadresse->getID();
+		}
+	}
+
+	public function displayAdresseObject(){
+		foreach ($this->getArray() as $uneadresse) {
+			return $uneadresse;
 		}
 	}
 
