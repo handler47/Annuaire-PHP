@@ -137,19 +137,20 @@ class Telephones extends Pluriel{
 	}
 
 	public function displayTableWithButton($name){
-		echo '<form method="post" class="blockFormulaire">';
 		echo'<center>';
 		echo '<p style="background-color: grey";>Téléphones</p>';
 		echo'<ul style="list-style: none;">';
 
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $untelephone) {
+			echo '<form method="post" >';
 			echo '<li>';
 			$TypeTelephone= $untelephone->getTypeTelephone()->displayTypeTel();
 			echo '<label>Tel' . $TypeTelephone . '</label>';
 			$untelephone->displayInput($name);
-			$untelephone->displayDelete();
+			$untelephone->displayDelete($untelephone->getNumero());
 			echo '</li>';
+			echo '</form>';
 		}
 		echo'</ul>';
 		echo'</center>';

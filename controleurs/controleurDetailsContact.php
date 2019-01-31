@@ -35,7 +35,8 @@ $pays = Pays::mustFind($adresseFounded->getPaysID());
 
 //Suppression d'un Contact de la liste
 if(isset($_POST["supprimer"])) {
-    $telephone = $_POST["telephone"];
+    $telephone = $_REQUEST["telephone"];
+    var_dump($telephone);
     echo'<div class="blockFormulaire">';
     echo 'Voulez-vous vraiment supprimer le numero '.$telephone.' ?
     <a href="http://localhost/Annuaire-PHP/index.php?confirmation='.$telephone.'&contactId='.$idContact.'">Oui</a>
