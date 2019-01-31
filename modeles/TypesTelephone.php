@@ -52,6 +52,9 @@ class TypeTelephone extends Element{
 
 
 
+	public function displayID(){
+		return $this->getID();
+	}
 
 
 	//affiche
@@ -114,6 +117,12 @@ class TypeTelephones extends Pluriel{
 		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
 		foreach ($curseur as $uneLigne){
 			$this->doAddObject(TypeTelephone::ajouterObjet($uneLigne));
+		}
+	}
+
+	public function displayTypeTel(){
+		foreach ($this->getArray() as $unTypeTel) {
+			return $unTypeTel->getTypeTel();
 		}
 	}
 	

@@ -89,7 +89,7 @@ class Contact extends Element{
 	public function getMonAdresse(){
 		if($this->o_MonAdresse == null){
 			$this->o_MonAdresse = new Adresses();
-			$this->o_MonAdresse->remplir('A_ID="'.$this->getgetAdresseID().'"',null);
+			$this->o_MonAdresse->remplir('A_ID="'.$this->getAdresseID().'"',null);
 		}
 		return $this->o_MonAdresse;
 	}

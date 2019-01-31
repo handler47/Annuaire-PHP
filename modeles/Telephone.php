@@ -53,8 +53,17 @@ class Telephone extends Element{
 	public function getContactID(){
 		return $this->getField('T_ContactID');
 	}
+	private $o_typeTelephone;
+
+	public function getTypeTelephone(){
+		if($this->o_typeTelephone == null){
+			$this->o_typeTelephone = new TypeTelephones();
+			$this->o_typeTelephone->remplir('TY_ID="'.$this->getTypeTelID().'"',null);
+		}
+		return $this->o_typeTelephone;
+	}
 	
-	
+
 	//affiche
 	public function displayRow(){
 		echo '<td align="center">'.$this->getNumero().'</td>';
@@ -131,10 +140,9 @@ class Telephones extends Pluriel{
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $untelephone) {
 			echo '<li>';
-			$typeTel = $untelephone->getTypeTelID();
-			$typeTelNom = TypeTelephone::mustFind($typeTel);
-			echo '<label>Tel' . $typeTelNom->getTypeTel() . '</label>';
-			$untelephone->displayInput($typeTelNom->getTypeTel());
+			$TypeTelephone= $untelephone->getTypeTelephone()->displayTypeTel();
+			echo '<label>Tel' . $TypeTelephone . '</label>';
+			$untelephone->displayInput($TypeTelephone);
 			echo '</li>';
 		}
 		echo'</ul>';
