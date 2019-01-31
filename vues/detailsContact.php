@@ -23,10 +23,5 @@
     </form>
 </div>
 
-<?php
-// Transmission de la variable de session contenant l'id du contact
-
-
-?>
 
 

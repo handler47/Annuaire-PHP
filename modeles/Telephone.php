@@ -72,6 +72,10 @@ class Telephone extends Element{
 	public function displayInput($name){
 		echo '<input class="champ" type="text" value="' . $this->getNumero() . '" id="bouton" name="' . $name . '" class="champ" />';
 	}
+
+	public function displayDelete(){
+		echo '<input class="boutonFormulaire" type="submit" value="Supprimer" id="boutonValider" name="supprimer" class="bouton" />';
+	}
 	
 	public function option(){
 		$tmp = $this->getNumero();
@@ -132,7 +136,8 @@ class Telephones extends Pluriel{
 		}
 	}
 
-	public function displayTableWithButton(){
+	public function displayTableWithButton($name){
+		echo '<form method="post" class="blockFormulaire">';
 		echo'<center>';
 		echo '<p style="background-color: grey";>Téléphones</p>';
 		echo'<ul style="list-style: none;">';
@@ -142,11 +147,13 @@ class Telephones extends Pluriel{
 			echo '<li>';
 			$TypeTelephone= $untelephone->getTypeTelephone()->displayTypeTel();
 			echo '<label>Tel' . $TypeTelephone . '</label>';
-			$untelephone->displayInput($TypeTelephone);
+			$untelephone->displayInput($name);
+			$untelephone->displayDelete();
 			echo '</li>';
 		}
 		echo'</ul>';
 		echo'</center>';
+		echo '</form>';
 	}
 
 	public function displaySelect($name){

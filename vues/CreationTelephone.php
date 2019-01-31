@@ -5,6 +5,7 @@
 
 <div class="blockFormulaire">
     <?php echo $erreur; ?>
+    <?php echo $erreur2; ?>
     <form method="post" action="index.php" class="blockFormulaire">
     <h2>Création d'un téléphone</h2>
     <label>Type de téléphone</label>
@@ -28,9 +29,6 @@
 // Transmission de la variable de session contenant l'id du contact
 if (isset($_GET['ajouterNumero'])) {
     $_SESSION['ajouterNumero'] = $_GET['ajouterNumero'];
-}
-else{
-    $_SESSION['ajouterNumero'] = null;
 }
 
 ?>

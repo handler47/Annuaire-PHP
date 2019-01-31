@@ -114,14 +114,16 @@ class Contact extends Element{
 		echo '</br>';
 		echo '<label>Societe : </label>';
         echo '<input type="text" class="champ" name="Societe" id="Societe" value='.$this->getSociete().'>';
+		echo '</br>';
+		echo '<label>Commentaire : </label>';
 		echo '<Textarea  type="textera" name="Commentaire" id="Commentaire" rows=2 cols=40 wrap=physical value='.$this->getCommentaire().'></Textarea>';
-
+		echo '</br>';
 		$adresse = $this->getMonAdresse();
 		$adresse->displayAdresseObject()->displayFormulaire();
 
 		$ListeTelContact= new Telephones();
 		$ListeTelContact->remplir("T_ContactID = " . $this->getID());
-        Telephone::getInstances()->displayTableWithButton();
+        Telephone::getInstances()->displayTableWithButton("telephone");
 
 		echo '</br>';
 		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';

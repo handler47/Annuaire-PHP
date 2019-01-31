@@ -32,6 +32,26 @@ $adresseFounded = Adresse::mustFind($adresseContact);
 $pays = Pays::mustFind($adresseFounded->getPaysID());
 
 
+
+//Suppression d'un Contact de la liste
+if(isset($_POST["supprimer"])) {
+    $telephone = $_POST["telephone"];
+    echo'<div class="blockFormulaire">';
+    echo 'Voulez-vous vraiment supprimer le numero '.$telephone.' ?
+    <a href="http://localhost/Annuaire-PHP/index.php?confirmation='.$telephone.'&contactId='.$idContact.'">Oui</a>
+	ou <a href="http://localhost/Annuaire-PHP/index.php">Non</a>';
+    echo'</div>';
+}
+
+if(isset($_GET["confirmation"])) {
+    $IDTelephone = intval($_GET["confirmation"]);
+    Adresse::SQLDelete($IDTelephone);
+    echo'<div class="blockFormulaire">';
+    echo '<p>Contact supprimé ! </p>';
+    echo'</div>';
+    require_once 'index.php';
+}
+
 if(isset($_POST['Valider'])) {
 // Récup des attributs de variable Session
 
