@@ -26,7 +26,7 @@ if(isset($_POST['Valider'])) {
         $typeTel = $_POST['typeTel'];
 
             $contactId = ''.$_SESSION['ajouterNumero'].'';
-            var_dump($contactId);
+            var_dump($typeTel);
             preg_match($patternTelephone, $telephone, $matches);
             if ($matches) {
 

@@ -65,7 +65,7 @@ class TypeTelephone extends Element{
 	}
 	
 	 public function option(){
-		 $tmp = $this->getID();
+		 $tmp = $this->getTypeTel();
 		 echo '<option value ="'.$tmp.'">';
 		 echo $this->getTypeTel();
 		 echo '</option>';
@@ -140,6 +140,7 @@ class TypeTelephones extends Pluriel{
 	public function displaySelect($name){
 		echo'<select style="width:auto" class="form-control" type="Text" required="required" name="'.$name.'">';
 		//echo '<option>  </option>';
+		print_r($name);
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $unTypeTelephone) {
 			$unTypeTelephone->option();
