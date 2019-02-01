@@ -93,7 +93,17 @@ class Contact extends Element{
 		}
 		return $this->o_MonAdresse;
 	}
-	
+
+	//affiche
+	public function displayNomContact(){
+		return $this->getNom().' '.$this->getPrenom();
+	}
+
+	public function displayIDAdresse(){
+		return $this->getAdresseID();
+	}
+
+
 	public function displayRow(){
 		echo '<tr>';
 		echo '<td >'.$this->getNom().' '.$this->getPrenom().'</td>';
@@ -121,9 +131,10 @@ class Contact extends Element{
 		$adresse = $this->getMonAdresse();
 		$adresse->displayAdresseObject()->displayFormulaire();
 
+
+
 		echo '</br>';
 		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';
-
 		$ListeTelContact= new Telephones();
 		$ListeTelContact->remplir("T_ContactID = " . $this->getID());
 		Telephone::getInstances()->displayTableWithButton("telephone");

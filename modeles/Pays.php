@@ -49,7 +49,7 @@ class Pays extends Element{
 		return $this->getField('P_Nom');
 	}
 	
-	
+
 	
 	//affiche
 	public function displayRow(){
@@ -115,6 +115,7 @@ class ListPays extends Pluriel{
 			echo '<option selected="selected">' . $selection . '</option>';
 
 		// dire à chaque élément de mon tableau : afficher le row
+		$arrayWithoutSelected = $thisè>44
 		foreach ($this->getArray() as $unpays) {
 			$unpays->option();
 		}
