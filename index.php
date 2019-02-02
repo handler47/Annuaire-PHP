@@ -33,8 +33,6 @@ $MySI = SI::getSI();
 
 require_once 'controleurs/ControleurPrincipal.php';
 
-
-
 /**
 	* Footer des pages du site
 */

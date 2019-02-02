@@ -63,6 +63,15 @@ if(isset($_GET["filtre"])) {
 	require_once 'vues/ListeContact.php';
 }
 
+if (isset($_GET["page"])){
+	$req = Contact::getSELECT();
+	$condition = null;
+	$filtre=null;
+	$_SESSION['Menu'] = "Accueil";
+	require_once 'vues/Accueil.php';
+	require_once 'vues/ListeContact.php';
+}
+
 if(isset($_POST["ajouterContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';
@@ -90,7 +99,7 @@ switch ($_SESSION['Menu']) {
 		break;
     case "Accueil":
         require_once 'controleurs/ControleurPrincipal.php';
-        break;
+		break;
 	case "DetailsContact";
 	    require_once 'controleurs/ControleurDetailsContact.php';
         break;
@@ -101,5 +110,4 @@ switch ($_SESSION['Menu']) {
 
 
 
- 
 ?>

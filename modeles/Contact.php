@@ -207,7 +207,8 @@ class Contacts extends Pluriel{
 		}
 	}
 	
-	public function remplirAVECRequete($req,$condition=null, $ordre=null) {	
+	public function remplirAVECRequete($req,$condition=null, $ordre=null, $limit=null, $offset=null) {
+
 		//ajouter condition si besoin est
 		if ($condition != null) {
 			$req.= " WHERE $condition"; // remplace $condition car guillemet et pas simple quote
@@ -215,6 +216,14 @@ class Contacts extends Pluriel{
 		if ($ordre != null){
 			$req.=" ORDER BY $ordre";
 		}
+		if ($limit != null){
+			$req.=" LIMIT $limit";
+		}
+		if ($offset != null){
+			$req.=", $offset";
+		}
+		print_r("req: " . $req);
+
 		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
 		//var_dump($curseur);
 		foreach ($curseur as $uneLigne){
@@ -240,10 +249,28 @@ class Contacts extends Pluriel{
 	}
 	
 	public function displayTable(){
+		print_r("rfefzzzzzzzzz");
 		echo'<center>';
 		echo'<table align="center" class="table" cellspacing="20px"  >';
 		// dire à chaque élément de mon tableau : afficher le row
+
 		foreach ($this->getArray() as $uncontact) {
+			$uncontact->displayRow();
+		}
+		echo'</table>';
+		echo'</center>';
+	}
+
+	/**
+	 * Récupère un tableau de Contact en entrée et en génère un tableau en sortie
+	 * @param $array tableau (array) de Contact
+	 */
+	public function displayTableCertainsContact($array){
+		echo'<center>';
+		echo'<table align="center" class="table" cellspacing="20px"  >';
+		// dire à chaque élément de mon tableau : afficher le row
+
+		foreach ($array as $uncontact) {
 			$uncontact->displayRow();
 		}
 		echo'</table>';

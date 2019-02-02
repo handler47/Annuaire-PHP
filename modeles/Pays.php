@@ -128,10 +128,8 @@ class ListPays extends Pluriel{
 		$listeContacts = new ListPays();
 		$listeContacts->remplir("P_Nom = " . $selection, "DESC Limit 1");
 		$paysId = Pays::getInstances()->RechercheID();
-		print_r($paysId);
 		$pays = $this->getObject($paysId);
 		$indexPaysASelectionner = array_search($pays, $paysList);
-		var_dump($paysList);
 		unset($paysList[$indexPaysASelectionner]);
 
 		// dire à chaque élément de mon tableau : afficher le row
