@@ -92,6 +92,7 @@ class Adresse extends Element{
         $ListePays->remplir(null,"P_Nom ASC");
 
         $nomPays = Pays::mustFind($this->getPaysID())->getNom();
+        print_r("nom pays : " . $nomPays);
         Pays::getInstances()->displaySelect("Pays",$nomPays);
 	}
 

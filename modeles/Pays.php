@@ -49,8 +49,6 @@ class Pays extends Element{
 		return $this->getField('P_Nom');
 	}
 	
-
-	
 	//affiche
 	public function displayRow(){
 		echo '<td align="center">'.$this->getNom().'</td>';
@@ -98,6 +96,12 @@ class ListPays extends Pluriel{
 		}
 	}
 
+	public function RechercheID(){
+		foreach ($this->getArray() as $uncontact) {
+			return $uncontact->getID();
+		}
+	}
+
 
 	
 	public function displayTable(){
@@ -114,9 +118,24 @@ class ListPays extends Pluriel{
 		else
 			echo '<option selected="selected">' . $selection . '</option>';
 
+		print_r("TESTTTT");
+
+		 /**
+		 * Evite de devoir tester pour chaque occurence du tableau de pays.
+		 */
+		$paysList = $this->getArray();
+
+		$listeContacts = new ListPays();
+		$listeContacts->remplir("P_Nom = " . $selection, "DESC Limit 1");
+		$paysId = Pays::getInstances()->RechercheID();
+		print_r($paysId);
+		$pays = $this->getObject($paysId);
+		$indexPaysASelectionner = array_search($pays, $paysList);
+		var_dump($paysList);
+		unset($paysList[$indexPaysASelectionner]);
+
 		// dire à chaque élément de mon tableau : afficher le row
-		$arrayWithoutSelected = $thisè>44
-		foreach ($this->getArray() as $unpays) {
+		foreach ($paysList as $unpays) {
 			$unpays->option();
 		}
 		echo '</select>';
