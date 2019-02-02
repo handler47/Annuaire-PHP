@@ -46,7 +46,6 @@ function pagination($liste, $current = 1) {
      * Le nombre de page
      */
     $nbObjets = $liste->getNombre();
-    print_r($nbObjets);
     $nbPage = ceil($nbObjets / LIMIT_PER_PAGE);
 
 

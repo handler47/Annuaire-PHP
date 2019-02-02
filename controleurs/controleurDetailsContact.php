@@ -31,8 +31,6 @@ $adresseFounded = Adresse::mustFind($adresseContact);
 
 $pays = Pays::mustFind($adresseFounded->getPaysID());
 
-
-print_r("deeeeeeeeee");
 //Suppression d'un Contact de la liste
 if(isset($_POST["supprimer"])) {
     $telephone = $_REQUEST["telephone"];

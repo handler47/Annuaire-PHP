@@ -33,22 +33,25 @@ if(isset($_POST['Valider'])) {
                 $contact = Contact::mustFind($contactId);
 
                 // On stocke les telephones par types dans cette premiere liste
-                $telephonesList1 = $contact->getTelephones();
-                $telephonesList1->remplir("T_TypeTelID = " . $typeTel);
+                $telephonesList1 = new Telephones();
+                $telephonesList1->remplir("T_TypeTelID = " . $typeTel . " AND T_ContactID = " . $contactId);
 
                 if ($telephonesList1->getNombre() >= 1){
                     $erreur = "<p class=erreur>Le type de tel est déjà présent.</p>";
                 }
 
                 // dans cette liste on stocke par numéro
-                $telephonesList2 = $contact->getTelephones();
-                $telephonesList2->remplir("T_numero = " . $telephone);
+                $telephonesList2 = new Telephones();
+                $telephonesList2->remplir("T_numero = " . $telephone . " AND T_ContactID = " . $contactId);
 
                 if ( $telephonesList2->getNombre() >= 1){
                     $erreur2 = "<p class=erreur>Le numéro est déjà présent</p>";
                 }
                 if (empty($erreur) && empty($erreur2)) {
                     //création du telephone en récuperant l'id du contact en question
+                    print_r($telephone);
+                    print_r($typeTel);
+                    print_r($contactId);
                     Telephone::SQLInsert(array($telephone,$typeTel, $contactId));
                     echo '<div class="blockFormulaire">';
                     echo '<p >Téléphone Créé ! </p>';

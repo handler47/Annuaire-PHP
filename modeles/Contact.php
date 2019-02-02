@@ -120,7 +120,7 @@ class Contact extends Element{
         echo '<input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value='.$this->getPrenom().'>';
 		echo '</br>';
 		echo '<label>Date de naissance:</label>';
-        echo '<input type="text" id="start" name="dateNaiss" class="champ" placeholder="01-11-1997" value='.$this->getDateNais().'/>';
+        echo '<input type="text" id="start" name="dateNaiss" class="champ" placeholder="01-11-1997" value='.$this->getDateNais().'>';
 		echo '</br>';
 		echo '<label>Societe : </label>';
         echo '<input type="text" class="champ" name="Societe" id="Societe" value='.$this->getSociete().'>';
@@ -137,7 +137,6 @@ class Contact extends Element{
 		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';
 		$ListeTelContact= new Telephones();
 		$ListeTelContact->remplir("T_ContactID = " . $this->getID());
-		print_r($ListeTelContact->getNombre());
 		$ListeTelContact->displayTableWithButton("telephone");
 
 	}
@@ -223,7 +222,6 @@ class Contacts extends Pluriel{
 		if ($offset != null){
 			$req.=", $offset";
 		}
-		print_r("req: " . $req);
 
 		$curseur = SI::getSI()->SGBDgetPrepareExecute($req);
 		//var_dump($curseur);
@@ -250,7 +248,6 @@ class Contacts extends Pluriel{
 	}
 	
 	public function displayTable(){
-		print_r("rfefzzzzzzzzz");
 		echo'<center>';
 		echo'<table align="center" class="table" cellspacing="20px"  >';
 		// dire à chaque élément de mon tableau : afficher le row
