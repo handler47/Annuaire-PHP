@@ -137,7 +137,8 @@ class Contact extends Element{
 		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';
 		$ListeTelContact= new Telephones();
 		$ListeTelContact->remplir("T_ContactID = " . $this->getID());
-		Telephone::getInstances()->displayTableWithButton("telephone");
+		print_r($ListeTelContact->getNombre());
+		$ListeTelContact->displayTableWithButton("telephone");
 
 	}
 	

@@ -75,6 +75,8 @@ class Telephone extends Element{
 
 	public function displayDelete(){
 		echo '<input class="boutonFormulaire" type="submit" value="Supprimer" id="boutonValider" name="supprimer" class="bouton" />';
+		  //echo '<td ><a href="http://localhost/Annuaire-PHP/index.php?supprimer='.$this->getNumero().'">supprimer</a>  </td>';
+
 	}
 	
 	public function option(){
@@ -154,7 +156,6 @@ class Telephones extends Pluriel{
 		}
 		echo'</ul>';
 		echo'</center>';
-		echo '</form>';
 	}
 
 	public function displaySelect($name){
