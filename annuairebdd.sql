@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 31 Janvier 2019 à 18:39
+-- Généré le :  Dim 03 Février 2019 à 20:42
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `adresse` (
   `A_ID` int(3) unsigned NOT NULL AUTO_INCREMENT,
-  `A_NumVoie` int(3) NOT NULL,
-  `A_NomVoie` varchar(100) NOT NULL,
-  `A_ComplementAdresse` varchar(250) NOT NULL,
-  `A_Ville` varchar(50) NOT NULL,
-  `A_CodePostal` varchar(5) NOT NULL,
-  `A_PaysID` int(2) NOT NULL,
+  `A_NumVoie` int(3) DEFAULT NULL,
+  `A_NomVoie` varchar(100) DEFAULT NULL,
+  `A_ComplementAdresse` varchar(250) DEFAULT NULL,
+  `A_Ville` varchar(50) DEFAULT NULL,
+  `A_CodePostal` varchar(5) DEFAULT NULL,
+  `A_PaysID` int(2) DEFAULT NULL,
   PRIMARY KEY (`A_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Contenu de la table `adresse`
@@ -45,7 +45,15 @@ INSERT INTO `adresse` (`A_ID`, `A_NumVoie`, `A_NomVoie`, `A_ComplementAdresse`, 
 (1, 2, 'Rue du Corocodille', '', 'Bordeaux', '33800', 1),
 (2, 13, 'Avenue Pierre', 'Residence Jean Bat 3 Appt 6', 'Bordeaux', '33800', 1),
 (3, 4, 'Rue régis', 'Résidence Fleurot Batiment 2 Appartement 5', 'BClichy', '92000', 1),
-(4, 3, 'Impasse Jean-pierre', '', 'Nantes', '44200', 1);
+(4, 3, 'Impasse Jean-pierre', '', 'Nantes', '44200', 1),
+(5, 4, 'vervre', 'ezg ezf 55', 'Helsinki', '344', 12),
+(6, 45, 'Avenue Georges-Clément', '', 'Lyon', '69001', 1),
+(7, 16, 'Impasse Jean-Claude', ' Bat 5 Appt 123', 'Brugges', '82000', 7),
+(8, 1, 'Rue de la loi', '', 'LaHaye', '11870', 10),
+(9, 8, 'Avenue Gonzales le grand', '', 'Porto', '40000', 5),
+(10, 32, 'Rue Shakspeare', 'ezg ezf 55', 'Bristol', '56098', 9),
+(11, 25, 'Impasse Marine', '', 'Nantes', '44200', 1),
+(12, 11, 'Rue de la libellule', 'ezg ezf 55', 'Canton', '51000', 18);
 
 -- --------------------------------------------------------
 
@@ -62,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `C_Societe` varchar(20) DEFAULT NULL,
   `C_Commentaire` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`C_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Contenu de la table `contact`
@@ -72,7 +80,15 @@ INSERT INTO `contact` (`C_ID`, `C_Nom`, `C_Prenom`, `C_DateNais`, `C_AdresseID`,
 (1, 'Boby', 'Billy', '2000-12-01', 1, 'Subway', 'je l''aime pas'),
 (2, 'Smith', 'Tara', '1997-03-14', 2, 'Sfr', 'ma soeur'),
 (3, 'Dupont', 'John', '1996-03-05', 3, 'Decathlon', 'ami de Tara'),
-(4, 'Laffite', 'Chloe', '1994-07-22', 4, 'Mcdo', 'collègue de boulot');
+(4, 'Laffite', 'Chloe', '1994-07-22', 4, 'Mcdo', 'collègue de boulot'),
+(5, 'Ievnuoev', 'Servietski', '2019-01-29', 5, 'HFC', 'Touriste'),
+(6, 'Johnson', 'Thomas', '1987-01-03', 6, 'HBO', 'mon vieux'),
+(7, 'Smith', 'Jack', '1998-03-22', 7, 'Bouygues', 'mon frère'),
+(8, 'LeGrand', 'Thomas', '1996-03-05', 8, 'IBM', ''),
+(9, 'Soarez', 'Kevin', '1992-07-22', 9, '', ''),
+(10, 'Paterson', 'Mary', '2000-05-02', 10, '', 'Voisine'),
+(11, 'Laffite', 'Corrine', '1988-07-03', 11, '', ''),
+(12, 'Hiang', 'Su', '1995-09-18', 12, 'SushiCreation', 'Livreur');
 
 -- --------------------------------------------------------
 
@@ -129,13 +145,20 @@ CREATE TABLE IF NOT EXISTS `telephone` (
 --
 
 INSERT INTO `telephone` (`T_numero`, `T_TypeTelID`, `T_ContactID`) VALUES
-('0467789978', 1, 1),
-('0556725388', 1, 4),
-('0657321309', 2, 1),
-('0664372437', 4, 2),
-('0666666666', 4, 3),
-('0689438549', 3, 1),
-('0690802902', 3, 2);
+('+33345678923', 2, 5),
+('+44467789973', 1, 1),
+('+67556725388', 1, 4),
+('+87648392034', 3, 5),
+('+97657321309', 2, 1),
+('+27664372437', 4, 2),
+('+32666666666', 4, 3),
+('+87689890789', 3, 1),
+('+23690802902', 3, 2),
+('+14657321309', 2, 10),
+('+35664372437', 4, 9),
+('+45666666666', 4, 6),
+('+12689890789', 3, 12),
+('+87690802902', 3, 11);
 
 -- --------------------------------------------------------
 

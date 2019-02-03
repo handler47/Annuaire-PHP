@@ -32,16 +32,29 @@ if(isset($_POST['Valider'])){
 			$Commentaire = null;
 			$Pays = null;
 			
-			//test si une des variables non obligatoires est différentes de zéro
-			if(isset($_POST['Societe'])!="" or !empty($_POST['CodePostal']) or isset($_POST['NomVoie'])!="" or isset($_POST['ComplAdresse'])!="" or isset($_POST['Ville'])!="" or isset($_POST['Pays'])!="" or isset($_POST['Commentaire'])!=""){
+			//test si une des variables non obligatoires est différentes null
+			if(isset($_POST['Societe'])!=""){
 				$Societe = $_POST['Societe'];
+			}
+			isset($_POST['NumVoie'])!="" and intval($_POST['NumVoie'])!= 0){
 				$NumV = $_POST['NumVoie'];
+			}
+			isset($_POST['NomVoie'])!=""){
 				$NomV = $_POST['NomVoie'];
+			}
+			isset($_POST['ComplAdresse'])!=""){
 				$ComplA = $_POST['ComplAdresse'];
+			}
+			isset($_POST['Ville'])!=""){
 				$Ville = $_POST['Ville'];
+			}
+			isset($_POST['Commentaire'])!=""){
 				$Commentaire = $_POST['Commentaire'];
+			}
+			isset($_POST['Pays'])!=""){
 				$Pays = $_POST['Pays'];				
 			}
+			
 			//boolean $CDOK empêche la creation d'un contact si erreur de saisie du code postal
 			if(isset($_POST['CodePostal']) and !empty($_POST['CodePostal'])){
 				if(intval($_POST['CodePostal'])!= 0){
