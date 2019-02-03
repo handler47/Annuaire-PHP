@@ -86,6 +86,11 @@ if(isset($_POST["ajouterContact"])) {
     require_once 'controleurs/ControleurContact.php';
 }
 
+if(isset($_POST["Exporter"])) {
+	$_SESSION['Menu'] = "VCard";
+	require_once 'controleurs/ControleurVCard.php';
+}
+
 
 if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	$_SESSION['Menu'] = "Accueil";
@@ -94,12 +99,12 @@ if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	require_once 'vues/Accueil.php';
 }
 
-
 if (!isset($_SESSION['Menu'])) {
 	$_SESSION['Menu']="Accueil";
 	require_once 'vues/Accueil.php';
 
 }
+
 
 switch ($_SESSION['Menu']) {
 	case "Contact":
@@ -108,12 +113,16 @@ switch ($_SESSION['Menu']) {
     case "Accueil":
         require_once 'controleurs/ControleurPrincipal.php';
 		break;
+	case "VCard":
+		require_once 'controleurs/ControleurVCard.php';
+		break;
 	case "DetailsContact";
 	    require_once 'controleurs/ControleurDetailsContact.php';
         break;
 	case "AjoutTelephone";
 		require_once 'controleurs/ControleurTelephone.php';
 		break;
+
 }
 
 

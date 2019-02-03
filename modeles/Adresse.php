@@ -189,6 +189,12 @@ class Adresses extends Pluriel{
 		}
 	}
 
+	public function displayFormatedAdresse(){
+		foreach ($this->getArray() as $uneadresse) {
+			return $uneadresse->getAdresse();
+		}
+	}
+
 	public function displayAdresseObject(){
 		foreach ($this->getArray() as $uneadresse) {
 			return $uneadresse;

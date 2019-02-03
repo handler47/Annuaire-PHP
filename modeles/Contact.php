@@ -2,7 +2,7 @@
 /**
 	* Classe Contact
 */
-
+require_once 'VCard.php';
 class Contact extends Element{
 	
 	 
@@ -132,10 +132,12 @@ class Contact extends Element{
 		$adresse = $this->getMonAdresse();
 		$adresse->displayAdresseObject()->displayFormulaire();
 
-
+		// affichage du bouton d'export de la fiche détail contact pour génération VCard
 
 		echo '</br>';
 		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';
+		VCard::displayButtonExport();
+
 		$ListeTelContact= new Telephones();
 		$ListeTelContact->remplir("T_ContactID = " . $this->getID());
 		$ListeTelContact->displayTableWithButton("telephone");
