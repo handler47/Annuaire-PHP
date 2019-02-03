@@ -123,7 +123,7 @@ class VCard {
     function createDownloadDir(){
         if (!is_dir($this->dir)){
             if (!mkdir()){
-                
+
             }
         }
     }
