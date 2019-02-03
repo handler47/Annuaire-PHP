@@ -266,8 +266,18 @@ class Adresses extends Pluriel{
 	}
 
 	/**
+	 * @return mixed
+	 * Renvoie les adresses en format lisible.
+	 */
+	public function displayFormatedAdresse(){
+		foreach ($this->getArray() as $uneadresse) {
+			return $uneadresse->getAdresse();
+		}
+	}
+
+	/**
 	 * @return $idAdresse
-	 * Renvoie l'ID des adresses de la liste
+	 * Renvoie les adresse sous forme d'objet
 	**/
 	public function displayAdresseObject(){
 		foreach ($this->getArray() as $uneadresse) {

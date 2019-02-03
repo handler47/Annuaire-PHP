@@ -23,6 +23,23 @@ class VCard {
     var $dir;
     var $dirDefault = "default";
     private $content;
+    private $nomFichier;
+    private $rev;
+
+    /**
+     * VCard constructor. Créer le répertoire et la structure du fichier VCard
+     * @param string $repDownload
+     * @param string $lang
+     */
+    function __construct($repDownload= ''){
+        // si le chemin entré est correct on le choisi sinon on en choisi un autre par défaut;
+        $this->dir = strlen(trim($repDownload)) > 0 ? $repDownload : $this->dirDefault;
+        $this->nomFichier = (String) time() . '.vcf';
+        $this->rev = (string) date('YmdTHi00Z',time());
+        if ($this->writeVCardFile() == false){
+            die("ERREUR : création répertoire");
+        }
+    }
 
     /**
      * @param mixed $nom
@@ -111,21 +128,33 @@ class VCard {
     public function setRepDowload($rep){
         $this->dir = $rep;
     }
-    function vCard($repDownload= '', $lang = ''){
-        // si le chemin entré est correct on le choisi sinon on en choisi un autre par défaut;
-        $this->dir = strlen(trim($repDownload)) > 0 ? $repDownload : $this->dirDefault;
-    }
+
 
     /**
      * Fonctions permettant la génération du contenu du VCard et de la génération du fichier en lui-même
      */
 
-    function createDownloadDir(){
-        if (!is_dir($this->dir)){
-            if (!mkdir()){
-
+    function createDownloadDir()
+    {
+        if (!is_dir($this->dir))
+        {
+            if (!mkdir($this->dir, 0700))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
+        else
+        {
+            return true;
+        }
+    }
+
+    public static function displayButtonExport(){
+        echo '<input class="boutonFormulaire" type="submit" value="Exporter VCard" id="boutonValider" name="Exporter" class="bouton" />';
     }
 
     public function writeContentVCard(){
@@ -141,11 +170,15 @@ class VCard {
         $this->content .= (String) "ADR;TYPE=HOME;LABEL=$this->adresse\r\n";
         $this->content .= (String) "BDAY:$this->dateNaissance\r\n";
         $this->content .= (String) "END:VCARD\r\n";
-
-
     }
 
-
-
-
+    public function writeVCardFile(){
+        if (!isset($this->content)){
+            $this->writeContentVCard();
+        }
+        $handle = fopen($this->dir . '/' . $this->nomFichier);
+        fputs($handle, $this->output);
+        fclose($handle);
+        if (isset($handle)) { unset($handle); }
+    }
 }

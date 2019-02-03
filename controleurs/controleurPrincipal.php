@@ -85,14 +85,20 @@ if (isset($_GET["page"])){
 	
 }
 
-//blien vers le formulaire d'ajout d'un contact
+//lien vers le formulaire d'ajout d'un contact
 if(isset($_POST["ajouterContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';
 }
 
+
 //renvoie vers accueil si confirmation de suppression -> non
 //sinon session accueil
+if(isset($_POST["Exporter"])) {
+	$_SESSION['Menu'] = "VCard";
+	require_once 'controleurs/ControleurVCard.php';
+}
+
 if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	$_SESSION['Menu'] = "Accueil";
 	$_SESSION['filtre'] = 0;
@@ -100,12 +106,14 @@ if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	require_once 'vues/Accueil.php';
 }
 
+
 //mernu du site
 if (!isset($_SESSION['Menu'])) {
 	$_SESSION['Menu']="Accueil";
 	require_once 'vues/Accueil.php';
 
 }
+
 
 //redirection vers controleurs via variable de session
 switch ($_SESSION['Menu']) {
@@ -115,12 +123,16 @@ switch ($_SESSION['Menu']) {
     case "Accueil":
         require_once 'controleurs/ControleurPrincipal.php';
 		break;
+	case "VCard":
+		require_once 'controleurs/ControleurVCard.php';
+		break;
 	case "DetailsContact";
 	    require_once 'controleurs/ControleurDetailsContact.php';
         break;
 	case "AjoutTelephone";
 		require_once 'controleurs/ControleurTelephone.php';
 		break;
+
 }
 
 
