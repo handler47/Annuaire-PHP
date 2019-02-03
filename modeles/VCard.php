@@ -45,7 +45,6 @@ class VCard {
     function __construct($repDownload= ''){
         // si le chemin entré est correct on le choisi sinon on en choisi un autre par défaut;
         $this->dir = strlen(trim($repDownload)) > 0 ? $repDownload : $this->dirDefault;
-        $this->nomFichier = (String) time() . '.vcf';
         $this->rev = (string) date('YmdTHi00Z',time());
         if ($this->createDownloadDir() == false){
             die("ERREUR : création répertoire");
@@ -201,6 +200,13 @@ class VCard {
     }
 
     public function writeVCardFile(){
+        if (!empty($this->nom) && (!empty($this->prenom))) {
+            $this->nomFichier = (String)$this->nom . "_" . $this->prenom . time() . '.vcf';
+        }
+        else{
+            $this->nomFichier = (String) time() . '.vcf';
+        }
+
         if (!isset($this->content)){
             $this->writeContentVCard();
         }
