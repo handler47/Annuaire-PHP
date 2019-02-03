@@ -201,7 +201,7 @@ class VCard {
 
     public function writeVCardFile(){
         if (!empty($this->nom) && (!empty($this->prenom))) {
-            $this->nomFichier = (String)$this->nom . "_" . $this->prenom . time() . '.vcf';
+            $this->nomFichier = (String)$this->nom . "_" . $this->prenom . '.vcf';
         }
         else{
             $this->nomFichier = (String) time() . '.vcf';
