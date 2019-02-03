@@ -14,7 +14,9 @@
         <h2>Récapitulatif du contact</h2>
         <?php
           $contact = Contact::mustFind($idContact);
-          $contact->displayFormulaire()
+		  echo' ';
+		  $contact->displayAvatar();
+          $contact->displayFormulaire();
         ?>
 
     </form>

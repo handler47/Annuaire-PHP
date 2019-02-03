@@ -69,26 +69,28 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `C_AdresseID` int(3) DEFAULT NULL,
   `C_Societe` varchar(20) DEFAULT NULL,
   `C_Commentaire` varchar(250) DEFAULT NULL,
+  `C_Image` varchar(300) NOT NULL DEFAULT 'img/avatarvide.png',
   PRIMARY KEY (`C_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Contenu de la table `contact`
 --
 
-INSERT INTO `contact` (`C_ID`, `C_Nom`, `C_Prenom`, `C_DateNais`, `C_AdresseID`, `C_Societe`, `C_Commentaire`) VALUES
-(1, 'Boby', 'Billy', '2000-12-01', 1, 'Subway', 'je l''aime pas'),
-(2, 'Smith', 'Tara', '1997-03-14', 2, 'Sfr', 'ma soeur'),
-(3, 'Dupont', 'John', '1996-03-05', 3, 'Decathlon', 'ami de Tara'),
-(4, 'Laffite', 'Chloe', '1994-07-22', 4, 'Mcdo', 'collègue de boulot'),
-(5, 'Ievnuoev', 'Servietski', '2019-01-29', 5, 'HFC', 'Touriste'),
-(6, 'Johnson', 'Thomas', '1987-01-03', 6, 'HBO', 'mon vieux'),
-(7, 'Smith', 'Jack', '1998-03-22', 7, 'Bouygues', 'mon frère'),
-(8, 'LeGrand', 'Thomas', '1996-03-05', 8, 'IBM', ''),
-(9, 'Soarez', 'Kevin', '1992-07-22', 9, '', ''),
-(10, 'Paterson', 'Mary', '2000-05-02', 10, '', 'Voisine'),
-(11, 'Laffite', 'Corrine', '1988-07-03', 11, '', ''),
-(12, 'Hiang', 'Su', '1995-09-18', 12, 'SushiCreation', 'Livreur');
+INSERT INTO `contact` (`C_ID`, `C_Nom`, `C_Prenom`, `C_DateNais`, `C_AdresseID`, `C_Societe`, `C_Commentaire`, `C_Image`) VALUES
+(1, 'Boby', 'Billy', '2000-12-01', 1, 'Subway', 'je l''aime pas', 'img/1avatarHomme.png'),
+(2, 'Smith', 'Tara', '1997-03-14', 2, 'Sfr', 'ma soeur', 'img/avatarvide.png'),
+(3, 'Dupont', 'John', '1996-03-05', 3, 'Decathlon', 'ami de Tara', 'img/avatarvide.png'),
+(4, 'Laffite', 'Chloe', '1994-07-22', 4, 'Mcdo', 'collègue de boulot', 'img/avatarvide.png'),
+(5, 'Ievnuoev', 'Servietski', '2019-01-29', 5, 'HFC', 'Touriste', 'img/avatarvide.png'),
+(6, 'Johnson', 'Thomas', '1987-01-03', 6, 'HBO', 'mon vieux', 'img/avatarvide.png'),
+(7, 'Smith', 'Jack', '1998-03-22', 7, 'Bouygues', 'mon frère', 'img/avatarvide.png'),
+(8, 'LeGrand', 'Thomas', '1996-03-05', 8, 'IBM', '', 'img/avatarvide.png'),
+(9, 'Soarez', 'Kevin', '1992-07-22', 9, '', '', 'img/avatarvide.png'),
+(10, 'Paterson', 'Mary', '2000-05-02', 10, '', 'Voisine', 'img/avatarvide.png'),
+(11, 'Laffite', 'Corrine', '1988-07-03', 11, '', '', 'img/avatarvide.png'),
+(12, 'Hiang', 'Su', '1995-09-18', 12, 'SushiCreation', 'Livreur', 'img/12avatarHomme.png');
+
 
 -- --------------------------------------------------------
 

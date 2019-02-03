@@ -5,8 +5,11 @@
 ?>
 <div class="blockFormulaire">
 	<?php echo $erreur; ?>
-	<form method="post" action="index.php" class="">
+	<form method="post" action="index.php" enctype="multipart/form-data">
 		<h2>Creation d'un Contact</h2>
+		<input type="hidden" name="MAX_FILE_SIZE" value="256000" />
+		<p> Image contact :  <input  type="file"  name="avatar" /></p>
+		</br>
 		<label>Nom : </label>
         <input type="text" class="champ" name="Nom" id="Nom" placeholder="Smith" autofocus>
 		<label>Prénom : </label>

@@ -89,6 +89,10 @@ class Contact extends Element{
 		return $this->getField('C_Commentaire');
 	}
 	
+	public function getAvatar(){
+		return $this->getField('C_Image');
+	}
+	
 	public function getAdresseID(){
 		return $this->getField('C_AdresseID');
 	}
@@ -148,6 +152,9 @@ class Contact extends Element{
 		echo '</tr>';
 	}
 
+	public function displayAvatar(){
+		echo '<img class="photo" src="'.$this->getAvatar().'"style="width:200px height:200px> ';
+	}
 	/**
 	 * @return 
 	 * Affiche des lignes de tableau avec les attibuts du Contact
@@ -155,9 +162,10 @@ class Contact extends Element{
 	 * Appel le formulaire de téléphone du contact
 	**/
 	public function displayFormulaire(){
-
+		echo '<input type="hidden"></>';
 		echo '<label>Nom : </label>';
-        echo '<input type="text" class="champ" name="Nom" id="Nom" value='.$this->getNom().' autofocus>';
+        echo '<input type="text" class="champ" name="Nom" id="Nom" value='.$this->getNom().'>';
+		echo '</br>';
 		echo '<label>Prénom : </label>';
         echo '<input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value='.$this->getPrenom().'>';
 		echo '</br>';
@@ -197,7 +205,7 @@ class Contact extends Element{
 	 * retourne la requête de la classe Contact
 	**/
 	public static function getSELECT() {
-		return 'SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact '; 
+		return 'SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire, C_Image FROM contact '; 
 	}	
 
 	/** 
@@ -205,7 +213,7 @@ class Contact extends Element{
 	 * retourne le message de la requête insertion de la classe Contact
 	**/
 	public static function SQLInsert(array $valeurs){
-		$req = 'INSERT INTO contact (C_Nom,C_Prenom,C_DateNais,C_AdresseID,C_Societe,C_Commentaire) VALUES(?,?,?,?,?,?)';
+		$req = 'INSERT INTO contact (C_Nom,C_Prenom,C_DateNais,C_AdresseID,C_Societe,C_Commentaire,C_Image) VALUES(?,?,?,?,?,?,?)';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 	
