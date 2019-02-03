@@ -1,4 +1,8 @@
-
+<?php
+/**
+* Page de formulaire de creation d'un contact
+*/
+?>
 <div class="blockFormulaire">
 	<?php echo $erreur; ?>
 	<form method="post" action="index.php" class="">

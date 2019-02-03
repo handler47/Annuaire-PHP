@@ -12,7 +12,7 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 require_once 'Vues/Accueil.php';
 
-//requête de tout les contacts par defaut
+//requête d'affichage des contacts par defaut
 $req =  Contact::getSELECT();
 
 
@@ -29,6 +29,7 @@ if(isset($_GET["supprimer"])) {
 	echo'</div>';
 }
 
+//confirmation de suppression
 if(isset($_GET["confirmation"])) {
 	$IDContact = intval($_GET["confirmation"]);
 	$IDAdresse = null;
@@ -46,18 +47,20 @@ if(isset($_GET["confirmation"])) {
 	require_once 'index.php';
 }
 
-
+//permet d'avoir l'idcontact pour la page de récapitulatif d'un contact
 if(isset($_GET["details"])) {
 	$_SESSION['Menu'] = "DetailsContact";
 	require_once 'controleurs/ControleurDetailsContact.php';
 }
 
+//permet d'avoir l'idcontact pour la page de récapitulatif d'un contact
 if(isset($_GET["ajouterNumero"])) {
 	$_SESSION['Menu'] = "AjoutTelephone";
 	$_SESSION['IDContact'] = $_GET["ajouterNumero"];
 	require_once 'controleurs/ControleurTelephone.php';
 }
 
+//gère le filtre de la feuille quelque soit la page
 if(isset($_GET["filtre"])){
 	if($_GET["filtre"] == 1){
 		$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A WHERE C.C_AdresseID = A.A_ID ORDER BY A.A_CodePostal";
@@ -69,6 +72,7 @@ if(isset($_GET["filtre"])){
 	require_once 'vues/ListeContact.php';
 }
 
+//gère la page
 if (isset($_GET["page"])){
 	$req =  Contact::getSELECT();
 	if($_GET["page"] > 1 and $_SESSION['filtre'] == 1){
@@ -81,16 +85,19 @@ if (isset($_GET["page"])){
 	
 }
 
+//lien vers le formulaire d'ajout d'un contact
 if(isset($_POST["ajouterContact"])) {
 	$_SESSION['Menu'] = "Contact";
     require_once 'controleurs/ControleurContact.php';
 }
 
+
+//renvoie vers accueil si confirmation de suppression -> non
+//sinon session accueil
 if(isset($_POST["Exporter"])) {
 	$_SESSION['Menu'] = "VCard";
 	require_once 'controleurs/ControleurVCard.php';
 }
-
 
 if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	$_SESSION['Menu'] = "Accueil";
@@ -99,6 +106,8 @@ if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	require_once 'vues/Accueil.php';
 }
 
+
+//mernu du site
 if (!isset($_SESSION['Menu'])) {
 	$_SESSION['Menu']="Accueil";
 	require_once 'vues/Accueil.php';
@@ -106,6 +115,7 @@ if (!isset($_SESSION['Menu'])) {
 }
 
 
+//redirection vers controleurs via variable de session
 switch ($_SESSION['Menu']) {
 	case "Contact":
 		require_once 'controleurs/ControleurContact.php';

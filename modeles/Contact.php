@@ -1,13 +1,20 @@
 <?php
 /**
-	* Classe Contact
+* Classe Contact
 */
 require_once 'VCard.php';
 class Contact extends Element{
 	
 	 
-	//Singleton de mémorisation des instances
+	/**
+	 * Singleton memorise les instances
+	**/
 	private static $o_INSTANCES;
+	
+	/**
+	 * @param $ligne
+	 * renvoie $tmp l'objet créé
+	**/
 	public static function ajouterObjet($ligne){
 		//créer (instancier) la liste si nécessaire
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new Contacts();}
@@ -20,13 +27,20 @@ class Contact extends Element{
 		return $tmp;
 	}
 	
-	//publication liste instances
+	/**
+	 * @return $o_INSTANCES
+	 * renvoie liste instances
+	**/
 	public static function getInstances(){
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new Contacts();}
 		return static::$o_INSTANCES;
 	}
 		
-	// doit impérativement trouver la Contact ayant pour id le paramètre
+	/**
+	 * @param $id
+	 * @return Adresse $objet
+	 * doit impérativement trouver le Contact ayant pour id le paramètre
+	**/
 	public static function mustFind($id){
 		if (static::$o_INSTANCES == null){static::$o_INSTANCES = new Contacts();}
 		// regarder si instance existe
@@ -39,10 +53,15 @@ class Contact extends Element{
 		return static::ajouterObjet($ligne);
 	}
 
-	//---------- constructeur : repose sur le constructeur parent
+	/**
+	 * constructeur : repose sur le constructeur parent
+	**/
 	protected function __construct($theLigne) {parent::__construct($theLigne);}
 	
-	//---------- renvoie la valeur du champ spécifié en paramètre
+	/**
+	 * @return getField
+	 * renvoie la valeur du champ spécifié en paramètre
+	**/
 	public function getID(){
 		return $this->getField('C_ID');
 	}
@@ -76,8 +95,11 @@ class Contact extends Element{
 
 	private $o_MesTelephones;
 	private $o_MonAdresse;
-	// fait office de clef etrangères 
-	// permet d'avoir les telephone du contact Wesh :)
+	
+	/**
+	 * @return $o_MesTelephones
+	 * renvoie les telephones du contact en question
+	**/
 	public function getTelephones(){
 		if($this->o_MesTelephones == null){
 			$this->o_MesTelephones = new Telephones();
@@ -87,9 +109,9 @@ class Contact extends Element{
 	}
 
 	/**
-	 * Permet d'avoir les adresse du contact présent
-	 * @return Adresses
-	 */
+	 * @return $o_MonAdresse
+	 * renvoie l'adresse du contact en question
+	**/
 	public function getMonAdresse(){
 		if($this->o_MonAdresse == null){
 			$this->o_MonAdresse = new Adresses();
@@ -98,16 +120,25 @@ class Contact extends Element{
 		return $this->o_MonAdresse;
 	}
 
-	//affiche
+	/**
+	 * @return String Nom, String Prenom du contact
+	**/
 	public function displayNomContact(){
 		return $this->getNom().' '.$this->getPrenom();
 	}
 
+	/**
+	 * @return int IDAdresse pour le contact
+	**/	
 	public function displayIDAdresse(){
 		return $this->getAdresseID();
 	}
 
-
+	/**
+	 * @return 
+	 * Affiche des lignes de tableau avec les nom prénom des contacts
+	 * et les liens de suppression de contact, details du contact, ajout de numero de téléphone
+	**/
 	public function displayRow(){
 		echo '<tr>';
 		echo '<td >'.$this->getNom().' '.$this->getPrenom().'</td>';
@@ -117,6 +148,12 @@ class Contact extends Element{
 		echo '</tr>';
 	}
 
+	/**
+	 * @return 
+	 * Affiche des lignes de tableau avec les attibuts du Contact
+	 * Appel le formulaire d'adresse du contact
+	 * Appel le formulaire de téléphone du contact
+	**/
 	public function displayFormulaire(){
 
 		echo '<label>Nom : </label>';
@@ -137,7 +174,6 @@ class Contact extends Element{
 		$adresse->displayAdresseObject()->displayFormulaire();
 
 		// affichage du bouton d'export de la fiche détail contact pour génération VCard
-
 		echo '</br>';
 		echo '<input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />';
 		VCard::displayButtonExport();
@@ -148,39 +184,44 @@ class Contact extends Element{
 
 	}
 	
-	public function option(){
-		$tmp = $this->getID();
-		echo '<option value ="'.$tmp.'">';
-		echo $this->getNom();
-		echo '</option>';
-
-	}
 	
-
-	/******************************
-	IMPORTANT : 	toute classe dérivée non abstraite doit avoir le code pour
-
-	******************************/
+	/** 
+	 * @return $id de l'objet Contact
+	**/
 	public static function champID() {
 		return 'C_ID';
 	}
-	
+
+	/** 
+	 * @return String $req 
+	 * retourne la requête de la classe Contact
+	**/
 	public static function getSELECT() {
 		return 'SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact '; 
 	}	
 
-	//l'équivalent du DAO
-	
+	/** 
+	 * @return $R 
+	 * retourne le message de la requête insertion de la classe Contact
+	**/
 	public static function SQLInsert(array $valeurs){
 		$req = 'INSERT INTO contact (C_Nom,C_Prenom,C_DateNais,C_AdresseID,C_Societe,C_Commentaire) VALUES(?,?,?,?,?,?)';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 	
+	/** 
+	 * @return $R
+	 * retourne le message de la requête de suppression de la classe Contact
+	**/
 	public static function SQLDelete($valeur){
 		$req = 'DELETE FROM contact WHERE C_ID = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
+	/** 
+	 * @return $R
+	 * retourne le message de la requête de modification de la classe Contact
+	**/
 	public static function SQLUpdate(array $valeurs, $condition = null){
 		$req = 'UPDATE contact SET C_Nom = ? ,C_Prenom = ?, C_DateNais = ?, C_Societe = ?,C_Commentaire = ? ';
 		if ($condition != null)
@@ -190,14 +231,23 @@ class Contact extends Element{
 
 }
 
+/**
+ * Classe Contacts
+**/
 class Contacts extends Pluriel{
 
-	//constructeur
+	/**
+	 * constructeur : repose sur le constructeur parent
+	**/
 	public function __construct(){
 		parent::__construct();
 	}
 	
-
+	/**
+	 * @param String $condition
+	 * @param String $ordre
+	 * Permet la creation d'objet Contact avec les lignes retournées de la BDD
+	**/
 	public function remplir($condition=null, $ordre=null) {
 		$req = Contact::getSELECT();
 		//ajouter condition si besoin est
@@ -213,7 +263,13 @@ class Contacts extends Pluriel{
 			$this->doAddObject(Contact::ajouterObjet($uneLigne));
 		}
 	}
-	
+
+	/**
+	 * @param String $req
+	 * @param String $limit
+	 * @param String $offset
+	 * Permet la creation d'objet Contact avec les lignes retournées de la BDD
+	**/
 	public function remplirAVECRequete($req, $limit=null, $offset=null) {
 
 		if ($limit != null){
@@ -230,7 +286,11 @@ class Contacts extends Pluriel{
 		}
 	}
 
-	
+	/**
+	 * @param Int $id
+	 * @param String $choix
+	 * Renvoie le nom de l'objet Contact et son adresse trouvée
+	**/	
 	public function RechercheObjet($id,$choix){
 		if($choix =="nom"){
 			return $this->getObject($id)->displayNomContact();
@@ -240,13 +300,21 @@ class Contacts extends Pluriel{
 		}
 	}
 	
-		
+
+	/**
+	 * @return ContactID
+	 * Renvoie ll'ID des contacts de la liste
+	**/		
 	public function RechercheID(){
 		foreach ($this->getArray() as $uncontact) {
 			return $uncontact->getID();
 		}
 	}
-	
+
+	/**
+	 * Parcour la liste d'objet Contact
+	 * Appel un afficheur pour chaque Contact
+	**/	
 	public function displayTable(){
 		echo'<center>';
 		echo'<table align="center" class="table" cellspacing="20px"  >';
@@ -273,18 +341,6 @@ class Contacts extends Pluriel{
 		}
 		echo'</table>';
 		echo'</center>';
-	}
-
-
-
-	public function displaySelect($name){
-		echo'<select style="width:auto" type="Text" required="required" name="'.$name.'">';
-		echo '<option>  </option>';
-		// dire à chaque élément de mon tableau : afficher le row
-		foreach ($this->getArray() as $uncontact) {
-			$uncontact->option();
-		}
-		echo '</select>';
 	}
 	
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Controleur Telephone du site
  * Permet le lien vers le Formulaire de Creation de Téléphone
@@ -12,10 +11,13 @@ require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
-//ID du contact ajouter en amont dans le formulaire de creation de contact
+
 $erreur = "";
 $erreurs = array();
 
+/**
+* $contactId id du contact de la liste du formulaire précédent
+*/
 $contactId = $_SESSION['IDContact'];
 
 if(isset($_POST['Valider'])) {

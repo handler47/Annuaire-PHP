@@ -1,13 +1,7 @@
-
 <?php
 /**
- * Created by PhpStorm.
- * User: tommy
- * Date: 05/01/2019
- * Time: 19:13
-<<<<<<< Updated upstream
- */
-
+* Page de formulaire de récapitualif et modification d'un Contact et de ses telephones
+*/
 ?>
 
 

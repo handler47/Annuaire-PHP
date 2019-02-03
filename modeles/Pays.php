@@ -3,27 +3,41 @@
 	* Classe Pays
 */
 class Pays extends Element{
-	//Singleton de mémorisation des instances
+	/**
+	 * Singleton memorise les instances
+	**/
 	private static $o_INSTANCES;
+	
+	/**
+	 * @param $ligne
+	 * renvoie $tmp l'objet créé
+	**/
 	public static function ajouterObjet($ligne){
 		//créer (instancier) la liste si nécessaire
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new ListPays();}
 		//voir si l'objet existe avec la clef
 		$tmp = static::$o_INSTANCES->getObject($ligne[static::champID()]);
 		if($tmp!=null){return $tmp;}
-		//n'existe pas : donc INSTANCIER Adresse et mémoriser
+		//n'existe pas : donc INSTANCIER Pays et mémoriser
 		$tmp = new Pays($ligne);
 		static::$o_INSTANCES->doAddObject($tmp);
 		return $tmp;
 	}
 	
-	//publication liste instances
+	/**
+	 * @return $o_INSTANCES
+	 * renvoie liste instances
+	**/
 	public static function getInstances(){
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new ListPays();}
 		return static::$o_INSTANCES;
 	}
 		
-	// doit impérativement trouver la Telephone ayant pour id le paramètre
+	/**
+	 * @param $id
+	 * @return Adresse $objet
+	 * doit impérativement trouver le Pays ayant pour id le paramètre
+	**/
 	public static function mustFind($id){
 		if (static::$o_INSTANCES == null){static::$o_INSTANCES = new ListPays();}
 		// regarder si instance existe
@@ -37,10 +51,15 @@ class Pays extends Element{
 	}
 	
 
-	//---------- constructeur : repose sur le constructeur parent
+	/**
+	 * constructeur : repose sur le constructeur parent
+	**/
 	protected function __construct($theLigne) {parent::__construct($theLigne);}
 	
-	//---------- renvoie la valeur du champ spécifié en paramètre
+	/**
+	 * @return getField
+	 * renvoie la valeur du champ spécifié en paramètre
+	**/
 	public function getID(){
 		return $this->getField('P_ID');
 	}
@@ -49,12 +68,19 @@ class Pays extends Element{
 		return $this->getField('P_Nom');
 	}
 	
-	//affiche
+	/**
+	 * @return 
+	 * Affiche une ligne de formulaire avec le nom du Pays
+	**/
 	public function displayRow(){
 		echo '<td align="center">'.$this->getNom().'</td>';
 
 	}
 	
+	/**
+	 * @return 
+	 * Affiche une liste déroulante des Pays
+	**/
 	public function option(){
 		$tmp = $this->getID();
 		echo '<option value ="'.$tmp.'">';
@@ -63,24 +89,41 @@ class Pays extends Element{
 	}
 	
 
-	/******************************
-	IMPORTANT : 	toute classe dérivée non abstraite doit avoir le code pour
-
-	******************************/
-	public static function champID() {return 'P_ID';}
-	public static function getSELECT() {return 'SELECT P_ID,P_Nom FROM Pays';  }	
+	/** 
+	 * @return $id de l'objet Pays
+	**/
+	public static function champID() {
+		return 'P_ID';
+	}
+	
+	/** 
+	 * @return String $req 
+	 * retourne la requête de la classe Pays
+	**/
+	public static function getSELECT() {
+		return 'SELECT P_ID,P_Nom FROM Pays';
+	}	
 
 
 }
 
-
+/**
+ * Classe pour gérer des Pays
+**/
 class ListPays extends Pluriel{
 
-	//constructeur
+	/**
+	 * constructeur : repose sur le constructeur parent
+	**/
 	public function __construct(){
 		parent::__construct();
 	}
 	
+	/**
+	 * @param String $condition
+	 * @param String $ordre
+	 * Permet la creation d'objet Pays avec les lignes retournées de la BDD
+	**/
 	public function remplir($condition=null, $ordre=null) {
 		$req = Pays::getSELECT();
 		//ajouter condition si besoin est
@@ -96,12 +139,18 @@ class ListPays extends Pluriel{
 		}
 	}
 
+	/**
+	 * Renvoie l'ID d'un pays de la liste
+	**/
 	public function RechercheID(){
-		foreach ($this->getArray() as $uncontact) {
-			return $uncontact->getID();
+		foreach ($this->getArray() as $unpays) {
+			return $unpays->getID();
 		}
 	}
 
+	/**
+	 * Renvoie le nom d'un pays de la liste
+	**/
 	public function RechercheNom(){
 		foreach ($this->getArray() as $unPays) {
 			return $unPays->getNom();
@@ -109,23 +158,27 @@ class ListPays extends Pluriel{
 	}
 
 
-	
+
+	/**
+	 * Parcour la liste d'objet  Pays
+	 * Appel un afficheur pour chaque Pays
+	**/	
 	public function displayTable(){
-		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $unpays) {
 			$unpays->displayRow();
 		}
 	}
 
+	/**
+	 * @param String $name, String $selection
+	 * Appel un afficheur de liste déroulante pour la liste de Pays
+	**/	
 	public function displaySelect($name, $selection = null){
 		echo'<select style="width:auto" class="form-control"  type="Text" required="required" name="'.$name.'">';
 		if ($selection == null)
 			echo '<option selected="selected">pas de sélection</option>';
 		else
 			echo '<option selected="selected">' . $selection . '</option>';
-
-		print_r("TESTTTT");
-
 		 /**
 		 * Evite de devoir tester pour chaque occurence du tableau de pays.
 		 */

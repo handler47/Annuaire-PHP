@@ -1,3 +1,8 @@
+<?php
+/**
+* Pied de page du site
+*/
+?>
 </center>
 </body>
 <footer>

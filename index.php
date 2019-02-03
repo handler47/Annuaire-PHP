@@ -1,40 +1,40 @@
 
 <?php
 /**
-	* Index du site
-	* Permet le lien avec le Header/Footer, la connexion à la BDD
-	* et le renvoie vers le Controleur Principal
+* Index du site
+* Permet le lien avec le Header/Footer, la connexion à la BDD
+* et le renvoie vers le Controleur Principal
 */
 
 /**
-	* Début de Session
+* Début de Session
 */
 session_start();
 
 /**
-	* Header des pages du site
+* Header des pages du site
 */
 require_once 'vues/Header.php';
 
 /**
-	* Appel classe Si
+* Appel classe Si
 */
 require_once 'modeles/Si.php';
 
 /**
-	* Connexion SI
+* Connexion SI
 */
 $MySI = SI::getSI();
 
 
 /**
-	* Appel Controleur Principal
+* Appel Controleur Principal
 */
 
 require_once 'controleurs/ControleurPrincipal.php';
 
 /**
-	* Footer des pages du site
+* Footer des pages du site
 */
 include 'vues/Footer.php';
 ?>
