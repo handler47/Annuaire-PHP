@@ -72,6 +72,19 @@ class Adresse extends Element{
 			return null;
 	}
 
+	public function getPays(){
+		if($this->o_pays == null){
+			$this->o_pays = new ListPays();
+			$this->o_pays->remplir('P_ID="'.$this->getPaysID().'"',null);
+		}
+		return $this->o_pays;
+	}
+
+	public function getAdresse(){
+		return $this->getNumVoie() . " " . $this->getNomVoie() . " " . $this->getComplementAdresse() . " "
+			. $this->getCodePostal() . " " . $this->getVille() . " " . $this->getPays()->RechercheNom();
+	}
+
 	public function displayFormulaire(){
 		echo '<label>Numero de la voie : </label>';
         echo '<input type="number" class="champ" name="NumVoie" id="NumVoie" value='.$this->getNumVoie().'>';

@@ -102,6 +102,12 @@ class ListPays extends Pluriel{
 		}
 	}
 
+	public function RechercheNom(){
+		foreach ($this->getArray() as $uncontact) {
+			return $uncontact->getField("P_Nom");
+		}
+	}
+
 
 	
 	public function displayTable(){
