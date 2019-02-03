@@ -27,6 +27,7 @@ if(isset($_POST['Valider'])){
 			$ComplA = null;
 			$Ville = null;
 			$CD = null;
+			$CDOK = false;
 			$Commentaire = null;
 			$Pays = null;
 			
@@ -42,34 +43,41 @@ if(isset($_POST['Valider'])){
 			if(isset($_POST['CodePostal']) and !empty($_POST['CodePostal'])){
 				if(intval($_POST['CodePostal'])!= 0){
 					if(strlen($_POST['CodePostal'])==5){
-						
+						$CDOK = true;
 						$CD = intval($_POST['CodePostal']);
 						
 					}else{
+						$CD = null;
+						$CDOK = false;
 						$erreur = $erreur.'<p class=erreur > Le code postal doit être à 5 chiffres </p>';
 					}
 				}else{
+					$CD = null;
+					$CDOK = false;
 					$erreur = $erreur.'<p class=erreur > Le code postal ne doit pas contenir de lettre </p>';
+					require_once 'vues/CreationContact.php';
 				}
 			}
 			
-			//création de l'adresse du contact
-			//même si l'adresse a tout ses attributs null car il est possible de modifier un contact !
-			Adresse::SQLInsert(array($NumV,$NomV,$ComplA,$Ville,$CD,$Pays));
-			//recupération de l'ID adresse qui vient d'être créé
-			$IDAdresse=0;
-			$adresseContact = new Adresses();
-			$adresseContact->remplir(null," A_ID DESC  Limit 1");
-			$IDAdresse = Adresse::getInstances()->displayAdresse();
-			//creation du contact
-			Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
-			$Contact = new Contacts();
-			$Contact->remplir(" 1 "," C_ID DESC Limit 1");
-			$IDContact = Contact::getInstances()->RechercheID();
-			echo '<div class="blockFormulaire">';
-			echo 'Contact créé ! ';
-			echo 'Ajouter un téléphone au contact ? <a href="http://localhost/Annuaire-PHP/index.php?ajouterNumero='.$IDContact.'"> oui</a> /<a href="http://localhost/Annuaire-PHP/index.php"> non</a>';
-			echo '</div>';
+			if($CDOK == true){
+				//création de l'adresse du contact
+				//même si l'adresse a tout ses attributs null car il est possible de modifier un contact !
+				Adresse::SQLInsert(array($NumV,$NomV,$ComplA,$Ville,$CD,$Pays));
+				//recupération de l'ID adresse qui vient d'être créé
+				$IDAdresse=0;
+				$adresseContact = new Adresses();
+				$adresseContact->remplir(null," A_ID DESC  Limit 1");
+				$IDAdresse = Adresse::getInstances()->displayAdresse();
+				//creation du contact
+				Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
+				$Contact = new Contacts();
+				$Contact->remplir(" 1 "," C_ID DESC Limit 1");
+				$IDContact = Contact::getInstances()->RechercheID();
+				echo '<div class="blockFormulaire">';
+				echo 'Contact créé ! ';
+				echo 'Ajouter un téléphone au contact ? <a href="http://localhost/Annuaire-PHP/index.php?ajouterNumero='.$IDContact.'"> oui</a> /<a href="http://localhost/Annuaire-PHP/index.php"> non</a>';
+				echo '</div>';
+			}
 		}else{
 			$erreur = $erreur.'<p class=erreur > Pas de date de naissance saisie </p>';
 		}

@@ -120,7 +120,7 @@ class Contact extends Element{
         echo '<input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value='.$this->getPrenom().'>';
 		echo '</br>';
 		echo '<label>Date de naissance:</label>';
-        echo '<input type="text" id="start" name="dateNaiss" class="champ" placeholder="01-11-1997" value='.$this->getDateNais().'>';
+        echo '<input type="date" name="dateNaiss" class="champ" placeholder="" value='.$this->getDateNais().'>';
 		echo '</br>';
 		echo '<label>Societe : </label>';
         echo '<input type="text" class="champ" name="Societe" id="Societe" value='.$this->getSociete().'>';

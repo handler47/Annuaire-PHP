@@ -49,19 +49,10 @@ class TypeTelephone extends Element{
 		return $this->getField('TY_TYPETEL');
 	}
 
-
-
-
+	//affiche
 	public function displayID(){
 		return $this->getID();
-	}
 
-
-	//affiche
-	public function displayRow(){
-		echo '<tr>';
-		echo '<td align="center">'.$this->getID().'</td>';
-		echo '</tr>';
 	}
 	
 	 public function option(){
@@ -116,15 +107,12 @@ class TypeTelephones extends Pluriel{
 		}
 	}
 	
-	public function displayTable(){
-		echo'<center>';
-		echo'<table align="center" class="table"  frame="hsides" >';
+	
+	public function displayIDTypeTel(){
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $unTypeTelephone) {
-			$unTypeTelephone->displayRow();
+			return $unTypeTelephone->displayID();
 		}
-		echo'</table>';
-		echo'</center>';
 	}
 
 	public function displaySelect($name){

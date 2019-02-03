@@ -51,6 +51,24 @@ if(isset($_GET["confirmationSuppTel"])) {
     require_once 'index.php';
 }
 
+if(isset($_POST["modifier"])) {
+	$telephoneAvant = $_REQUEST["TelInit"];
+	$telephoneModifier = $_REQUEST["telephone"];
+	if(intval($telephoneModifier) != 0){
+		if(strlen($telephoneModifier) == 10){
+			$TRAV = Telephone::SQLUpdate(array($telephoneModifier,$telephoneAvant,$idContact));
+			var_dump($TRAV);
+			echo '<div class="blockFormulaire">';
+			echo '<p >Téléphone modifié ! </p>';
+			echo '</div>';
+		}else{
+			$erreur = $erreur.'<p class=erreur > Le numéro doit être sur 10 chiffres </p>';
+		}
+	}else{
+		$erreur = $erreur.'<p class=erreur > Le téléphone doit être en chiffes </p>';
+	}
+}
+
 if(isset($_POST['Valider'])) {
 // Récup des attributs de variable Session
 
