@@ -154,6 +154,10 @@ class VCard {
      * Fonctions permettant la génération du contenu du VCard et de la génération du fichier en lui-même
      */
 
+    /**
+     * Créer le répertoire local si il n'existe pas déjà où les fichiers vCard vont être sauvegardés
+     * @return bool
+     */
     function createDownloadDir()
     {
         if (!is_dir($this->dir))
@@ -180,6 +184,9 @@ class VCard {
         echo '<input class="boutonFormulaire" type="submit" value="Exporter VCard" id="boutonValider" name="Exporter" class="bouton" />';
     }
 
+    /**
+     * Création du contenu du vCard à partir des attributs chargés avant au préalable.
+     */
     public function writeContentVCard(){
         $this->content = (String) "BEGIN:VCARD\r\n";
         $this->content .= (String) "VERSION:" . VCARD_VERSION . "\r\n";
@@ -199,6 +206,9 @@ class VCard {
         $this->content .= (String) "END:VCARD\r\n";
     }
 
+    /**
+     * Créer le fichier vCard
+     */
     public function writeVCardFile(){
         if (!empty($this->nom) && (!empty($this->prenom))) {
             $this->nomFichier = (String)$this->nom . "_" . $this->prenom . '.vcf';
@@ -219,4 +229,16 @@ class VCard {
         fclose($handle);
         if (isset($handle)) { unset($handle); }
     }
+
+    /*
+     * Retourne le chemin absolue de l'endroit du fichier
+     * Le chemin peut être utilisé pour pouvoir être téléchargé
+     */
+    function getCardFilePath()
+    {
+        $path_parts = pathinfo($_SERVER['SCRIPT_NAME']);
+        $port = (string) (($_SERVER['SERVER_PORT'] != 80) ? ':' . $_SERVER['SERVER_PORT'] : '' );
+        return (string) 'http://' . $_SERVER['SERVER_NAME'] . $port . $path_parts["dirname"] . '/' . $this->dir . '/' . $this->nomFichier;
+    }
+
 }
