@@ -103,8 +103,8 @@ class ListPays extends Pluriel{
 	}
 
 	public function RechercheNom(){
-		foreach ($this->getArray() as $uncontact) {
-			return $uncontact->getField("P_Nom");
+		foreach ($this->getArray() as $unPays) {
+			return $unPays->getNom();
 		}
 	}
 

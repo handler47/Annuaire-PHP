@@ -114,6 +114,7 @@ switch ($_SESSION['Menu']) {
         require_once 'controleurs/ControleurPrincipal.php';
 		break;
 	case "VCard":
+		require_once 'controleurs/ControleurDetailsContact.php';
 		require_once 'controleurs/ControleurVCard.php';
 		break;
 	case "DetailsContact";

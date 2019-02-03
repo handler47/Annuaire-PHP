@@ -169,6 +169,12 @@ class Telephones extends Pluriel{
 		}
 		echo '</select>';
 	}
+
+
+	public function getTelOfType($typeTel){
+		$this->remplir("T_TypeTelID = " . $typeTel);
+		$this->getFirst()->getNumero();
+	}
 	
 }
 ?>

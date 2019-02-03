@@ -85,7 +85,11 @@ class Contact extends Element{
 		}
 		return $this->o_MesTelephones;
 	}
-	
+
+	/**
+	 * Permet d'avoir les adresse du contact présent
+	 * @return Adresses
+	 */
 	public function getMonAdresse(){
 		if($this->o_MonAdresse == null){
 			$this->o_MonAdresse = new Adresses();
