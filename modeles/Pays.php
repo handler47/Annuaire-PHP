@@ -35,7 +35,7 @@ class Pays extends Element{
 		
 	/**
 	 * @param $id
-	 * @return Adresse $objet
+	 * @return Pays $objet
 	 * doit impérativement trouver le Pays ayant pour id le paramètre
 	**/
 	public static function mustFind($id){

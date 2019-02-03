@@ -36,22 +36,22 @@ if(isset($_POST['Valider'])){
 			if(isset($_POST['Societe'])!=""){
 				$Societe = $_POST['Societe'];
 			}
-			isset($_POST['NumVoie'])!="" and intval($_POST['NumVoie'])!= 0){
+			if (isset($_POST['NumVoie'])!="" and intval($_POST['NumVoie'])!= 0){
 				$NumV = $_POST['NumVoie'];
 			}
-			isset($_POST['NomVoie'])!=""){
+			if (isset($_POST['NomVoie'])!=""){
 				$NomV = $_POST['NomVoie'];
 			}
-			isset($_POST['ComplAdresse'])!=""){
+			if (isset($_POST['ComplAdresse'])!=""){
 				$ComplA = $_POST['ComplAdresse'];
 			}
-			isset($_POST['Ville'])!=""){
+			if (isset($_POST['Ville'])!=""){
 				$Ville = $_POST['Ville'];
 			}
-			isset($_POST['Commentaire'])!=""){
+			if (isset($_POST['Commentaire'])!=""){
 				$Commentaire = $_POST['Commentaire'];
 			}
-			isset($_POST['Pays'])!=""){
+			if (isset($_POST['Pays'])!=""){
 				$Pays = $_POST['Pays'];				
 			}
 			

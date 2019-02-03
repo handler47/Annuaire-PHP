@@ -1,6 +1,7 @@
 <?php
 
 define('DS', DIRECTORY_SEPARATOR);
+// Version du vCard
 define("VCARD_VERSION",4.0);
 
 /**
@@ -11,12 +12,21 @@ define("VCARD_VERSION",4.0);
 class VCard {
 
 
+    /**
+     * @var
+     * Toutes les propriétés utiles au vCard
+     */
     var $nom;
     var $prenom;
     var $dateNaissance;
     var $societe;
     var $commentaire;
-    var $adresse;
+    var $numVoie;
+    var $nomVoie;
+    var $ville;
+    var $cp;
+    var $cptAdresse;
+    var $pays;
     var $telFixe;
     var $telPortable;
     var $telFaxe;
@@ -82,12 +92,22 @@ class VCard {
         $this->commentaire = $commentaire;
     }
 
+
     /**
-     * @param mixed $adresse
+     * @param $numVoie
+     * @param $nomVoie
+     * @param $cptAdresse
+     * @param $ville
+     * @param $cp
+     * @param $pays
      */
-    public function setAdresse($adresse)
+    public function setAdresse($numVoie,$nomVoie,$cptAdresse,$ville,$cp,$pays)
     {
-        $this->adresse = $adresse;
+        $this->nomVoie = $numVoie;
+        $this->nomVoie = $nomVoie;
+        $this->cptAdresse = $cptAdresse;
+        $this->ville = $ville;
+        $this->cp = $cp;
     }
 
     /**
@@ -154,6 +174,9 @@ class VCard {
         }
     }
 
+    /**
+     * Affichage du bouton d'export de la fiche détail d'un contact
+     */
     public static function displayButtonExport(){
         echo '<input class="boutonFormulaire" type="submit" value="Exporter VCard" id="boutonValider" name="Exporter" class="bouton" />';
     }
@@ -172,7 +195,7 @@ class VCard {
             $this->content .= (String) "TEL;TYPE=CELL,voice;VALUE=uri:tel:$this->telPortable\r\n";
         if (strlen(trim($this->telPersonnel)) > 0)
             $this->content .= (String) "TEL;TYPE=CAR,voice;VALUE=uri:tel:$this->telPersonnel\r\n";
-        $this->content .= (String) "ADR;TYPE=HOME;LABEL=ENCODING=QUOTED-PRINTABLE:+330658956631\r\n";
+        $this->content .= (String) "ADR;POSTAL;ENCODING=QUOTED-PRINTABLE:'$this->numVoie;$this->nomVoie;$this->cptAdresse;$this->cp;$this->ville\r\n";
         $this->content .= (String) "BDAY:$this->dateNaissance\r\n";
         $this->content .= (String) "END:VCARD\r\n";
     }

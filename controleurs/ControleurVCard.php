@@ -17,7 +17,17 @@ $prenomContact = $contact->getPrenom();
 $societe = $contact->getSociete();
 $commentaire = $contact->getCommentaire();
 $dateNaiss = $contact->getDateNais();
-$adresse = $contact->getMonAdresse()->displayFormatedAdresse();
+$adresseContact = $contact->getAdresseID();
+$adresse = Adresse::mustFind($adresseContact);
+$idPays = $adresse->getPaysID();
+$pays= Pays::mustFind($idPays);
+$paysNom = $pays->getNom();
+
+$numVoie = $adresse->getNumVoie();
+$nomVOie = $adresse->getNomVoie();
+$cptAdresse = $adresse->getComplementAdresse();
+$ville = $adresse->getVille();
+$cp = $adresse->getCodePostal();
 
 /**
  * Téléphones
@@ -32,7 +42,7 @@ $telPersonnel = $contact->getTelephones()->getTelOfType("Personnel");
 
 $vCard->setNom($nomContact);
 $vCard->setPrenom($prenomContact);
-$vCard->setAdresse($adresse);
+$vCard->setAdresse($numVoie,$nomVOie,$cptAdresse,$ville,$cp,$pays);
 $vCard->setCommentaire($commentaire);
 $vCard->setDateNaissance($dateNaiss);
 $vCard->setSociete($societe);

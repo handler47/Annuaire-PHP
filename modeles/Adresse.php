@@ -126,7 +126,7 @@ class Adresse extends Element{
         echo '<input type="number" class="champ" name="NumVoie" id="NumVoie" value='.$this->getNumVoie().'>';
 		echo '</br>';
 		echo '<label>Nom de la voie : </label>';
-        echo '<input type="text" class="champ" name="NomVoie" id="NomVoie" value='.$this->getNomVoie().'>';
+        echo '<input style="width:200px" type="text" class="champ" name="NomVoie" id="NomVoie" value='.$this->getNomVoie().'>';
 		echo '</br>';
 		echo '<label>Complément d\'adresse : </label>';
         echo '<Textarea  type="textera" name="ComplAdresse"  id="ComplAdresse" rows=1 cols=30 wrap=physical value='.$this->getComplementAdresse().'></Textarea>';
