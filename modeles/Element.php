@@ -1,28 +1,46 @@
 <?php
-//---------- Classe de base de toutes les classes "METIER"
+/**
+ * Classe de base de toutes les classes du site
+**/
+
 abstract class Element {
 
-	private $ligne ; // stockage des données de l'instance, issues de la BDD
+	
+	private $ligne ;
 
-	//---------- constructeur
-	protected function __construct($theLigne) {$this->ligne = $theLigne;}
+	/**
+	 * Constructeur de la classe Element
+	 *
+	 * @param $theLigne 
+	 * Stockage des données de l'instance, issues de la BDD
+	**/
+	protected function __construct($theLigne) {
+		$this->ligne = $theLigne;
+	}
+	
+	/**
+	 * @param $nom 
+	 * renvoie la valeur du champ spécifié en paramètre
+	**/
+	protected function getField($nom) {
+		return $this->ligne[$nom] ;
+	}
 
-	//---------- renvoie la valeur du champ spécifié en paramètre
-	protected function getField($nom) { return $this->ligne[$nom] ; }
+	/**
+	 * @return ID
+	 * renvoie l'id de la ligne
+	**/
+	public function getID() { 
+		return $this->ligne[static::champID()];
+	}
 
-	//---------- renvoie l'ID.
-	public function getID()           { return $this->ligne[static::champID()]; }
-
-	//---------- renvoie le getselect suivi de 'WHERE condition sur clé primaire'
+	/**
+	 * @return $nom 
+	 * renvoie le getselect suivi de 'WHERE condition sur clé primaire'
+	**/
 	public static function getSELECTOne() {
 		return static::getSELECT().' WHERE '.static::champID().'=?';
 	}
-
-	/******************************
-	IMPORTANT : 	toute classe dérivée non abstraite doit avoir le code pour
-	public static function champID() {  }
-	public static function getSELECT() {return 'SELECT ......';  }
-	******************************/
 }
 
 ?>
