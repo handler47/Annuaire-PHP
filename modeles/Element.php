@@ -5,7 +5,6 @@
 
 abstract class Element {
 
-	
 	private $ligne ;
 
 	/**
