@@ -59,7 +59,7 @@ header('Content-Disposition: inline; filename=vCard_' . date('Y-m-d_H-m-s') . '.
 echo $vCard->getCardOutput();
 */
 $vCard->writeVCardFile();
-//header('Location:' . $vCard->getCardFilePath());
+header('Location:' . $vCard->getCardFilePath());
 require_once 'vues/DetailsContact.php';
 
 exit;
