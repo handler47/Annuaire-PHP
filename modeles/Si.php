@@ -1,10 +1,16 @@
 <?php
+/**
+ * Classe SI permet de gérer la connexion à la BDD
+**/
 
 class SI {
 	private $cnx ;
 	private static $theSI;
 
-	//---------- CONSTRUCTEUR PRIVATE
+	/**
+	 * Constructeur de la classe SI
+	 * Permet la connexion à la BDD annuairebdd
+	**/
 	private function __construct() {
 		$this->cnx = new PDO('mysql:host=127.0.0.1; dbname=annuairebdd',
 										'root', '',
@@ -14,24 +20,42 @@ class SI {
 		static::$theSI=$this; // memorisation au static
 	}
 
-	//---------- renvoie le SI Singleton
+	/**
+	 * @return $theSI
+	 * renvoie le SI Singleton
+	**/
 	public static function getSI() {
-		if (static::$theSI==null) {static::$theSI = new SI();}
+		if (static::$theSI==null) {
+			static::$theSI = new SI();
+		}
 		return static::$theSI;
 	}
 
-	//----------------------------------------------
-	//                      SGBD
-	//----------------------------------------------
+	/**
+	 * @param String $req 
+	 * @return cnx->prepare($req)
+	 * prepare la requête $req dans la BDD
+	**/
 	public function SGBDgetPrepare($req) {
 		return $this->cnx->prepare($req);
 	}
+	
+	/**
+	 * @param String $req 
+	 * @return $stmt
+	 * prepare et execute la requête $req dans la BDD
+	**/
 	public function SGBDgetPrepareExecute($req) {
 		$stmt = $this->SGBDgetPrepare($req);
 		$stmt->execute() ;
 		return $stmt ;
 	}
-	// ecriture d'une methode permetanbt de renvoyer une seule ligne
+	
+	/**
+	 * @param String $req , @param int $id
+	 * @return $work
+	 * Permet de renvoyer une seule ligne
+	**/
 	public function SGBDgetLigne($req,$id){
 		$work = $this->SGBDgetPrepare($req);
 		$work->bindParam(1,$id);
@@ -39,20 +63,16 @@ class SI {
 		return $work->fetch();
 	}
 
-
-	public function SGBDgetuneLigne($req){
-		$work = $this->SGBDgetPrepare($req);
-		$work->execute();
-		return $work->fetch();
-	}
-
+	/**
+	 * @param String $requete , @param array $valeurs
+	 * @return $R
+	 * Permet de renvoyer une confirmation ou erreur de la requête $requete vers la BDD
+	**/
 	public function SGBDexecuteQuery($requete, array $valeurs) {
 		$work = $this->SGBDgetPrepare($requete) ;
-		//echo "$requete<br/>";
 		$i=0;
 		foreach ($valeurs as &$v) {
 			$i++;
-			//echo "$i : $v <br/>";
 			$work->bindParam($i, $v);
 		}
 		$R = array();
