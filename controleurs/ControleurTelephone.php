@@ -1,9 +1,9 @@
 <?php
 
 /**
-	* Controleur Telephone du site
-	* Permet le lien vers le Formulaire de Creation de Téléphone
-*/
+ * Controleur Telephone du site
+ * Permet le lien vers le Formulaire de Creation de Téléphone
+ */
 require_once 'Modeles/Pluriel.php';
 require_once 'Modeles/Element.php';
 require_once 'Modeles/Contact.php';
@@ -22,48 +22,54 @@ if(isset($_POST['Valider'])) {
     if (isset($_POST['telephone']) != "") {
         $telephone = $_POST['telephone'];
         $patternTelephone = '/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/';
+        preg_match($patternTelephone, $telephone, $matches);
         $typeTel = $_POST['typeTel'];
 
-            preg_match($patternTelephone, $telephone, $matches);
-            if ($matches) {
+        /****************************************
+         * Gestion des erreurs avant tout traitements (afin de récupéré toutes les erreurs possible)
+         ****************************************/
+        $telephonesListParTypes = new Telephones();
+        $telephonesListParTypes->remplir("T_TypeTelID = " . $typeTel . " AND T_ContactID = " . $contactId);
 
-                //recupération de l'ID adresse qui vient d'être créé
+        // dans cette liste on stocke par numéro
+        $telephonesListParTelephone = new Telephones();
+        $telephonesListParTelephone->remplir("T_numero = " . $telephone . " AND T_ContactID = " . $contactId);
 
-                // on vérifie que le type de tel n'existe pas déjà
-                $contact = Contact::mustFind($contactId);
+        if ($telephonesListParTypes->getNombre() >= 1){
+            $erreur = "<p class=erreur>Le type de tel est déjà présent.</p>";
+            array_push($erreurs, $erreur);
+        }
 
-                // On stocke les telephones par types dans cette premiere liste
-                $telephonesList1 = new Telephones();
-                $telephonesList1->remplir("T_TypeTelID = " . $typeTel . " AND T_ContactID = " . $contactId);
+        if ( $telephonesListParTelephone->getNombre() >= 1){
+            $erreur = "<p class=erreur>Le numéro est déjà présent</p>";
+            array_push($erreurs, $erreur);
+        }
 
-                if ($telephonesList1->getNombre() >= 1){
-                    $erreur = "<p class=erreur>Le type de tel est déjà présent.</p>";
-                    array_push($erreurs, $erreur);
-                }
-
-                // dans cette liste on stocke par numéro
-                $telephonesList2 = new Telephones();
-                $telephonesList2->remplir("T_numero = " . $telephone . " AND T_ContactID = " . $contactId);
-
-                if ( $telephonesList2->getNombre() >= 1){
-                    $erreur = "<p class=erreur>Le numéro est déjà présent</p>";
-                    array_push($erreurs, $erreur);
-                }
-                if (empty($erreurs)) {
-                    //création du telephone en récuperant l'id du contact en question
-                    print_r($telephone);
-                    print_r($typeTel);
-                    print_r($contactId);
-                    Telephone::SQLInsert(array($telephone,$typeTel, $contactId));
-                    echo '<div class="blockFormulaire">';
-                    echo '<p >Téléphone Créé ! </p>';
-                    echo '</div>';
-                }
-            } else {
+        if (!empty($telephone)) {
+            if (!$matches) {
                 $erreur = $erreur.'<p class="erreur" > Le format du numéro de téléphone est incorrect. Ex: 0658552211 (sans espaces, symboles ou tabulations) </p>';
                 array_push($erreurs, $erreur);
             }
+        }
+        /*******************************************
+         *
+         *******************************************/
 
+        if (empty($erreurs)) {
+
+            //recupération de l'ID adresse qui vient d'être créé
+
+            // on vérifie que le type de tel n'existe pas déjà
+            $contact = Contact::mustFind($contactId);
+            //création du telephone en récuperant l'id du contact en question
+            print_r($telephone);
+            print_r($typeTel);
+            print_r($contactId);
+            Telephone::SQLInsert(array($telephone,$typeTel, $contactId));
+            echo '<div class="blockFormulaire">';
+            echo '<p >Téléphone Créé ! </p>';
+            echo '</div>';
+        }
     }
 }
 

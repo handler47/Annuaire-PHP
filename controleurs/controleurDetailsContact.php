@@ -1,8 +1,8 @@
 <?php
 /**
-	* Controleur Details du Contact du site
-	* Permet le lien vers le Formulaire de Creation de Téléphone
-*/
+ * Controleur Details du Contact du site
+ * Permet le lien vers le Formulaire de Creation de Téléphone
+ */
 require_once 'Modeles/Pluriel.php';
 require_once 'Modeles/Element.php';
 require_once 'Modeles/Contact.php';
@@ -56,6 +56,24 @@ if(isset($_GET["confirmationSuppTel"])) {
     require_once 'index.php';
 }
 
+if(isset($_POST["modifier"])) {
+    $telephoneAvant = $_REQUEST["TelInit"];
+    $telephoneModifier = $_REQUEST["telephone"];
+    if(intval($telephoneModifier) != 0){
+        if(strlen($telephoneModifier) == 10){
+            $TRAV = Telephone::SQLUpdate(array($telephoneModifier,$telephoneAvant,$idContact));
+            var_dump($TRAV);
+            echo '<div class="blockFormulaire">';
+            echo '<p >Téléphone modifié ! </p>';
+            echo '</div>';
+        }else{
+            $erreur = $erreur.'<p class=erreur > Le numéro doit être sur 10 chiffres </p>';
+        }
+    }else{
+        $erreur = $erreur.'<p class=erreur > Le téléphone doit être en chiffes </p>';
+    }
+}
+
 if(isset($_POST['Valider'])) {
 // Récup des attributs de variable Session
 
@@ -68,7 +86,7 @@ if(isset($_POST['Valider'])) {
     // la date une fois bien formaté et utilisable pour ajout en base
     $dateVerified = "";
 
-//partie adresse
+    //partie adresse
     $numVoie = $_POST['NumVoie'];
     $nomVoie = $_POST['NomVoie'];
     $ville = $_POST['Ville'];
@@ -77,6 +95,9 @@ if(isset($_POST['Valider'])) {
 
     // on vérifie que la date est bonne
     // et on vérifie toute les autres erreurs possible pour pouvoir toutes les récupéré avant n'importe quel traitement
+    /*********************
+     * Gestion des erreurs
+     *********************/
     if (!empty($dateNaiss)) {
         $dt = DateTime::createFromFormat("d-m-Y", $dateNaiss);
         if (($dt == false) && count(DateTime::getLastErrors()) > 0) {
@@ -95,6 +116,9 @@ if(isset($_POST['Valider'])) {
             array_push($erreurs, $erreur);
         }
     }
+    /***********************
+     *
+     ***********************/
 
     if (empty($erreurs)){
 

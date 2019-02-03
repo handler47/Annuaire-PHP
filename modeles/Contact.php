@@ -114,8 +114,6 @@ class Contact extends Element{
 	}
 
 	public function displayFormulaire(){
-		$date = new DateTime($this->getDateNais());
-		$dateFormate = $date->format('d-m-Y');
 
 		echo '<label>Nom : </label>';
         echo '<input type="text" class="champ" name="Nom" id="Nom" value='.$this->getNom().' autofocus>';
@@ -123,7 +121,7 @@ class Contact extends Element{
         echo '<input type="text" class="champ" name="Prenom" id="Prenom" placeholder="" value='.$this->getPrenom().'>';
 		echo '</br>';
 		echo '<label>Date de naissance:</label>';
-        echo '<input type="text" id="start" name="dateNaiss" class="champ" placeholder="01-11-1997" value='.$dateFormate.'>';
+        echo '<input type="date" name="dateNaiss" class="champ" placeholder="" value='.$this->getDateNais().'>';
 		echo '</br>';
 		echo '<label>Societe : </label>';
         echo '<input type="text" class="champ" name="Societe" id="Societe" value='.$this->getSociete().'>';

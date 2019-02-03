@@ -4,8 +4,10 @@
 
 
 <div class="blockFormulaire">
-    <?php echo $erreur; ?>
-    <?php echo $erreur2; ?>
+    <?php foreach ($erreurs as $erreur){
+        echo $erreur;
+    }
+    ?>
     <form method="post" action="index.php" class="blockFormulaire">
     <h2>Création d'un téléphone</h2>
     <label>Type de téléphone</label>

@@ -70,13 +70,16 @@ class Telephone extends Element{
 	}
 
 	public function displayInput($name){
-		echo '<input class="champ" type="text" value="' . $this->getNumero() . '" id="bouton" name="' . $name . '" class="champ" />';
+		echo '<input class="champ" type="text" value="' . $this->getNumero() .'" id="bouton" name="' . $name . '" />';
+		echo '<input class="champ" type="hidden" value="' . $this->getNumero() .'" id="bouton" name="TelInit" />';
+	}
+	
+	public function displayButton(){
+		echo '<input class="boutonFormulaire" type="submit" value="Modifier" id="boutonValider" name="modifier" class="bouton" />';
 	}
 
 	public function displayDelete(){
 		echo '<input class="boutonFormulaire" type="submit" value="Supprimer" id="boutonValider" name="supprimer" class="bouton" />';
-		  //echo '<td ><a href="http://localhost/Annuaire-PHP/index.php?supprimer='.$this->getNumero().'">supprimer</a>  </td>';
-
 	}
 	
 	public function option(){
@@ -105,11 +108,8 @@ class Telephone extends Element{
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
-	public static function SQLUpdate(array $valeurs, $condition = null){
-		$req = 'UPDATE telephone SET T_numero = ? ';
-		if ($condition != null)
-			$req.= " WHERE $condition";
-		print_r($req);
+	public static function SQLUpdate(array $valeurs){
+		$req = 'UPDATE telephone SET T_numero = ? WHERE T_numero = ? and T_ContactID = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 
@@ -140,16 +140,18 @@ class Telephones extends Pluriel{
 
 	public function displayTableWithButton($name){
 		echo'<center>';
-		echo '<p style="background-color: grey";>Téléphones</p>';
+		echo '<h2>Téléphones du contact</h2>';
 		echo'<ul style="list-style: none;">';
-
+		
+			
 		// dire à chaque élément de mon tableau : afficher le row
 		foreach ($this->getArray() as $untelephone) {
 			echo '<form method="post" >';
 			echo '<li>';
 			$TypeTelephone= $untelephone->getTypeTelephone()->displayTypeTel();
-			echo '<label>Tel' . $TypeTelephone . '</label>';
+			echo '<label>' . $TypeTelephone . '</label>';
 			$untelephone->displayInput($name);
+			$untelephone->displayButton();
 			$untelephone->displayDelete($untelephone->getNumero());
 			echo '</li>';
 			echo '</form>';
