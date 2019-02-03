@@ -13,7 +13,9 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
 //ID du contact ajouter en amont dans le formulaire de creation de contact
-$erreur = ""; $erreur2="";
+$erreur = "";
+$erreurs = array();
+
 $contactId = $_SESSION['IDContact'];
 
 if(isset($_POST['Valider'])) {
@@ -36,6 +38,7 @@ if(isset($_POST['Valider'])) {
 
                 if ($telephonesList1->getNombre() >= 1){
                     $erreur = "<p class=erreur>Le type de tel est déjà présent.</p>";
+                    array_push($erreurs, $erreur);
                 }
 
                 // dans cette liste on stocke par numéro
@@ -43,9 +46,10 @@ if(isset($_POST['Valider'])) {
                 $telephonesList2->remplir("T_numero = " . $telephone . " AND T_ContactID = " . $contactId);
 
                 if ( $telephonesList2->getNombre() >= 1){
-                    $erreur2 = "<p class=erreur>Le numéro est déjà présent</p>";
+                    $erreur = "<p class=erreur>Le numéro est déjà présent</p>";
+                    array_push($erreurs, $erreur);
                 }
-                if (empty($erreur) && empty($erreur2)) {
+                if (empty($erreurs)) {
                     //création du telephone en récuperant l'id du contact en question
                     print_r($telephone);
                     print_r($typeTel);
@@ -57,6 +61,7 @@ if(isset($_POST['Valider'])) {
                 }
             } else {
                 $erreur = $erreur.'<p class="erreur" > Le format du numéro de téléphone est incorrect. Ex: 0658552211 (sans espaces, symboles ou tabulations) </p>';
+                array_push($erreurs, $erreur);
             }
 
     }

@@ -21,14 +21,19 @@ if (isset($_GET['details'])) {
 
 
 
-//ID du contact selectionné dans la liste des contacts afficher en ammont
 $erreur = "";
+$erreurs = array();
+
+//ID du contact selectionné dans la liste des contacts afficher en ammont
 $idContact = $_SESSION["modifierContact"];
 $contacts = new Contacts();
+// récupération de l'objet Contact crée à partir de l'id récupéré
 $contact= Contact::mustFind($idContact);
+// récupération de son adresse à partir de l'objet Contact crée
 $adresseContact = $contact->getAdresseID();
 $adresseFounded = Adresse::mustFind($adresseContact);
 
+// récupération de son pays à partir de l'objet Adresse récupéré à partir du Contact
 $pays = Pays::mustFind($adresseFounded->getPaysID());
 
 //Suppression d'un Contact de la liste
@@ -60,6 +65,8 @@ if(isset($_POST['Valider'])) {
     $societe = $_POST['Societe'];
     $commentaire = $_POST['Commentaire'];
     $dateNaiss = $_POST['dateNaiss'];
+    // la date une fois bien formaté et utilisable pour ajout en base
+    $dateVerified = "";
 
 //partie adresse
     $numVoie = $_POST['NumVoie'];
@@ -69,13 +76,27 @@ if(isset($_POST['Valider'])) {
     $complement = $_POST['ComplAdresse'];
 
     // on vérifie que la date est bonne
-    $dt = DateTime::createFromFormat("d-m-Y", $dateNaiss);
-    if (($dt == false) && count(DateTime::getLastErrors())>0) {
-        $erreur = "Le format de la date entrée est incorrect.";
-    } else {
+    // et on vérifie toute les autres erreurs possible pour pouvoir toutes les récupéré avant n'importe quel traitement
+    if (!empty($dateNaiss)) {
+        $dt = DateTime::createFromFormat("d-m-Y", $dateNaiss);
+        if (($dt == false) && count(DateTime::getLastErrors()) > 0) {
+            $erreur = "<p class=erreur>Le format de la date entrée est incorrect.</p>";
+            array_push($erreurs, $erreur);
+        }
+        else{
+            // on change le format de la date pour être compatible avec la table
+            $dateVerified = date("Y-m-d", strtotime($dateNaiss));
+        }
+    }
 
-        // on change le format de la date pour être compatible avec la table
-        $newDate = date("Y-m-d", strtotime($dateNaiss));
+    if (!empty($codePostal)) {
+        if (!preg_match(" /^[0-9]{5,5}$/", $codePostal)) {
+            $erreur = "<p class=erreur>Le format du code postal entré est incorrect.</p>";
+            array_push($erreurs, $erreur);
+        }
+    }
+
+    if (empty($erreurs)){
 
         // on récupere l'adresse du contact
         $adresseContact = intval(Contact::getInstances()->RechercheObjet($idContact, "adresse"));
@@ -85,14 +106,14 @@ if(isset($_POST['Valider'])) {
 
         // on modifie les telephones (ici on parcours les types de telephones et on verifie via la variable de session qui a comme
         // le type de telephone si celle ci est initialisé comme variable de session ou pas et on la modifie si elle a une valeur
-        // on fait comme cela sachant qu'on a que 4 valeurs possibles
-        $TypeTelephones= new TypeTelephones();
+        // on fait comme cela sachant qu'on a que 4 valeurs possibles donc pas lourd de boucler pour tester
+        $TypeTelephones = new TypeTelephones();
         $TypeTelephones->remplir();
-        foreach ($TypeTelephones->getArray() as $unType){
-            if (isset($_POST[$unType->getTypeTel()])){
+        foreach ($TypeTelephones->getArray() as $unType) {
+            if (isset($_POST[$unType->getTypeTel()])) {
                 $telephone = $_POST[$unType->getTypeTel()];
                 var_dump($telephone);
-                Telephone::SQLUpdate(array($telephone),"T_TypeTelID = " . $unType->getID());
+                Telephone::SQLUpdate(array($telephone), "T_TypeTelID = " . $unType->getID());
                 var_dump($unType->getID());
             }
         }
@@ -103,20 +124,14 @@ if(isset($_POST['Valider'])) {
         $conditionRequeteCont = "C_ID = $idContact";
 
         //mise à jour du contact
-        Contact::SQLUpdate(array($nomContact, $prenomContact, $newDate, $societe, $commentaire), $conditionRequeteCont);
+        Contact::SQLUpdate(array($nomContact, $prenomContact, $dateVerified, $societe, $commentaire), $conditionRequeteCont);
 
         echo '<div class="blockFormulaire">';
         echo '<p>Contact modifié ! </p>';
         echo '</div>';
     }
-    $_SESSION['modifierContact']=null;
+    $_SESSION['modifierContact'] = null;
 }
-
-
-
-
-
-
 
 require_once 'vues/DetailsContact.php';
 ?>

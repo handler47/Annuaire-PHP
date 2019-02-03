@@ -12,7 +12,10 @@
 
 
 <div class="blockFormulaire">
-    <?php echo $erreur; ?>
+    <?php foreach ($erreurs as $erreur){
+        echo $erreur;
+    }
+    ?>
     <form method="post" action="index.php" class="">
         <h2>Récapitulatif du contact</h2>
         <?php
