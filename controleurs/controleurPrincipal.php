@@ -12,6 +12,8 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 require_once 'Vues/Accueil.php';
 
+//boolean pour vérifier si le filtre est actif
+$filtreActif = false;
 
 //Suppression d'un Contact de la liste
 if(isset($_GET["supprimer"])) {
@@ -51,11 +53,13 @@ if(isset($_GET["details"])) {
 
 if(isset($_GET["ajouterNumero"])) {
 	$_SESSION['Menu'] = "AjoutTelephone";
+	$_SESSION['IDContact'] = $_GET["ajouterNumero"];
 	require_once 'controleurs/ControleurTelephone.php';
 }
 
 if(isset($_GET["filtre"])) {
 	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A";
+	$filtreActif = true;
 	$condition = "C.C_AdresseID = A.A_ID";
 	$filtre = "A.A_CodePostal;";
 	$_SESSION['Menu'] = "Accueil";
@@ -64,9 +68,15 @@ if(isset($_GET["filtre"])) {
 }
 
 if (isset($_GET["page"])){
-	$req = Contact::getSELECT();
 	$condition = null;
 	$filtre=null;
+	if($filtreActif = true){
+		$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A";
+		$condition = "C.C_AdresseID = A.A_ID";
+		$filtre = "A.A_CodePostal;";
+	}else{
+		$req = Contact::getSELECT();
+	}
 	$_SESSION['Menu'] = "Accueil";
 	require_once 'vues/Accueil.php';
 	require_once 'vues/ListeContact.php';

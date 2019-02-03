@@ -14,9 +14,7 @@ require_once 'Modeles/Pays.php';
 
 //ID du contact ajouter en amont dans le formulaire de creation de contact
 $erreur = ""; $erreur2="";
-
-$contactId = $_SESSION["ajouterNumero"];
-
+$contactId = $_SESSION['IDContact'];
 
 if(isset($_POST['Valider'])) {
     if (isset($_POST['telephone']) != "") {
@@ -62,7 +60,7 @@ if(isset($_POST['Valider'])) {
             }
 
     }
-    }
+}
 
 require_once 'vues/CreationTelephone.php';
 ?>
