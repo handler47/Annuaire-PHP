@@ -14,7 +14,6 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
 $erreur = '';
-
 //validation du formulaire de saisie
 if(isset($_POST['Valider'])){
 	if(isset($_POST['Nom'])!="" or isset($_POST['Prenom'])!="" ){
@@ -29,6 +28,7 @@ if(isset($_POST['Valider'])){
 			$Ville = null;
 			$CD = null;
 			$CDOK = false;
+			$Societe = null;
 			$Commentaire = null;
 			$Pays = null;
 			
@@ -36,9 +36,11 @@ if(isset($_POST['Valider'])){
 			if(isset($_POST['Societe'])!=""){
 				$Societe = $_POST['Societe'];
 			}
-			if (isset($_POST['NumVoie'])!="" and intval($_POST['NumVoie'])!= 0){
+
+			if(isset($_POST['NumVoie'])!= 0){
 				$NumV = $_POST['NumVoie'];
 			}
+			
 			if (isset($_POST['NomVoie'])!=""){
 				$NomV = $_POST['NomVoie'];
 			}
@@ -60,7 +62,7 @@ if(isset($_POST['Valider'])){
 				if(intval($_POST['CodePostal'])!= 0){
 					if(strlen($_POST['CodePostal'])==5){
 						$CDOK = true;
-						$CD = intval($_POST['CodePostal']);
+						$CD = $_POST['CodePostal'];
 						
 					}else{
 						$CD = null;
@@ -85,12 +87,13 @@ if(isset($_POST['Valider'])){
 				$adresseContact->remplir(null," A_ID DESC  Limit 1");
 				$IDAdresse = Adresse::getInstances()->displayAdresse();
 				//creation du contact
-				Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
+				$TRAV = Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
+				var_dump($TRAV);
 				$Contact = new Contacts();
 				$Contact->remplir(" 1 "," C_ID DESC Limit 1");
 				$IDContact = Contact::getInstances()->RechercheID();
 				echo '<div class="blockFormulaire">';
-				echo 'Contact créé ! ';
+				echo '<p> Contact créé ! </p>';
 				echo 'Ajouter un téléphone au contact ? <a href="http://localhost/Annuaire-PHP/index.php?ajouterNumero='.$IDContact.'"> oui</a> /<a href="http://localhost/Annuaire-PHP/index.php"> non</a>';
 				echo '</div>';
 			}
@@ -102,7 +105,6 @@ if(isset($_POST['Valider'])){
 		$erreur = $erreur.'<p class=erreur > Merci de saisir votre Nom et Prénom </p>';
 	}
 }
-
 
 require_once 'vues/CreationContact.php';
 ?>
