@@ -62,7 +62,7 @@ if(isset($_POST['Valider'])){
 			$adresseContact->remplir(null," A_ID DESC  Limit 1");
 			$IDAdresse = Adresse::getInstances()->displayAdresse();
 			//creation du contact
-			//Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
+			Contact::SQLInsert(array($Nom,$Prenom,$DateNaiss,$IDAdresse,$Societe,$Commentaire));
 			$Contact = new Contacts();
 			$Contact->remplir(" 1 "," C_ID DESC Limit 1");
 			$IDContact = Contact::getInstances()->RechercheID();
