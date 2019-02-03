@@ -20,8 +20,10 @@ define('CLASS_PRECEDENT','previous');
 define('CLASS_SUIVANT','next');
 define('CLASS_PRESENT','active');
 define('CLASS_NORMAL','page');
+//variable de filtre
+$nbFiltre = $_SESSION['filtre'];
 // format du lien généré
-define('LIEN_PAGE','/Annuaire-PHP/index.php?page={nb}');
+define('LIEN_PAGE','/Annuaire-PHP/index.php?page={nb}&filtre='.$nbFiltre);
 
 
 /* Définition de la fonction getLink()
@@ -31,6 +33,7 @@ define('LIEN_PAGE','/Annuaire-PHP/index.php?page={nb}');
 function getLink($nb) {
     return str_replace('{nb}', (string) $nb, LIEN_PAGE  );
 }
+
 
 
 
@@ -86,6 +89,7 @@ if(isset($_GET['page']) && (int) $_GET['page'] !== 0) {
 } else {
     $page = 1;
 }
+
 
 $premiereEntreeCalcul = ($page-1)*LIMIT_PER_PAGE;
 $premiereEntreeCalcul = strval($premiereEntreeCalcul);

@@ -207,15 +207,8 @@ class Contacts extends Pluriel{
 		}
 	}
 	
-	public function remplirAVECRequete($req,$condition=null, $ordre=null, $limit=null, $offset=null) {
+	public function remplirAVECRequete($req, $limit=null, $offset=null) {
 
-		//ajouter condition si besoin est
-		if ($condition != null) {
-			$req.= " WHERE $condition"; // remplace $condition car guillemet et pas simple quote
-		}
-		if ($ordre != null){
-			$req.=" ORDER BY $ordre";
-		}
 		if ($limit != null){
 			$req.=" LIMIT $limit";
 		}

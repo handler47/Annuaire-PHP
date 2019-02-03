@@ -12,8 +12,9 @@ require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 require_once 'Vues/Accueil.php';
 
-//boolean pour vérifier si le filtre est actif
-$filtreActif = false;
+//requête de tout les contacts par defaut
+$req =  Contact::getSELECT();
+
 
 //Suppression d'un Contact de la liste
 if(isset($_GET["supprimer"])) {
@@ -57,29 +58,27 @@ if(isset($_GET["ajouterNumero"])) {
 	require_once 'controleurs/ControleurTelephone.php';
 }
 
-if(isset($_GET["filtre"])) {
-	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A";
-	$filtreActif = true;
-	$condition = "C.C_AdresseID = A.A_ID";
-	$filtre = "A.A_CodePostal;";
-	$_SESSION['Menu'] = "Accueil";
-    require_once 'vues/Accueil.php';
+if(isset($_GET["filtre"])){
+	if($_GET["filtre"] == 1){
+		$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A WHERE C.C_AdresseID = A.A_ID ORDER BY A.A_CodePostal";
+		$_SESSION['filtre'] = 1;
+	}else{
+		$_SESSION['filtre'] = 0;
+		$req =  Contact::getSELECT();
+	}
 	require_once 'vues/ListeContact.php';
 }
 
 if (isset($_GET["page"])){
-	$condition = null;
-	$filtre=null;
-	if($filtreActif = true){
-		$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A";
-		$condition = "C.C_AdresseID = A.A_ID";
-		$filtre = "A.A_CodePostal;";
+	$req =  Contact::getSELECT();
+	if($_GET["page"] > 1 and $_SESSION['filtre'] == 1){
+		$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact As C,adresse As A WHERE C.C_AdresseID = A.A_ID ORDER BY A.A_CodePostal";
+		$_SESSION['filtre'] = 1;
 	}else{
-		$req = Contact::getSELECT();
+		$_SESSION['filtre'] = 0;
 	}
-	$_SESSION['Menu'] = "Accueil";
-	require_once 'vues/Accueil.php';
 	require_once 'vues/ListeContact.php';
+	
 }
 
 if(isset($_POST["ajouterContact"])) {
@@ -87,13 +86,12 @@ if(isset($_POST["ajouterContact"])) {
     require_once 'controleurs/ControleurContact.php';
 }
 
-if(isset($_POST["Accueil"]) or isset($_GET["non"]) or isset($_GET["pasfiltre"]) ) {
-	$req = "SELECT C_ID, C_Nom, C_Prenom, C_DateNais, C_AdresseID, C_Societe, C_Commentaire FROM contact";
-	$condition = null;
-	$filtre = " C_Nom,C_Prenom ASC";
+
+if(isset($_POST["Accueil"]) or isset($_GET["non"]) ) {
 	$_SESSION['Menu'] = "Accueil";
-    require_once 'vues/Accueil.php';
+	$_SESSION['filtre'] = 0;
 	require_once 'vues/ListeContact.php';
+	require_once 'vues/Accueil.php';
 }
 
 
