@@ -24,11 +24,3 @@
     <input class="boutonFormulaire" type="submit" value="Valider" id="boutonValider" name="Valider" class="bouton" />
 </form>
 </div>
-
-<?php
-// Transmission de la variable de session contenant l'id du contact
-if (isset($_GET['ajouterNumero'])) {
-    $_SESSION['ajouterNumero'] = $_GET['ajouterNumero'];
-}
-
-?>

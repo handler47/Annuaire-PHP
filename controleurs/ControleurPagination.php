@@ -14,7 +14,7 @@ require_once 'Vues/Accueil.php';
 // limitation des liens avant et après la page actuelle
 define('LIMIT_PAGINATION',10);
 // limitation du nombre de contact par page
-define('LIMIT_PER_PAGE',1);
+define('LIMIT_PER_PAGE',3);
 // classe css du lien de la page actuelle
 define('CLASS_PRECEDENT','previous');
 define('CLASS_SUIVANT','next');

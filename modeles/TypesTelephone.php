@@ -65,7 +65,7 @@ class TypeTelephone extends Element{
 	}
 	
 	 public function option(){
-		 $tmp = $this->getTypeTel();
+		 $tmp = $this->getID();
 		 echo '<option value ="'.$tmp.'">';
 		 echo $this->getTypeTel();
 		 echo '</option>';
@@ -82,16 +82,6 @@ class TypeTelephone extends Element{
 	
 	public static function getSELECT() {
 		return 'SELECT TY_ID, TY_TYPETEL FROM type_telephone';
-	}	
-	
-	public static function SQLInsert(array $valeurs){
-		$req = 'INSERT INTO type_telephone (TY_TYPETEL) VALUES(?)';
-		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
-	}
-	
-	public static function SQLDelete($valeur){
-		$req = 'DELETE FROM type_telephone WHERE TY_ID = ?';
-		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
 }
