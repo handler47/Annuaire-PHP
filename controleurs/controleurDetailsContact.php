@@ -11,9 +11,10 @@ require_once 'Modeles/TypesTelephone.php';
 require_once 'Modeles/Adresse.php';
 require_once 'Modeles/Pays.php';
 
-/* Lorsqu'un raffraichissement est fait sur la même page , la variable de session (protocole GET) contenant
-l'id du contact disparait , on crée alors la variable de session globale (modifierContact) qui la remplacera ,
-de ce fait on gardera en permemanance l'id du contact*/
+/**
+* $contactId id du contact de la liste du formulaire précédent
+* Variable de session pour garder cette valeur
+*/
 if (isset($_GET['details'])) {
     $_SESSION['modifierContact'] = $_GET['details'];
 }

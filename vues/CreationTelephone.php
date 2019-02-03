@@ -1,5 +1,7 @@
 <?php
-
+/**
+* Page de formulaire de creation d'un telephone
+*/
 ?>
 
 

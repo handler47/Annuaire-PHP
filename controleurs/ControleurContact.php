@@ -1,8 +1,8 @@
 <?php
 
 /**
-	* Controleur Contact du site
-	* Permet le lien vers le Formulaire de Creation de Contact
+* Controleur Contact du site
+* Permet le lien vers le Formulaire de Creation de Contact
 */
 //référencer les classes utiles
 require_once 'Modeles/Pluriel.php';
@@ -15,12 +15,13 @@ require_once 'Modeles/Pays.php';
 
 $erreur = '';
 
-
+//validation du formulaire de saisie
 if(isset($_POST['Valider'])){
 	if(isset($_POST['Nom'])!="" or isset($_POST['Prenom'])!="" ){
 		$Nom = $_POST['Nom'];
 		$Prenom = $_POST['Prenom'];
 		if(isset($_POST['DateNaiss'])!="" ){
+			//initialisation des variables non obligatoires à zero
 			$DateNaiss = $_POST['DateNaiss'];
 			$NumV = null;
 			$NomV = null;
@@ -31,6 +32,7 @@ if(isset($_POST['Valider'])){
 			$Commentaire = null;
 			$Pays = null;
 			
+			//test si une des variables non obligatoires est différentes de zéro
 			if(isset($_POST['Societe'])!="" or !empty($_POST['CodePostal']) or isset($_POST['NomVoie'])!="" or isset($_POST['ComplAdresse'])!="" or isset($_POST['Ville'])!="" or isset($_POST['Pays'])!="" or isset($_POST['Commentaire'])!=""){
 				$Societe = $_POST['Societe'];
 				$NumV = $_POST['NumVoie'];
@@ -40,6 +42,7 @@ if(isset($_POST['Valider'])){
 				$Commentaire = $_POST['Commentaire'];
 				$Pays = $_POST['Pays'];				
 			}
+			//boolean $CDOK empêche la creation d'un contact si erreur de saisie du code postal
 			if(isset($_POST['CodePostal']) and !empty($_POST['CodePostal'])){
 				if(intval($_POST['CodePostal'])!= 0){
 					if(strlen($_POST['CodePostal'])==5){
@@ -61,7 +64,7 @@ if(isset($_POST['Valider'])){
 			
 			if($CDOK == true){
 				//création de l'adresse du contact
-				//même si l'adresse a tout ses attributs null car il est possible de modifier un contact !
+				//même si l'adresse a ses attributs null, il est possible de modifier un contact par la suite !
 				Adresse::SQLInsert(array($NumV,$NomV,$ComplA,$Ville,$CD,$Pays));
 				//recupération de l'ID adresse qui vient d'être créé
 				$IDAdresse=0;

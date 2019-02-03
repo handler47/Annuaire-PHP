@@ -1,11 +1,19 @@
 <?php
 /**
-	* Classe Telephone
+* Classe Telephone
 */
 
 class Telephone extends Element{
-	//Singleton de mémorisation des instances
+	
+	/**
+	 * Singleton memorise les instances
+	**/
 	private static $o_INSTANCES;
+	
+	/**
+	 * @param $ligne
+	 * renvoie $tmp l'objet créé
+	**/
 	public static function ajouterObjet($ligne){
 		//créer (instancier) la liste si nécessaire
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new Telephones();}
@@ -18,13 +26,20 @@ class Telephone extends Element{
 		return $tmp;
 	}
 	
-	//publication liste instances
+	/**
+	 * @return $o_INSTANCES
+	 * renvoie liste instances
+	**/
 	public static function getInstances(){
 		if (static::$o_INSTANCES ==null){static::$o_INSTANCES = new Telephones();}
 		return static::$o_INSTANCES;
 	}
 		
-	// doit impérativement trouver la Telephone ayant pour id le paramètre
+	/**
+	 * @param $id
+	 * @return Adresse $objet
+	 * doit impérativement trouver Telephone ayant pour id le paramètre
+	**/
 	public static function mustFind($id){
 		if (static::$o_INSTANCES == null){static::$o_INSTANCES = new Telephones();}
 		// regarder si instance existe
@@ -38,10 +53,15 @@ class Telephone extends Element{
 	}
 	
 
-	//---------- constructeur : repose sur le constructeur parent
+    /**
+	 * constructeur : repose sur le constructeur parent
+	**/
 	protected function __construct($theLigne) {parent::__construct($theLigne);}
 	
-	//---------- renvoie la valeur du champ spécifié en paramètre
+	/**
+	 * @return getField
+	 * renvoie la valeur du champ spécifié en paramètre
+	**/
 	public function getNumero(){
 		return $this->getField('T_numero');
 	}
@@ -53,8 +73,13 @@ class Telephone extends Element{
 	public function getContactID(){
 		return $this->getField('T_ContactID');
 	}
+	
 	private $o_typeTelephone;
 
+	/**
+	 * @return o_typeTelephone
+	 * renvoie le type du Telephone
+	**/
 	public function getTypeTelephone(){
 		if($this->o_typeTelephone == null){
 			$this->o_typeTelephone = new TypeTelephones();
@@ -64,50 +89,76 @@ class Telephone extends Element{
 	}
 	
 
-	//affiche
+	/**
+	 * @return 
+	 * Affiche une ligne formulaire avec le numero du telephone
+	**/
 	public function displayRow(){
 		echo '<td align="center">'.$this->getNumero().'</td>';
 	}
-
+	
+	/**
+	 * @return 
+	 * Affiche un input de formulaire avec le numero du telephone
+	**/
 	public function displayInput($name){
 		echo '<input class="champ" type="text" value="' . $this->getNumero() .'" id="bouton" name="' . $name . '" />';
 		echo '<input class="champ" type="hidden" value="' . $this->getNumero() .'" id="bouton" name="TelInit" />';
 	}
 	
+	/**
+	 * @return 
+	 * Affiche un bouton modifier de formulaire
+	**/
 	public function displayButton(){
 		echo '<input class="boutonFormulaire" type="submit" value="Modifier" id="boutonValider" name="modifier" class="bouton" />';
 	}
 
+	/**
+	 * @return 
+	 * Affiche un bouton supprimer de formulaire
+	**/
 	public function displayDelete(){
 		echo '<input class="boutonFormulaire" type="submit" value="Supprimer" id="boutonValider" name="supprimer" class="bouton" />';
 	}
 	
-	public function option(){
-		$tmp = $this->getNumero();
-		echo '<option value ="'.$tmp.'">';
-		echo $this->getNumero();
-		echo '</option>';
-
+	/** 
+	 * @return $id de l'objet Telephone
+	**/
+	public static function champID() {
+		return 'T_numero';
 	}
 	
+	/** 
+	 * @return String $req 
+	 * retourne la requête de la classe Telephone
+	**/
+	public static function getSELECT() {
+		return 'SELECT T_numero,T_TypeTelID,T_ContactID FROM telephone';
+	}	
 
-	/******************************
-	IMPORTANT : 	toute classe dérivée non abstraite doit avoir le code pour
-
-	******************************/
-	public static function champID() {return 'T_numero';}
-	public static function getSELECT() {return 'SELECT T_numero,T_TypeTelID,T_ContactID FROM telephone';  }	
-
+	/** 
+	 * @return $R 
+	 * retourne le message de la requête insertion de la classe Telephone
+	**/
 	public static function SQLInsert(array $valeurs){
 		$req = 'INSERT INTO telephone (T_numero,T_TypeTelID,T_ContactID) VALUES(?,?,?)';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
 	}
 	
+	/** 
+	 * @return $R
+	 * retourne le message de la requête de suppression de la classe Telephone
+	**/
 	public static function SQLDelete($valeur){
 		$req = 'DELETE FROM telephone WHERE T_numero = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,array($valeur));
 	}
 
+	/** 
+	 * @return $R
+	 * retourne le message de la requête de modification de la classe Telephone
+	**/
 	public static function SQLUpdate(array $valeurs){
 		$req = 'UPDATE telephone SET T_numero = ? WHERE T_numero = ? and T_ContactID = ?';
 		return SI::getSI()->SGBDexecuteQuery($req,$valeurs);
@@ -115,14 +166,23 @@ class Telephone extends Element{
 
 }
 
-
+/**
+ * Classe Telephones
+**/
 class Telephones extends Pluriel{
 
-	//constructeur
+	/**
+	 * constructeur : repose sur le constructeur parent
+	**/
 	public function __construct(){
 		parent::__construct();
 	}
 	
+	/**
+	 * @param String $condition
+	 * @param String $ordre
+	 * Permet la creation d'objet Telephone avec les lignes retournées de la BDD
+	**/
 	public function remplir($condition=null, $ordre=null) {
 		$req = Telephone::getSELECT();
 		//ajouter condition si besoin est
@@ -138,6 +198,10 @@ class Telephones extends Pluriel{
 		}
 	}
 
+	/**
+	 * Parcour la liste d'objet Telephone
+	 * Appel des afficheurs pour chaque Telephone
+	**/
 	public function displayTableWithButton($name){
 		echo'<center>';
 		echo '<h2>Téléphones du contact</h2>';
@@ -160,15 +224,6 @@ class Telephones extends Pluriel{
 		echo'</center>';
 	}
 
-	public function displaySelect($name){
-		echo'<select style="width:auto" class="form-control" type="Text" required="required" name="'.$name.'">';
-		echo '<option>  </option>';
-		// dire à chaque élément de mon tableau : afficher le row
-		foreach ($this->getArray() as $untelephone) {
-			$untelephone->option();
-		}
-		echo '</select>';
-	}
-	
+
 }
 ?>

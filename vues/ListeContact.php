@@ -1,6 +1,8 @@
 <?php
 require_once 'controleurs/ControleurPagination.php';
-
+/**
+* Page de formulaire de récapitualif des contacts
+*/
 ?>
 <form method="get" action="index.php" class="blockFormulaire">
     <h2>Liste des Contacts : </h2>

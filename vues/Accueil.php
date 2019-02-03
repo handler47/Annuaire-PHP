@@ -1,4 +1,8 @@
-
+<?php
+/**
+* Page d'accueil du site
+*/
+?>
 <form method="post" action="index.php">
 	<div>
 		<div>

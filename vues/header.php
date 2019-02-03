@@ -1,3 +1,8 @@
+<?php
+/**
+* Entête du site
+*/
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

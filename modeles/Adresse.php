@@ -119,7 +119,7 @@ class Adresse extends Element{
 
 	/**
 	 * @return 
-	 * renvoie un formulaire avec les attributs de l'Adresse
+	 * Affiche un formulaire avec les attributs de l'Adresse
 	**/
 	public function displayFormulaire(){
 		echo '<label>Numero de la voie : </label>';
