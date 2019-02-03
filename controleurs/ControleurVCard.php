@@ -5,11 +5,12 @@
  */
 
 
-include_once('class.vCard.inc.php');
+include_once('modeles/VCard.php');
+$erreurs = array();
 $vCard = new VCard('');
 // on récupère l'id du contact pour récupérer ses attribut
-$contactId = $_SESSION['IDContact'];
-$contact = Contact::mustFind($contactId);
+$idContact = $_SESSION['IDContact'];
+$contact = Contact::mustFind($idContact);
 
 $nomContact = $contact->getNom();
 $prenomContact = $contact->getPrenom();
@@ -21,18 +22,24 @@ $adresse = $contact->getMonAdresse()->displayFormatedAdresse();
 /**
  * Téléphones
  */
+$telFixe = $contact->getTelephones()->getTelOfType("Fixe");
+print_r($telFixe);
+$telFaxe = $contact->getTelephones()->getTelOfType("Faxe");
+$telPortable = $contact->getTelephones()->getTelOfType("Portable");
+$telPersonnel = $contact->getTelephones()->getTelOfType("Personnel");
 
 
-$vCard->setNom();
-$vCard->setPrenom();
-$vCard->setAdresse();
-$vCard->setCommentaire();
-$vCard->setDateNaissance();
-$vCard->setSociete();
-$vCard->setTelFaxe();
-$vCard->setTelFixe();
-$vCard->setTelPersonnel();
-$vCard->setTelPortable();
+
+$vCard->setNom($nomContact);
+$vCard->setPrenom($prenomContact);
+$vCard->setAdresse($adresse);
+$vCard->setCommentaire($commentaire);
+$vCard->setDateNaissance($dateNaiss);
+$vCard->setSociete($societe);
+$vCard->setTelFaxe($telFaxe);
+$vCard->setTelFixe($telFixe);
+$vCard->setTelPersonnel($telPersonnel);
+$vCard->setTelPortable($telPortable);
 
 
 /*
@@ -42,7 +49,9 @@ header('Content-Disposition: inline; filename=vCard_' . date('Y-m-d_H-m-s') . '.
 echo $vCard->getCardOutput();
 */
 $vCard->writeVCardFile();
-header('Location:' . $vCard->getCardFilePath());
+//header('Location:' . $vCard->getCardFilePath());
+require_once 'vues/DetailsContact.php';
+
 exit;
 
 ?>

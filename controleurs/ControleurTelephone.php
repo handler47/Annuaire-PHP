@@ -23,7 +23,8 @@ $contactId = $_SESSION['IDContact'];
 if(isset($_POST['Valider'])) {
     if (isset($_POST['telephone']) != "") {
         $telephone = $_POST['telephone'];
-        $patternTelephone = '/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/';
+        //$patternTelephone = '/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/';
+        $patternTelephone = '/^\+[1-9]{1}[0-9]{3,14}$/';
         preg_match($patternTelephone, $telephone, $matches);
         $typeTel = $_POST['typeTel'];
 

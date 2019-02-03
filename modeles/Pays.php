@@ -152,8 +152,8 @@ class ListPays extends Pluriel{
 	 * Renvoie le nom d'un pays de la liste
 	**/
 	public function RechercheNom(){
-		foreach ($this->getArray() as $unpays) {
-			return $unpays->getField("P_Nom");
+		foreach ($this->getArray() as $unPays) {
+			return $unPays->getNom();
 		}
 	}
 

@@ -224,6 +224,20 @@ class Telephones extends Pluriel{
 		echo'</center>';
 	}
 
+	public function displaySelect($name){
+		echo'<select style="width:auto" class="form-control" type="Text" required="required" name="'.$name.'">';
+		echo '<option>  </option>';
+		// dire à chaque élément de mon tableau : afficher le row
+		foreach ($this->getArray() as $untelephone) {
+			$untelephone->option();
+		}
+		echo '</select>';
+	}
 
+
+	public function getTelOfType($typeTel){
+		$this->remplir("T_TypeTelID = " . $typeTel);
+		$this->getFirst()->getNumero();
+	}
 }
 ?>

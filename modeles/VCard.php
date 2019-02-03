@@ -1,5 +1,6 @@
 <?php
 
+define('DS', DIRECTORY_SEPARATOR);
 define("VCARD_VERSION",4.0);
 
 /**
@@ -36,7 +37,7 @@ class VCard {
         $this->dir = strlen(trim($repDownload)) > 0 ? $repDownload : $this->dirDefault;
         $this->nomFichier = (String) time() . '.vcf';
         $this->rev = (string) date('YmdTHi00Z',time());
-        if ($this->writeVCardFile() == false){
+        if ($this->createDownloadDir() == false){
             die("ERREUR : création répertoire");
         }
     }
@@ -163,11 +164,15 @@ class VCard {
         $this->content .= (String) "N;ENCODING=QUOTED-PRINTABLE:$this->nom;$this->prenom\r\n";
         $this->content .= (String) "FN;ENCODING=QUOTED-PRINTABLE:$this->nom;$this->prenom\r\n";
         $this->content .= (String) "ORG;ENCODING=QUOTED-PRINTABLE:$this->societe\r\n";
-        $this->content .= (String) "TEL;TYPE=fixe,voice;VALUE=uri:tel:$this->telFixe\r\n";
-        $this->content .= (String) "TEL;TYPE=faxe,voice;VALUE=uri:tel:$this->telFaxe\r\n";
-        $this->content .= (String) "TEL;TYPE=personnel,voice;VALUE=uri:tel:$this->telPersonnel\r\n";
-        $this->content .= (String) "TEL;TYPE=portable,voice;VALUE=uri:tel:$this->telPortable\r\n";
-        $this->content .= (String) "ADR;TYPE=HOME;LABEL=$this->adresse\r\n";
+        if (strlen(trim($this->telFixe)) > 0)
+            $this->content .= (String) "TEL;TYPE=HOME,voice;VALUE=uri:tel:$this->telFixe\r\n";
+        if (strlen(trim($this->telFaxe)) > 0)
+            $this->content .= (String) "TEL;TYPE=HOME;FAX,voice;VALUE=uri:tel:$this->telFaxe\r\n";
+        if (strlen(trim($this->telPortable)) > 0)
+            $this->content .= (String) "TEL;TYPE=CELL,voice;VALUE=uri:tel:$this->telPortable\r\n";
+        if (strlen(trim($this->telPersonnel)) > 0)
+            $this->content .= (String) "TEL;TYPE=CAR,voice;VALUE=uri:tel:$this->telPersonnel\r\n";
+        $this->content .= (String) "ADR;TYPE=HOME;LABEL=ENCODING=QUOTED-PRINTABLE:+330658956631\r\n";
         $this->content .= (String) "BDAY:$this->dateNaissance\r\n";
         $this->content .= (String) "END:VCARD\r\n";
     }
@@ -176,8 +181,12 @@ class VCard {
         if (!isset($this->content)){
             $this->writeContentVCard();
         }
-        $handle = fopen($this->dir . '/' . $this->nomFichier);
-        fputs($handle, $this->output);
+        $handle = fopen(getcwd() . '\\' . $this->dir . '\\' . $this->nomFichier, 'w');
+        if ($handle === false) {
+            echo "opening '$this->nomFichier' failed";
+            exit;
+        }
+        fputs($handle, $this->content);
         fclose($handle);
         if (isset($handle)) { unset($handle); }
     }
